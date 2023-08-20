@@ -2,3 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+    font-family: 'NEXON LV2 Gothic';
+    src: url('/fonts/NEXON Lv2 Gothic Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'NEXON LV2 Gothic';
+    src: url('/fonts/NEXON Lv2 Gothic Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'NEXON LV2 Gothic';
+    src: url('/fonts/NEXON Lv2 Gothic Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Hahmlet'; 
+    src: url('/fonts/Hahmlet-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Kimjungchul Gothic';
+    src: url('/public/fonts/KimjungchulGothic-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
