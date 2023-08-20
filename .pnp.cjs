@@ -28,12 +28,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@heroicons/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18"],\
+            ["@types/lodash-es", "npm:4.17.8"],\
             ["@types/node", "npm:20.4.5"],\
             ["@types/react", "npm:18.2.17"],\
             ["@types/react-dom", "npm:18.2.7"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:6.2.0"],\
             ["autoprefixer", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:10.4.14"],\
+            ["date-fns", "npm:2.30.0"],\
             ["eslint", "npm:8.46.0"],\
             ["eslint-config-next", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:13.4.12"],\
             ["eslint-config-prettier", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:8.9.0"],\
@@ -47,6 +50,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:4.6.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:10.0.0"],\
             ["eslint-plugin-unused-imports", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:3.0.0"],\
+            ["lodash-es", "npm:4.17.21"],\
             ["next", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:13.4.12"],\
             ["postcss", "npm:8.4.27"],\
             ["prettier", "npm:3.0.0"],\
@@ -77,6 +81,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@babel/runtime", [\
+        ["npm:7.22.10", {\
+          "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.22.10-2771d0ecab-524d41517e.zip/node_modules/@babel/runtime/",\
+          "packageDependencies": [\
+            ["@babel/runtime", "npm:7.22.10"],\
+            ["regenerator-runtime", "npm:0.14.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:7.22.6", {\
           "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.22.6-493f6b7ad0-e585338287.zip/node_modules/@babel/runtime/",\
           "packageDependencies": [\
@@ -141,6 +153,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@eslint-js-npm-8.46.0-3cfe1ee88b-7aed479832.zip/node_modules/@eslint/js/",\
           "packageDependencies": [\
             ["@eslint/js", "npm:8.46.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@heroicons/react", [\
+        ["npm:2.0.18", {\
+          "packageLocation": "./.yarn/cache/@heroicons-react-npm-2.0.18-3febb62534-597e866881.zip/node_modules/@heroicons/react/",\
+          "packageDependencies": [\
+            ["@heroicons/react", "npm:2.0.18"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18", {\
+          "packageLocation": "./.yarn/__virtual__/@heroicons-react-virtual-3d0cb5aeda/0/cache/@heroicons-react-npm-2.0.18-3febb62534-597e866881.zip/node_modules/@heroicons/react/",\
+          "packageDependencies": [\
+            ["@heroicons/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18"],\
+            ["@types/react", "npm:18.2.17"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -463,6 +497,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-json5-npm-0.0.29-f63a7916bd-e60b153664.zip/node_modules/@types/json5/",\
           "packageDependencies": [\
             ["@types/json5", "npm:0.0.29"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash", [\
+        ["npm:4.14.197", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.197-8db1555bb5-53d7567d17.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.197"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash-es", [\
+        ["npm:4.17.8", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-es-npm-4.17.8-0aba51d605-36356169a1.zip/node_modules/@types/lodash-es/",\
+          "packageDependencies": [\
+            ["@types/lodash-es", "npm:4.17.8"],\
+            ["@types/lodash", "npm:4.14.197"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1484,6 +1537,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/damerau-levenshtein-npm-1.0.8-bda7311c69-d240b77575.zip/node_modules/damerau-levenshtein/",\
           "packageDependencies": [\
             ["damerau-levenshtein", "npm:1.0.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["date-fns", [\
+        ["npm:2.30.0", {\
+          "packageLocation": "./.yarn/cache/date-fns-npm-2.30.0-895c790e0f-f7be015232.zip/node_modules/date-fns/",\
+          "packageDependencies": [\
+            ["date-fns", "npm:2.30.0"],\
+            ["@babel/runtime", "npm:7.22.10"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3709,6 +3772,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash-es", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-es-npm-4.17.21-b45832dfce-05cbffad6e.zip/node_modules/lodash-es/",\
+          "packageDependencies": [\
+            ["lodash-es", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.merge", [\
         ["npm:4.6.2", {\
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-ad580b4bdb.zip/node_modules/lodash.merge/",\
@@ -4748,6 +4820,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["regenerator-runtime", "npm:0.13.11"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.14.0", {\
+          "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.14.0-e060897cf7-1c977ad82a.zip/node_modules/regenerator-runtime/",\
+          "packageDependencies": [\
+            ["regenerator-runtime", "npm:0.14.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["regexp.prototype.flags", [\
@@ -5194,12 +5273,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["sttock-fe", "workspace:."],\
+            ["@heroicons/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18"],\
+            ["@types/lodash-es", "npm:4.17.8"],\
             ["@types/node", "npm:20.4.5"],\
             ["@types/react", "npm:18.2.17"],\
             ["@types/react-dom", "npm:18.2.7"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:6.2.0"],\
             ["autoprefixer", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:10.4.14"],\
+            ["date-fns", "npm:2.30.0"],\
             ["eslint", "npm:8.46.0"],\
             ["eslint-config-next", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:13.4.12"],\
             ["eslint-config-prettier", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:8.9.0"],\
@@ -5213,6 +5295,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:4.6.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:10.0.0"],\
             ["eslint-plugin-unused-imports", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:3.0.0"],\
+            ["lodash-es", "npm:4.17.21"],\
             ["next", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:13.4.12"],\
             ["postcss", "npm:8.4.27"],\
             ["prettier", "npm:3.0.0"],\
