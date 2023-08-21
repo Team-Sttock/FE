@@ -49,14 +49,14 @@ export default function Calendar({ nowDate, setNowDate }: CalendarProps) {
       <header className="w-full">
         <div className="w-full flex justify-center items-center space-x-2 py-2">
           <ChevronLeftIcon
-            className="w-6 h-6 cursor-pointer"
+            className="w-6 h-6 cursor-pointer text-light-brown"
             onClick={handlePrevMonth}
           ></ChevronLeftIcon>
-          <p>
+          <p className="text-dark-brown">
             {nowYear}년 {nowMonth + 1}월
           </p>
           <ChevronRightIcon
-            className="w-6 h-6 cursor-pointer"
+            className="w-6 h-6 cursor-pointer text-light-brown"
             onClick={handleNextMonth}
           ></ChevronRightIcon>
         </div>
@@ -64,7 +64,7 @@ export default function Calendar({ nowDate, setNowDate }: CalendarProps) {
           {WEEKEND.map((week) => (
             <span
               key={week}
-              className="inline-block text-amber-800 text-base flex-1 text-center py-2"
+              className="inline-block text-light-brown text-base flex-1 text-center py-2"
             >
               {week}
             </span>
@@ -79,15 +79,15 @@ export default function Calendar({ nowDate, setNowDate }: CalendarProps) {
               <div
                 key={`${idx} ${getDate(day.date)}`}
                 className={`${
-                  day.inMonth ? 'text-gray-800' : 'text-gray-400'
+                  day.inMonth ? 'text-dark-brown' : 'text-beige'
                 } flex-1 py-2 text-center`}
               >
                 <button
                   className={`inline-flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ${
-                    day.inMonth && isToday(day.date) ? 'bg-green-300' : ''
+                    day.inMonth && isToday(day.date) ? 'bg-mint' : ''
                   } ${
                     day.inMonth && isSameDay(day.date, nowDate)
-                      ? 'bg-amber-800 text-white'
+                      ? 'bg-light-brown text-beige'
                       : ''
                   }`}
                   onClick={() => {
