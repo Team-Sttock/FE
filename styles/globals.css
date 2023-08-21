@@ -27,14 +27,11 @@
   @font-face {
     font-family: 'Hahmlet'; 
     src: url('/fonts/Hahmlet-VariableFont_wght.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
   }
   
   @font-face {
     font-family: 'Kimjungchul Gothic';
     src: url('/fonts/KimjungchulGothic-Bold.otf') format('opentype');
-    font-weight: bold;
-    font-style: normal;
+    
   }
   
