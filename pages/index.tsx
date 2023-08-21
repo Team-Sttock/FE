@@ -12,7 +12,7 @@ export default function Home() {
           <h1 className=" mt-20 text-[25px] font-kimjungchul text-bold text-ivory">
             스스로 똑똑하게,
           </h1>
-          <h1 className=" text-[72px] font-kimjungchul text-ivory">STTOCK</h1>
+          <h1 className=" text-[72px] font-kimjungchul text-ivory uppercase">sttock</h1>
           <h1 className=" mt-60 font-hahmlet font-extralight text-light-brown text-5xl ">
             &quot;잊고사세요, 스똑이 알려드릴게요.&quot;
           </h1>
@@ -28,7 +28,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-
       <div>이번주 구매</div>
 
       <div>스똑 캘린더</div>
