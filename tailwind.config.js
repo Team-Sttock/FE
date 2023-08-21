@@ -16,6 +16,7 @@ module.exports = {
         "dark-brown": "#665a48",
         "beige": "#ebe4d9",
         "ivory": "#f6f4ef",
+        "mint": "#c8dbbe",
       },
     },
   },
