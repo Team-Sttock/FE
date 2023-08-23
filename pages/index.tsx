@@ -115,7 +115,7 @@ export default function Home() {
       {/* 메인 4 - 항목별 보기 */}
       <section>
         <div>
-          <div className="w-screen h-screen flex items-center justify-center bg-beige">
+          <div className="w-screen h-screen flex flex-wrap items-center justify-center bg-beige">
             <div className="w-1/3 p-10">
               <div className="">
                 <p className="mb-60 whitespace-nowrap font-hahmlet text-sm md:text-2xl text-light-brown font-extralight">
