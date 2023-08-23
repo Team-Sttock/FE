@@ -150,16 +150,16 @@ export default function Home() {
               <div className="flex justify-center items-center mb-10">
                 <img src="/main/kitchen_item_icon.svg" alt="주방아이콘" />
                 <hr className=" mx-4 border-t-1 w-[100px] border-light-brown"></hr>
-                <p className="whitespace-nowrap font-nexon font-extralight text-dark-brown">
+                <p className="whitespace-nowrap font-nexon text-sm md:text-md font-extralight text-dark-brown">
                   주방세제
                 </p>
               </div>
               <div>
-                <div className="w-60 h-7 rounded-full shadow-lg bg-ivory">
+                <div className=" md:w-50 w-30  h-5  rounded-full shadow-lg bg-ivory">
                   <div className="h-full w-[40%] rounded-full bg-light-brown  "></div>
                 </div>
 
-                <p className=" mt-4 font-nexon font-light  text-dark-brown">
+                <p className=" text-xs md:text-sm mt-4 font-nexon font-light  text-dark-brown">
                   총 2L 중에 820ml 소진했어요!
                 </p>
               </div>
