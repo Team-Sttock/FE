@@ -1,7 +1,9 @@
+import Navbar from '@/features/Navbar'
+
 export default function Home() {
   return (
     <main>
-      <nav className="w-full h-[80px]">네브바</nav>
+      <Navbar />
       {/* 메인1-1 - Sttock */}
       <section>
         <div className="relative">
