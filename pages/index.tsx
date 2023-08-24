@@ -113,15 +113,14 @@ export default function Home() {
 
       {/* 메인 4 - 항목별 보기 */}
       <section>
-        <div className="flex items-center justify-center bg-beige">
-        
-          <div className="w-full lg:w-1/3">
-            <div className="">
-              <p className="mb-60 whitespace-nowrap font-hahmlet text-sm md:text-2xl text-light-brown font-extralight">
+        <div className=" flex flex-col md:flex-row items-center justify-center bg-beige">
+          <div className="w-full md:w-1/3 p-10 flex flex-col justify-between">
+            <div className="p-4">
+              <p className="mb-24 md:mb-60 mt-10 font-hahmlet text-md sm:text-xl lg:text-3xl text-light-brown font-extralight">
                 &quot;우리집 생활용품을 <br /> 매장에서처럼 <br /> 한눈에
                 관리해보세요.&quot;
               </p>
-              <p className="font-nexon text-xs sm:text-xs lg:text-lg text-dark-brown font-thin">
+              <p className="font-nexon text-xs sm:text-lg lg:text-xl text-dark-brown font-thin">
                 집에서 사용하는 생활용품을 <br /> 체계적으로 관리할 수 있습니다.{' '}
                 <br />
                 어떤 생활용품을 자주 구매하는지,
@@ -129,36 +128,36 @@ export default function Home() {
               </p>
             </div>
           </div>
-        
-        
-          <div className=" relative w-full lg:w-1/3 ">
-            <img
-              src="/main/main-img-4.png"
-              alt="main-img-4"
-              className="h-[580px] w-[420px] object-cover"
-            />
+
+          <div className="relative w-full md:w-1/3 ">
+            <div className="flex justify-center ">
+              <img
+                src="/main/main-img-4.png"
+                alt="main-img-4"
+                className=" h-[500px] lg:h-full object-cover p-10"
+              />
+            </div>
             <div className="absolute flex flex-col items-center justify-center text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <h2 className=" whitespace-nowrap font-kimjungchul font-bold text-sm md:text-lg text-beige uppercase">
+              <h2 className=" whitespace-nowrap font-kimjungchul font-bold text-xs md:text-lg text-beige uppercase">
                 view
               </h2>
-              <h1 className="whitespace-nowrap font-kimjungchul font-bold text-2xl md:text-4xl  text-beige ">
+              <h1 className="whitespace-nowrap font-kimjungchul font-bold text-xl md:text-4xl  text-beige ">
                 항목별보기
               </h1>
             </div>
           </div>
-          <div className="w-full lg:w-1/3 p-20">
-            <div className="flex justify-center items-center mb-10">
-              <img src="/main/kitchen_item_icon.svg" alt="주방아이콘" />
-              <hr className=" mx-4 border-t-1 w-[100px] border-light-brown"></hr>
-              <p className="whitespace-nowrap font-nexon text-sm md:text-md font-extralight text-dark-brown">
-                주방세제
-              </p>
-            </div>
-            <div>
-              <div className=" md:w-50 w-30  h-5  rounded-full shadow-lg bg-ivory">
+          <div className="w-full p-10 md:w-1/3">
+            <div className="flex flex-col justify-start p-2 pl-6 mt-20 md:mt-60 ">
+              <div className="flex flex-row items-center mb-10">
+                <img src="/main/kitchen_item_icon.svg" alt="주방아이콘" />
+                <hr className=" mx-4 border-t-1 w-1/4 border-light-brown"></hr>
+                <p className="font-nexon text-xs md:text-md font-extralight text-dark-brown">
+                  주방세제
+                </p>
+              </div>
+              <div className=" w-1/2 h-5  rounded-full shadow-lg bg-ivory">
                 <div className="h-full w-[40%] rounded-full bg-light-brown  "></div>
               </div>
-
               <p className=" text-xs md:text-sm mt-4 font-nexon font-light  text-dark-brown">
                 총 2L 중에 820ml 소진했어요!
               </p>
@@ -169,10 +168,10 @@ export default function Home() {
 
       {/* 메인 5 - 스똑에서 */}
       <section>
-        <img src="/main/main-img-5.png" alt="main-img-5" />
+        <img src="/main/main-img-5.png" alt="main-img-5" className="  " />
       </section>
 
-      <footer className="">푸터</footer>
+      <footer className="h-[300px] bg-beige">푸터</footer>
     </main>
   )
 }
