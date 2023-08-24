@@ -28,13 +28,13 @@ const Menu = () => {
     <div className="md:w-1/2 flex justify-center">
       <ul className="flex md:px-5 px-10 gap-14  text-sm  lg:text-lg text-dark-brown ">
         <li className=" hover:text-light-brown">
-          <Link href="/thisweek">이번 주 구매</Link>
+          <Link href="/this-week">이번 주 구매</Link>
         </li>
         <li className=" hover:text-light-brown">
           <Link href="/calendar">스똑캘린더</Link>
         </li>
         <li className=" hover:text-light-brown">
-          <Link href="/itemlist">항목별 보기</Link>
+          <Link href="/list">항목별 보기</Link>
         </li>
       </ul>
     </div>
@@ -47,7 +47,7 @@ const Buttons = () => {
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
-      <Link href="/mypage" className="">
+      <Link href="/mypage">
         <img src="main/my_page_icon.svg" alt="마이페이지버튼" />
       </Link>
     </div>
