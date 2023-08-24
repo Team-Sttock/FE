@@ -168,7 +168,8 @@ export default function Home() {
 
       {/* 메인 5 - 스똑에서 */}
       <section>
-        <img src="/main/main-img-5.png" alt="main-img-5" className="  " />
+        <img src="/main/main-img-5.png" alt="main-img-5" className="hidden md:block" />
+        {/* md 사이즈 이하 모바일용 사진 보이기 */}
       </section>
 
       <footer className="h-[300px] bg-beige">푸터</footer>
