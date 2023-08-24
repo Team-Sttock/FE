@@ -41,7 +41,7 @@ export default function Home() {
             <img
               src="/main/main-img-2.png"
               alt="main-img-2"
-              className=" h-[350px] w-full md:h-full lg:w-screen  object-cover"
+              className=" h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center md:object-cover md:object-center"
             />
             <div className="absolute flex flex-col items-center justify-center text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <h2 className="whitespace-nowrap font-kimjungchul font-bold text-sm md:text-lg text-beige uppercase">
@@ -97,7 +97,7 @@ export default function Home() {
             <img
               src="/main/main-img-3.png"
               alt="main-img-3"
-              className=" h-[350px] w-full md:h-full lg:w-screen  object-cover"
+              className="h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center md:object-cover md:object-center"
             />
             <div className="absolute flex flex-col items-center justify-center text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <h2 className="whitespace-nowrap font-kimjungchul font-bold text-sm md:text-lg text-beige uppercase">
@@ -113,7 +113,7 @@ export default function Home() {
 
       {/* 메인 4 - 항목별 보기 */}
       <section>
-        <div className=" flex flex-col md:flex-row items-center justify-center bg-beige">
+        <div className="flex flex-col md:flex-row items-center justify-center bg-beige">
           <div className="w-full md:w-1/3 p-10 flex flex-col justify-between">
             <div className="p-4">
               <p className="mb-24 md:mb-60 mt-10 font-hahmlet text-md sm:text-xl lg:text-3xl text-light-brown font-extralight">
@@ -168,7 +168,11 @@ export default function Home() {
 
       {/* 메인 5 - 스똑에서 */}
       <section>
-        <img src="/main/main-img-5.png" alt="main-img-5" className="hidden md:block" />
+        <img
+          src="/main/main-img-5.png"
+          alt="main-img-5"
+          className="hidden md:block"
+        />
         {/* md 사이즈 이하 모바일용 사진 보이기 */}
       </section>
 
