@@ -8,7 +8,7 @@ export default function Home() {
           <img
             src="/main/main-img-1.png"
             alt="main-img-1"
-            className=" w-screen md:h-[500px] sm:h-full   object-cover"
+            className=" w-screen md:h-[500px] sm:h-full object-cover"
           />
 
           <div className=" container absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
@@ -41,7 +41,7 @@ export default function Home() {
             <img
               src="/main/main-img-2.png"
               alt="main-img-2"
-              className=" h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center md:object-cover md:object-center"
+              className=" h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center"
             />
             <div className="absolute flex flex-col items-center justify-center text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <h2 className="whitespace-nowrap font-kimjungchul font-bold text-sm md:text-lg text-beige uppercase">
@@ -52,7 +52,7 @@ export default function Home() {
               </h1>
             </div>
           </div>
-          <div className="w-full md:w-1/2 p-10 flex flex-col justify-between">
+          <div className="w-full md:w-1/2 p-10 flex-col justify-between">
             <div className="p-4">
               <h1 className="mb-20 md:mb-60 mt-10 font-hahmlet text-md sm:text-xl lg:text-3xl text-light-brown font-extralight">
                 &quot;거의 다 사용한 <br />
@@ -75,7 +75,7 @@ export default function Home() {
       {/* 메인 3 - 스똑 캘린더 */}
       <section>
         <div className="flex flex-wrap bg-beige">
-          <div className="w-full md:w-1/2 p-10 flex flex-col justify-between">
+          <div className="w-full md:w-1/2 p-10 flex-col justify-between">
             <div className="p-4">
               <h1 className="mb-20 md:mb-60 mt-10 font-hahmlet text-md sm:text-xl lg:text-3xl text-light-brown font-extralight">
                 &quot;우리집 생활용품 달력, <br />
@@ -97,7 +97,7 @@ export default function Home() {
             <img
               src="/main/main-img-3.png"
               alt="main-img-3"
-              className="h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center md:object-cover md:object-center"
+              className="h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center"
             />
             <div className="absolute flex flex-col items-center justify-center text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               <h2 className="whitespace-nowrap font-kimjungchul font-bold text-sm md:text-lg text-beige uppercase">
