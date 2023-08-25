@@ -43,7 +43,7 @@ const Menu = () => {
 
 const Buttons = () => {
   return (
-    <div className="md:w-1/4 flex justify-center px-10 pr-20 gap-4  ">
+    <div className="md:w-1/4 flex justify-center px-10 pr-20 gap-6  ">
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
