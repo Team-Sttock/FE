@@ -2,8 +2,8 @@ import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 
-import Input from '@/common/components/Input'
-import { classNames } from '@/common/utils/classNames'
+import Input from '@/features/common/components/Input'
+import { classNames } from '@/features/common/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
