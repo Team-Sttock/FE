@@ -1,6 +1,6 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface MenuProps {
   isMenuOpen: boolean
@@ -9,7 +9,6 @@ interface MenuProps {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -28,23 +27,6 @@ export default function Navbar() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current != null &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
   return (
     <>
       <nav>
@@ -58,25 +40,30 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <SideMenu
-        isMenuOpen={isMenuOpen}
-        toggleMenu={toggleMenu}
-        menuRef={menuRef}
-      />
+      {isMenuOpen && (
+        <div className="w-full h-full fixed inset-0 z-10">
+          <button
+            className="fixed inset-0 bg-opacity-50 z-10 bg-gray-500"
+            onClick={toggleMenu}
+          />
+        </div>
+      )}
+
+      <SideMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
     </>
   )
 }
 
 const Logo = () => {
   return (
-    <div className="flex justify-center items-center p-2">
-    <Link href="/">
-      <img
-        src="/main/sttock_logo_icon.svg"
-        alt="로고"
-        className="lg:w-full h-full w-[120px] "
-      />
-    </Link>
+    <div className="flex justify-center items-center p-2 md:pl-20">
+      <Link href="/">
+        <img
+          src="/main/sttock_logo_icon.svg"
+          alt="로고"
+          className="lg:w-full h-full w-[120px] "
+        />
+      </Link>
     </div>
   )
 }
@@ -84,7 +71,7 @@ const Logo = () => {
 const Menu = () => {
   return (
     <>
-      <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown">
+      <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown md:pr-20 ">
         <li className="hover:text-light-brown">
           <Link href="/this-week">이번 주 구매</Link>
         </li>
@@ -115,28 +102,23 @@ const Buttons = () => {
 const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
     <div className="pr-9">
-    <button
-      onClick={toggleMenu}
-      className="lg:hidden text-dark-brown hover:text-beige"
-    >
-      {isMenuOpen ? (
-        <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
-      ) : (
-        <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
-      )}
-    </button>
+      <button
+        onClick={toggleMenu}
+        className="lg:hidden text-dark-brown hover:text-beige"
+      >
+        {isMenuOpen ? (
+          <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+        ) : (
+          <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+        )}
+      </button>
     </div>
   )
 }
 
-const SideMenu = ({
-  isMenuOpen,
-  toggleMenu,
-  menuRef,
-}: MenuProps & { menuRef: any }) => {
+const SideMenu = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
     <div
-      ref={menuRef}
       className={`fixed md:hidden p-2 inset-y-0 flex flex-col text-center bg-ivory w-1/2 z-10 transform ${
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out`}
