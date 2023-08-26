@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <nav>
-        <div className=" bg-white w-screen flex flex-wrap p-3 px-10 justify-between items-baseline border border-ivory">
+        <div className=" bg-white w-screen flex flex-wrap p-3 sm:px-10 justify-between items-baseline border border-ivory">
           {isMobile ? (
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           ) : (
@@ -72,7 +72,7 @@ export default function Navbar() {
 
 const Logo = ({ isMobile }: { isMobile: boolean }) => {
   return (
-    <div className={isMobile ? 'md:order-2 px-2 pl-10 ' : 'pl-10 px-2'}>
+    <div className={isMobile ? 'md:order-2 px-2' : 'px-2'}>
       <Link href="/">
         <img src="/main/sttock_logo_icon.svg" alt="로고" className="px-2" />
       </Link>
@@ -102,7 +102,7 @@ const Menu = () => {
 
 const Buttons = () => {
   return (
-    <div className="flex items-center justify-between p-2 lg:pr-20 gap-6 md:order-4">
+    <div className="flex items-center  justify-between p-2 lg:pr-20 gap-6 md:order-4">
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
