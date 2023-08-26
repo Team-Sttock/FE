@@ -9,7 +9,6 @@ interface MenuProps {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
@@ -18,7 +17,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
+      if (window.innerWidth < 768) setIsMenuOpen(false)
     }
 
     handleResize()
@@ -49,33 +48,35 @@ export default function Navbar() {
   return (
     <>
       <nav>
-        <div className=" bg-white w-screen flex flex-wrap p-3 sm:px-10 justify-between items-baseline border border-ivory">
-          {isMobile ? (
+        <div className="bg-white w-screen flex flex-wrap p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
+          <div className="md:hidden flex">
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-          ) : (
-            <Menu />
-          )}
-          <Logo isMobile={isMobile} />
+          </div>
+          <Logo />
+          <Menu />
           <Buttons />
         </div>
       </nav>
-      {isMobile && (
-        <SideMenu
-          isMenuOpen={isMenuOpen}
-          toggleMenu={toggleMenu}
-          menuRef={menuRef}
-        />
-      )}
+
+      <SideMenu
+        isMenuOpen={isMenuOpen}
+        toggleMenu={toggleMenu}
+        menuRef={menuRef}
+      />
     </>
   )
 }
 
-const Logo = ({ isMobile }: { isMobile: boolean }) => {
+const Logo = () => {
   return (
-    <div className={isMobile ? 'md:order-2 px-2' : 'px-2'}>
-      <Link href="/">
-        <img src="/main/sttock_logo_icon.svg" alt="로고" className="px-2" />
-      </Link>
+    <div className="flex justify-center items-center p-2">
+    <Link href="/">
+      <img
+        src="/main/sttock_logo_icon.svg"
+        alt="로고"
+        className="lg:w-full h-full w-[120px] "
+      />
+    </Link>
     </div>
   )
 }
@@ -83,26 +84,24 @@ const Logo = ({ isMobile }: { isMobile: boolean }) => {
 const Menu = () => {
   return (
     <>
-      <div className="md:order-3 flex justify-center ">
-        <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown">
-          <li className="hover:text-light-brown">
-            <Link href="/this-week">이번 주 구매</Link>
-          </li>
-          <li className="hover:text-light-brown">
-            <Link href="/calendar">스똑캘린더</Link>
-          </li>
-          <li className="hover:text-light-brown">
-            <Link href="/list">항목별 보기</Link>
-          </li>
-        </ul>
-      </div>
+      <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown">
+        <li className="hover:text-light-brown">
+          <Link href="/this-week">이번 주 구매</Link>
+        </li>
+        <li className="hover:text-light-brown">
+          <Link href="/calendar">스똑캘린더</Link>
+        </li>
+        <li className="hover:text-light-brown">
+          <Link href="/list">항목별 보기</Link>
+        </li>
+      </ul>
     </>
   )
 }
 
 const Buttons = () => {
   return (
-    <div className="flex items-center  justify-between p-2 lg:pr-20 gap-6 md:order-4">
+    <div className="flex gap-6 p-2 lg:pr-20 ">
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
@@ -115,9 +114,10 @@ const Buttons = () => {
 
 const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
+    <div className="pr-9">
     <button
       onClick={toggleMenu}
-      className="lg:hidden  text-dark-brown hover:text-beige"
+      className="lg:hidden text-dark-brown hover:text-beige"
     >
       {isMenuOpen ? (
         <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
@@ -125,6 +125,7 @@ const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
         <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
       )}
     </button>
+    </div>
   )
 }
 
