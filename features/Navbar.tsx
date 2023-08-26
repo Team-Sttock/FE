@@ -1,6 +1,6 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface MenuProps {
   isMenuOpen: boolean
@@ -10,6 +10,7 @@ interface MenuProps {
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -17,7 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024) // tailwind - lg사이즈
+      setIsMobile(window.innerWidth < 768)
     }
 
     handleResize()
@@ -28,29 +29,52 @@ export default function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current != null &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
     <>
       <nav>
-        <div className=" bg-white w-screen flex flex-wrap items-baseline p-3 justify-between border sm:px-10 border-ivory">
+        <div className=" bg-white w-screen flex flex-wrap p-3 justify-between items-baseline border border-ivory">
           {isMobile ? (
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           ) : (
             <Menu />
           )}
           <Logo isMobile={isMobile} />
-          <Buttons isMobile={isMobile} />
+          <Buttons />
         </div>
       </nav>
-      {isMobile && <SideMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />}
+      {isMobile && (
+        <SideMenu
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+          menuRef={menuRef}
+        />
+      )}
     </>
   )
 }
 
 const Logo = ({ isMobile }: { isMobile: boolean }) => {
   return (
-    <div className={isMobile ? 'md:order-2' : ''}>
+    <div className={isMobile ? 'md:order-2 px-2 pl-10 ' : 'pl-10 px-2'}>
       <Link href="/">
-        <img src="/main/sttock_logo_icon.svg" alt="로고" />
+        <img src="/main/sttock_logo_icon.svg" alt="로고" className="px-2" />
       </Link>
     </div>
   )
@@ -59,8 +83,8 @@ const Logo = ({ isMobile }: { isMobile: boolean }) => {
 const Menu = () => {
   return (
     <>
-      <div className="md:order-3 pr-20">
-        <ul className="lg:flex hidden gap-14 text-sm lg:text-lg text-dark-brown">
+      <div className="md:order-3 flex justify-center ">
+        <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown">
           <li className="hover:text-light-brown">
             <Link href="/this-week">이번 주 구매</Link>
           </li>
@@ -78,7 +102,7 @@ const Menu = () => {
 
 const Buttons = () => {
   return (
-    <div className="flex justify-center p-2 lg:pr-20 gap-6 md:order-4">
+    <div className="flex items-center justify-between p-2 lg:pr-20 gap-6 md:order-4">
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
@@ -95,14 +119,23 @@ const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
       onClick={toggleMenu}
       className="lg:hidden  text-dark-brown hover:text-beige"
     >
-      {!isMenuOpen && <Bars3Icon className="w-6 h-6" />}
+      {isMenuOpen ? (
+        <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+      ) : (
+        <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+      )}
     </button>
   )
 }
 
-const SideMenu = ({ isMenuOpen, toggleMenu }: MenuProps) => {
+const SideMenu = ({
+  isMenuOpen,
+  toggleMenu,
+  menuRef,
+}: MenuProps & { menuRef: any }) => {
   return (
     <div
+      ref={menuRef}
       className={`fixed md:hidden p-2 inset-y-0 flex flex-col text-center bg-ivory w-1/2 z-10 transform ${
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out`}
