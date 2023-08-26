@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Calendar from '@/features/Calendar'
+import Calendar from '@/features/products/components/Calendar'
 
 export default function Page() {
   const [nowDate, setNowDate] = useState(new Date())
