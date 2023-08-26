@@ -49,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       <nav>
-        <div className=" bg-white w-screen flex flex-wrap p-3 justify-between items-baseline border border-ivory">
+        <div className=" bg-white w-screen flex flex-wrap p-3 px-10 justify-between items-baseline border border-ivory">
           {isMobile ? (
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           ) : (
