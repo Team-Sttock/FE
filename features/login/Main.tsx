@@ -26,7 +26,7 @@ export default function Page() {
   const onError = () => {}
 
   return (
-    <div className="w-full max-w-sm m-auto px-2">
+    <div className="w-full max-w-sm m-auto px-4">
       <header className="pt-20 pb-10">
         <h1 className={classNames('text-center text-3xl', NotoSans.className)}>
           이메일로 로그인
@@ -69,7 +69,34 @@ export default function Page() {
             비밀번호 찾기
           </Link>
         </section>
-        <section className="py-8">
+        <section className="pt-3">
+          <p
+            className={classNames(
+              'relative text-center text-dark-brown',
+              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-beige',
+              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-beige'
+            )}
+          >
+            SNS 로그인
+          </p>
+          <section className="flex items-center justify-center pt-2 space-x-6">
+            <button className="w-12 h-12 p-2 rounded-md overflow-hidden bg-[rgb(249,224,0)]">
+              <img
+                src="/logo/kakao-no-bg.png"
+                className="w-full h-full object-cover"
+                alt="카카오 로고 배경 없는 버전"
+              ></img>
+            </button>
+            <button className="w-12 h-12 p-2 rounded-md overflow-hidden bg-[rgb(30,200,0)]">
+              <img
+                src="/logo/naver-no-bg.png"
+                className="w-full h-full object-cover"
+                alt="네이버 로고 배경 없는 버전"
+              ></img>
+            </button>
+          </section>
+        </section>
+        <section className="pt-6">
           <p
             className={classNames(
               'relative text-center text-dark-brown',
