@@ -22,7 +22,6 @@ export default function Navbar() {
 
     handleResize()
     window.addEventListener('resize', handleResize)
-    console.log(window.innerWidth)
 
     return () => {
       window.removeEventListener('resize', handleResize)
@@ -108,7 +107,7 @@ const SideMenu = ({ isMenuOpen, toggleMenu }: MenuProps) => {
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } transition-transform duration-300 ease-in-out`}
     >
-      <button className="p-2" onClick={toggleMenu}>
+      <button className="flex justify-end p-2" onClick={toggleMenu}>
         <XMarkIcon className="w-8 h-8 text-dark-brown hover:text-light-brown" />
       </button>
 
