@@ -35,7 +35,7 @@ export default function Navbar() {
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           </div>
           <Logo />
-          <Menu />
+          <DeskTopMenu />
           <Buttons />
         </div>
       </nav>
@@ -68,7 +68,7 @@ const Logo = () => {
   )
 }
 
-const Menu = () => {
+const DeskTopMenu = () => {
   return (
     <>
       <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown md:pr-20 ">
