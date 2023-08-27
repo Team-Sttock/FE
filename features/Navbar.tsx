@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       <nav>
-        <div className="bg-white w-screen flex flex-wrap p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
+        <div className="bg-white w-screen flex   p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
           <div className="md:hidden flex items-center">
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           </div>
@@ -71,7 +71,7 @@ const Logo = () => {
 const DeskTopMenu = () => {
   return (
     <>
-      <ul className="md:flex hidden gap-14 text-sm lg:text-lg text-dark-brown md:pr-20 ">
+      <ul className="md:flex  flex-shrink-0 hidden gap-14 text-sm lg:text-lg text-dark-brown md:pr-20 ">
         <li className="hover:text-light-brown">
           <Link href="/this-week">이번 주 구매</Link>
         </li>
@@ -103,7 +103,7 @@ const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
     <button
       onClick={toggleMenu}
-      className="lg:hidden text-dark-brown mr-12 hover:text-beige"
+      className="lg:hidden flex  text-dark-brown mr-12 hover:text-beige"
     >
       {isMenuOpen ? (
         <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
