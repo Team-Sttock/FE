@@ -31,7 +31,7 @@ export default function Navbar() {
     <>
       <nav>
         <div className="bg-white w-screen flex flex-wrap p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
-          <div className="md:hidden flex">
+          <div className="md:hidden flex items-center">
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           </div>
           <Logo />
@@ -61,7 +61,7 @@ const Logo = () => {
         <img
           src="/main/sttock_logo_icon.svg"
           alt="로고"
-          className="lg:w-full h-full w-[120px] "
+          className="lg:w-full h-full w-[120px] relative -top-[4px] md:top-0"
         />
       </Link>
     </div>
@@ -101,18 +101,16 @@ const Buttons = () => {
 
 const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
-    <div className="pr-9">
-      <button
-        onClick={toggleMenu}
-        className="lg:hidden text-dark-brown hover:text-beige"
-      >
-        {isMenuOpen ? (
-          <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
-        ) : (
-          <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
-        )}
-      </button>
-    </div>
+    <button
+      onClick={toggleMenu}
+      className="lg:hidden text-dark-brown mr-12 hover:text-beige"
+    >
+      {isMenuOpen ? (
+        <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+      ) : (
+        <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+      )}
+    </button>
   )
 }
 
