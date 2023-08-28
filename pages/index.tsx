@@ -8,7 +8,7 @@ export default function Home() {
       <section>
         <div className="relative">
           <img
-            src="/main/main-img-1.png"
+            src="/main/main-img-1.webp"
             alt="main-img-1"
             className=" w-screen md:h-[500px] sm:h-full object-cover"
           />
@@ -41,7 +41,7 @@ export default function Home() {
         <div className="flex flex-wrap bg-beige">
           <div className="relative w-full md:w-1/2">
             <img
-              src="/main/main-img-2.png"
+              src="/main/main-img-2.webp"
               alt="main-img-2"
               className=" h-[350px] w-full md:h-screen lg:w-screen  object-cover object-center"
             />
@@ -79,7 +79,7 @@ export default function Home() {
         <div className="flex flex-wrap bg-beige">
           <div className="md:order-2 w-full md:w-1/2 relative">
             <img
-              src="/main/main-img-3.png"
+              src="/main/main-img-3.webp"
               alt="main-img-3"
               className="h-[350px] w-full md:h-screen lg:w-screen object-cover object-center"
             />
@@ -119,7 +119,7 @@ export default function Home() {
           <div className="relative md:order-2 w-full md:w-1/3 ">
             <div className="flex justify-center">
               <img
-                src="/main/main-img-4.png"
+                src="/main/main-img-4.webp"
                 alt="main-img-4"
                 className=" h-[350px] md:h-screen w-full object-cover md:p-10"
               />
@@ -175,7 +175,7 @@ export default function Home() {
       {/* 메인 5 - 스똑에서 */}
       <section>
         <img
-          src="/main/main-img-5.png"
+          src="/main/main-img-5.webp"
           alt="main-img-5"
           className="hidden md:block"
         />
