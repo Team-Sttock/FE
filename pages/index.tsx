@@ -29,7 +29,7 @@ export default function Home() {
           <h1 className=" p-4 mb-6 font-hahmlet text-xl sm:text-2xl md:text-4xl  text-light-brown font-extralight">
             &quot;잊고사세요, 스똑이 알려드릴게요. &quot;
           </h1>
-          <p className=" font-nexon text-md sm:text-lg  md:text-2xl text-dark-brown font-thin ">
+          <p className="font-nexon text-md sm:text-lg  md:text-2xl text-dark-brown font-thin ">
             구매주기계산부터 <br /> 재구매일확인까지 <br /> 스똑에서 해결할 수
             있습니다.
           </p>
@@ -62,7 +62,7 @@ export default function Home() {
                 <br /> 스똑이 보여드려요.&quot;
               </h1>
 
-              <p className="  font-nexon text-xs sm:text-lg lg:text-xl text-dark-brown font-thin">
+              <p className="leading-5 font-nexon text-xs sm:text-lg lg:text-xl text-dark-brown font-thin">
                 &quot;다 써서 사야하는게 있었는데... 뭐였더라.&quot; <br />
                 <br />
                 마트나 상품점에서 <br /> 뭘 사야했었는지 고민하지마세요. <br />
@@ -98,7 +98,7 @@ export default function Home() {
                 &quot;우리집 생활용품 달력, <br />
                 다음을 미리 준비할 수 있도록 &quot;
               </h1>
-              <p className="font-nexon text-xs sm:text-lg lg:text-xl text-dark-brown font-thin ">
+              <p className="leading-5 font-nexon text-xs sm:text-lg lg:text-xl text-dark-brown font-thin ">
                 다음 주 그리고 다음 달에
                 <br />
                 어떤 생활용품이 소진되는지
@@ -117,7 +117,7 @@ export default function Home() {
       <section>
         <div className="flex flex-col md:flex-row items-center justify-center bg-beige">
           <div className="relative md:order-2 w-full md:w-1/3 ">
-            <div className="flex justify-center ">
+            <div className="flex justify-center">
               <img
                 src="/main/main-img-4.png"
                 alt="main-img-4"
@@ -133,14 +133,14 @@ export default function Home() {
               </h1>
             </div>
           </div>
-          <div className="w-full md:w-1/3 md:order-1  flex flex-col justify-between">
+          <div className="w-full md:w-1/3 md:order-1 flex flex-col justify-between">
             <div className="p-10 md:pr-2 text-center md:text-left">
-              <p className="mb-24 md:mb-60 md:mt-10 font-hahmlet text-md sm:text-lg lg:text-3xl text-light-brown font-extralight">
+              <p className="mb-10 md:mb-60 md:mt-10 font-hahmlet text-md sm:text-lg lg:text-3xl text-light-brown font-extralight">
                 &quot;우리집 생활용품을 <br /> 매장에서처럼 <br /> 한눈에
                 관리해보세요.&quot;
               </p>
-              <p className="font-nexon text-xs sm:text-md lg:text-xl text-dark-brown font-thin">
-                집에서 사용하는 생활용품을 <br /> 체계적으로 관리할 수 있습니다.{' '}
+              <p className="leading-5 font-nexon text-xs sm:text-md lg:text-xl text-dark-brown font-thin">
+                집에서 사용하는 생활용품을 <br /> 체계적으로 관리할 수 있습니다.
                 <br />
                 어떤 생활용품을 자주 구매하는지,
                 <br /> 그리고 무엇을 빨리 소진하는지 <br /> 한눈에 확인해보세요!
@@ -148,25 +148,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-full hp-10 md:order-3 md:w-1/3">
+          <div className="w-full md:order-3 md:w-1/3">
             <div className="flex flex-col items-center md:justify-center justify-start md:mt-60 ">
               <div className="flex flex-row items-center pb-4">
-                <img
-                  src="/main/kitchen_item_icon.svg"
-                  alt="주방아이콘"
-                />
+                <img src="/main/kitchen_item_icon.svg" alt="주방아이콘" />
                 <hr className="px-6 mx-3 border-t-1 w-1/4 border-light-brown"></hr>
                 <p className="font-nexon text-xs md:text-md font-extralight text-dark-brown">
                   주방세제
                 </p>
               </div>
-              <div className="">
-                <div className="h-4  rounded-full shadow-lg bg-ivory">
-                  <div className="h-full w-[40%] rounded-full bg-light-brown  "></div>
+              <div className="pb-8 p-2">
+                <div>
+                  <div className="h-4 rounded-full shadow-lg bg-ivory">
+                    <div className="h-full w-[40%] rounded-full bg-light-brown  "></div>
+                  </div>
+                  <p className="text-xs md:text-sm mt-4 font-nexon font-light  text-dark-brown">
+                    총 2L 중에 820ml 소진했어요!
+                  </p>
                 </div>
-                <p className=" text-xs md:text-sm mt-4 font-nexon font-light  text-dark-brown">
-                  총 2L 중에 820ml 소진했어요!
-                </p>
               </div>
             </div>
           </div>
@@ -182,7 +181,7 @@ export default function Home() {
         />
       </section>
 
-      <footer className="h-[300px] bg-beige">푸터</footer>
+      <footer className="h-[300px] bg-ivory">푸터</footer>
     </main>
   )
 }
