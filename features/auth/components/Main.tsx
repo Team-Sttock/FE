@@ -22,25 +22,9 @@ export default function Page() {
     mode: 'onChange',
   })
 
-  const onSubmit = ({ id, password }: { id: string; password: string }) => {
-    if (!id || !password) {
-      alert('아이디와 비밀번호를 모두 입력해주세요.')
-      return
-    }
+  const onSubmit = () => {}
 
-    if (id !== '사용자아이디' || password !== '사용자 비밀번호') {
-      alert(
-        '등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못 입력했습니다.'
-      )
-      return
-    }
-
-    alert('로그인 성공') //임시 코드
-  }
-
-  const onError = () => {
-    alert('일시적인 오류로 로그인할 수 없습니다. 잠시 후 다시 시도해주세요.')
-  }
+  const onError = () => {}
 
   return (
     <div className="w-full max-w-sm m-auto px-4">
