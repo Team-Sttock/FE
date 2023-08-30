@@ -1,3 +1,1 @@
-export default function Page() {
-  return <div>Login</div>
-}
+export { default } from '@/features/auth/components/Main'
