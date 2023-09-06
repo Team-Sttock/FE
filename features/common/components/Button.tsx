@@ -10,10 +10,11 @@ const Button: React.FC<ButtonProps> = ({ className, isSelected, ...props }) => {
   return (
     <button
       className={classNames(
-        'w-full border border-beige font-semibold',
+        'border border-beige font-semibold',
         isSelected ?? false
           ? 'bg-dark-brown text-ivory'
-          : 'bg-ivory text-dark-brown'
+          : 'bg-ivory text-dark-brown',
+        className ?? ''
       )}
       {...props}
     />
