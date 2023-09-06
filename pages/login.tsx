@@ -68,8 +68,8 @@ export default function Page() {
           <p
             className={classNames(
               'relative text-center text-dark-brown',
-              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-light-brown',
-              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-light-brown'
+              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-ivory',
+              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-ivory'
             )}
           >
             SNS 로그인
@@ -95,8 +95,8 @@ export default function Page() {
           <p
             className={classNames(
               'relative text-center text-dark-brown',
-              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-light-brown',
-              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-light-brown'
+              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-ivory',
+              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-ivory'
             )}
           >
             처음 오셨나요?
