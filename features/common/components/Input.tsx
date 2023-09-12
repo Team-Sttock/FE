@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <>
       <div
         className={classNames(
-          'relative w-full h-fit border border-light-brown rounded-md',
+          'relative w-full h-fit border border-beige',
           'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
           showError && 'border-red-500 focus-within:outline-red-500'
         )}
@@ -25,9 +25,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         <input
           ref={ref}
           className={classNames(
-            'w-full h-12 p-3 border-0 rounded-md outline-none text-md',
+            'w-full h-10 p-3 border-none outline-none text-md text-dark-brown',
             'focus:otuline-none',
-            'placeholder:text-light-brown'
+            'placeholder:text-beige'
           )}
           {...props}
         ></input>

@@ -2,6 +2,7 @@ import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 
+import Button from '@/features/common/components/Button'
 import Input from '@/features/common/components/Input'
 import { classNames } from '@/features/common/utils/classNames'
 
@@ -51,9 +52,7 @@ export default function Page() {
             placeholder="비밀번호"
           ></Input>
           <div className="py-1">
-            <button className="w-full h-12 rounded-md bg-dark-brown text-ivory">
-              로그인
-            </button>
+            <Button className="h-12">로그인</Button>
           </div>
         </form>
         <section className="flex items-center justify-center py-3 space-x-2 text-dark-brown">
@@ -69,8 +68,8 @@ export default function Page() {
           <p
             className={classNames(
               'relative text-center text-dark-brown',
-              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-light-brown',
-              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-light-brown'
+              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-ivory',
+              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-ivory'
             )}
           >
             SNS 로그인
@@ -96,18 +95,13 @@ export default function Page() {
           <p
             className={classNames(
               'relative text-center text-dark-brown',
-              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-light-brown',
-              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-light-brown'
+              'before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-0.5 before:w-[30%] before:bg-ivory',
+              'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:h-0.5 after:w-[30%] after:bg-ivory'
             )}
           >
             처음 오셨나요?
           </p>
-          <button
-            className="w-full h-12 rounded-md mt-3 text-dark-brown border border-light-brown
-          "
-          >
-            회원 가입
-          </button>
+          <Button className="h-12 mt-6"> 회원 가입</Button>
         </section>
       </main>
     </div>
