@@ -34,6 +34,15 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
             onChange={onChange}
             value={options.find((option) => option.value === value)}
             placeholder=""
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: '#ebe4d9',
+                primary: '#665a48',
+              },
+            })}
             className="border border-beige text-dark-brown "
           />
         )}
