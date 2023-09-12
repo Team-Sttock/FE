@@ -17,12 +17,14 @@
     "simple-import-sort/exports": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
     "react/jsx-props-no-spreading": "off",
     "consistent-return": "off",
     "@typescript-eslint/no-misused-promises": [2, {
       "checksVoidReturn": {
         "attributes": false
       }
-    }]
+    }],
+    "@next/next/no-img-element": "off"
   }
 }
