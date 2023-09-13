@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/20/solid'
-import React from 'react'
+import React, { useId } from 'react'
 import { type Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
@@ -16,7 +16,6 @@ interface DropdownFieldProps {
 }
 
 const CustomOption = ({ innerProps, data, isSelected }: any) => {
-  console.log(innerProps)
   return (
     <div
       {...innerProps}
@@ -28,15 +27,13 @@ const CustomOption = ({ innerProps, data, isSelected }: any) => {
 }
 
 const DropdownField: React.FC<DropdownFieldProps> = ({
-  label,
   name,
   control,
   options,
 }) => {
+  const id = useId()
   return (
     <div>
-      <label>{label}</label>
-      {/* figma 내에서는 존재하지 않는 요소, 확인용으로 첨부 */}
       <Controller
         name={name}
         control={control}
@@ -58,6 +55,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
             })}
             className="border border-beige text-dark-brown"
             components={{ Option: CustomOption }}
+            instanceId={id}
           />
         )}
       />
