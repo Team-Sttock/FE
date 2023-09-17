@@ -34,4 +34,58 @@
     src: url('/fonts/KimjungchulGothic-Bold.otf') format('opentype');
     
   }
-  
+
+.react-datepicker__month-container {
+  width: 100% !important;
+}
+
+.react-datepicker__month {
+  width: 100% !important;
+}
+
+.react-datepicker__header {
+  width: 100% !important;
+  background-color: #f6f4ef !important;
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.react-datepicker__day-name {
+  flex: 1;
+  color: #665a48 !important;
+}
+
+.react-datepicker__month {
+  margin: 0 !important;
+  padding: 0 10px;
+}
+
+.react-datepicker__week {
+  width: 100% !important;
+  display: flex;
+  align-items: center;
+}
+
+.react-datepicker__day {
+  flex: 1;
+  color: #665a48 !important;
+  padding: 5px 0;
+}
+
+.react-datepicker__day--outside-month {
+  cursor: default;
+  visibility: hidden;
+}
+
+.react-datepicker__day--selected {
+  background-color: #665a48 !important;
+  color: #f6f4ef !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: #f6f4ef !important;
+}
