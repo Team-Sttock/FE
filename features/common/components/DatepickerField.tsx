@@ -1,6 +1,9 @@
 import 'react-datepicker/dist/react-datepicker.css'
 
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/20/solid'
+import { getMonth, getYear } from 'date-fns'
 import ko from 'date-fns/locale/ko'
+import { range } from 'lodash-es'
 import React from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import { type Control, Controller } from 'react-hook-form'
@@ -12,6 +15,12 @@ interface DatePickerFieldProps {
 }
 
 registerLocale('ko', ko)
+
+const YEARS = Array.from(
+  { length: getYear(new Date()) + 1 - 1900 },
+  (_, i) => getYear(new Date()) - i
+)
+const MONTHS = range(0, 12)
 
 const DatePickerField: React.FC<DatePickerFieldProps> = ({ control }) => {
   return (
@@ -49,10 +58,61 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({ control }) => {
               </div>
             )
           }}
-          renderCustomHeader={(props) => {
-            // console.log(props)
-            return <div>헤더</div>
-          }}
+          renderCustomHeader={({
+            date,
+            changeYear,
+            changeMonth,
+            decreaseMonth,
+            increaseMonth,
+            prevMonthButtonDisabled,
+            nextMonthButtonDisabled,
+          }) => (
+            <div className="px-6 py-2 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={decreaseMonth}
+                disabled={prevMonthButtonDisabled}
+              >
+                <ArrowLeftIcon className="w-6 h-6 text-dark-brown" />
+              </button>
+              <div>
+                <select
+                  value={getMonth(date)}
+                  className="bg-transparent text-dark-brown font-bold"
+                  onChange={({ target: { value } }) => {
+                    changeMonth(+value)
+                  }}
+                >
+                  {MONTHS.map((option) => (
+                    <option key={option} value={option}>
+                      {option + 1}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={getYear(date)}
+                  className="bg-transparent text-dark-brown font-bold"
+                  onChange={({ target: { value } }) => {
+                    changeYear(+value)
+                  }}
+                >
+                  {YEARS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="button"
+                onClick={increaseMonth}
+                className={''}
+                disabled={nextMonthButtonDisabled}
+              >
+                <ArrowRightIcon className="w-6 h-6 text-dark-brown" />
+              </button>
+            </div>
+          )}
         />
       )}
     />
