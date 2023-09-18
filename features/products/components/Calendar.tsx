@@ -106,14 +106,13 @@ export default function Calendar({ nowDate, setNowDate }: CalendarProps) {
 }
 
 const getCalendarDays = (year: number, month: number) => {
-  const nowDate = new Date(year, month, 1)
-  console.log(year, month, nowDate)
+  const firstOfMonth = new Date(year, month, 1)
 
   const daysInCalendar = eachDayOfInterval({
-    start: startOfWeek(startOfMonth(nowDate)),
-    end: endOfWeek(endOfMonth(nowDate)),
+    start: startOfWeek(startOfMonth(firstOfMonth)),
+    end: endOfWeek(endOfMonth(firstOfMonth)),
   }).map((date) =>
-    isSameMonth(nowDate, date)
+    isSameMonth(firstOfMonth, date)
       ? { inMonth: true, date }
       : { inMonth: false, date }
   )
