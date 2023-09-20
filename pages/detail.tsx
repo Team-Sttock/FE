@@ -40,7 +40,7 @@ export default function Page() {
           </div>
 
           <div className="flex md:flex-row flex-col items-center justify-around border border-beige w-full h-full py-4 px-2">
-            <div className="flex flex-row items-center justify-around space-x-2 m-4">
+            <div className="flex flex-row items-center justify-around space-x-2 my-4 mx-2">
               <img
                 src="/icons/kitchen-icon.svg"
                 alt="icon"
@@ -49,7 +49,7 @@ export default function Page() {
               <p className="text-dark-brown text-sm sm:text-md md:text-xl font-bold whitespace-nowrap">
                 {data.name}
               </p>
-              <span className="text-dark-brown text-[8px] sm:text-sm md:text-lg overflow-hidden whitespace-nowrap overflow-ellipsis">
+              <span className="text-dark-brown md:pl-3 text-[8px] sm:text-sm md:text-md overflow-hidden whitespace-nowrap overflow-ellipsis">
                 {data.nickname}
               </span>
             </div>
@@ -62,7 +62,7 @@ export default function Page() {
               <span className="text-light-brown md:text-md sm:text-sm text-[8px] mr-2">
                 {data.remain}
               </span>
-              <p className="text-dark-brown md:text-md sm:text-sm text-[8px]">
+              <p className="text-dark-brown md:text-md sm:text-sm text-[8px] whitespace-nowrap">
                 남음
               </p>
             </div>
@@ -79,36 +79,32 @@ export default function Page() {
                 전체
                 <span className="text-light-brown inline"> {data.amount} </span>
                 의 예상 소진일은
-                <span className="text-light-brown inline">
-                  {' '}
-                  {data.expectionDate}{' '}
+                <span className="text-light-brown inline mx-1">
+                  {data.expectionDate}
                 </span>
                 입니다.
               </p>
               <br />
               <p>
                 카테고리 :
-                <span className="text-light-brown inline">{data.category}</span>
+                <span className="text-light-brown inline ml-1">
+                  {data.category}
+                </span>
               </p>
               <br />
               <p>
                 구매일 :
-                <span className="text-light-brown inline mr-4">
-                  {' '}
-                  {data.purchaseDate}{' '}
+                <span className="text-light-brown inline ml-1 mr-4">
+                  {data.purchaseDate}
                 </span>
-                <span className="text-light-brown inline">
-                  {' '}
-                  {data.pastDays}{' '}
-                </span>
+                <span className="text-light-brown inline">{data.pastDays}</span>
                 일 경과
               </p>
               <br />
               <p>
                 유통기한 :
-                <span className="text-light-brown inline">
-                  {' '}
-                  {data.expirationDate}{' '}
+                <span className="text-light-brown inline ml-1">
+                  {data.expirationDate}
                 </span>
               </p>
             </div>
