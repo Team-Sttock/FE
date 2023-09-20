@@ -8,84 +8,115 @@ const NotoSans = Noto_Sans({
   weight: ['500', '400'],
   subsets: ['latin'],
 })
+const data = {
+  icon: '/icons/kitchen-icon.svg',
+  name: '주방세제',
+  nickname: '승연이의 주방세제 ',
+  category: '주방용품',
+  expectionDate: '24.09.30',
+  purchaseDate: '24.09.20',
+  amount: '100L',
+  remain: '39ml',
+  pastDays: '10', // purchaseDate - today
+  expirationDate: '2025.03.19',
+}
 
 export default function Page() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col w-full h-full items-center md:px-20 px-10">
-        <div className="relative w-full p-10">
-          <h1
-            className={classNames(
-              'md:text-2xl text-xl p-2 font-bold text-dark-brown',
-              NotoSans.className
-            )}
-          >
-            상세보기
-          </h1>
-          <hr className="w-full border-1 border-beige" />
-        </div>
+      <div className="flex flex-col items-center justify-center mx-2">
+        <div className="w-2/3 flex flex-col items-center justify-center mt-10 ">
+          <div className="flex flex-col w-full justify-center items-stretch mb-20">
+            <h1
+              className={classNames(
+                'md:text-2xl text-xl font-bold text-dark-brown mb-2',
+                NotoSans.className
+              )}
+            >
+              상세보기
+            </h1>
+            <hr className="relative w-full border-1 border-beige" />
+          </div>
 
-        <div className="w-full md:p-20 p-10 ">
-          <div className="flex relative p-10 border border-beige justify-between items-center ">
-            <img
-              src="/icons/kitchen-icon.svg"
-              alt="kitchen-icon"
-              className="p-2"
-            />
-            <h3 className="p-2 lg:text-lg text-md font-bold text-dark-brown">
-              주방세제
-            </h3>
-            <p className="p-2 lg:mr-10 lg:text-md text-sm text-dark-brown">
-              승연이의 주방세제
-            </p>
-            <div className="w-1/3 h-4 lg:mr-6 mr-2 bg-beige rounded-full">
-              <div className="h-full bg-light-brown rounded-full w-[20%]"></div>
+          <div className="flex md:flex-row flex-col items-center justify-around border border-beige w-full h-full py-4 px-2">
+            <div className="flex flex-row items-center justify-around space-x-2 m-4">
+              <img
+                src="/icons/kitchen-icon.svg"
+                alt="icon"
+                className="w-12 h-12 md:mr-10 mr-4"
+              />
+              <p className="text-dark-brown text-sm sm:text-md md:text-xl font-bold whitespace-nowrap">
+                {data.name}
+              </p>
+              <span className="text-dark-brown text-[8px] sm:text-sm md:text-lg overflow-hidden whitespace-nowrap overflow-ellipsis">
+                {data.nickname}
+              </span>
             </div>
-          </div>
-        </div>
 
-        <div className="relative w-full flex flex-row p-10 pb-20 justify-center items-center">
-          <div className="flex mr-20 ">
-            <p className=" text-dark-brown md:text-md text-sm ">재고 정보</p>
-          </div>
-          <div className="text-dark-brown md:text-md text-sm">
-            <div className="p-4">
-              <span> 전체 </span>
-              <span> 100 L </span>
-              <span> 의 예상 소진일은 </span>
-              <span> 2023.03.19</span>
-              <span> 입니다. </span>
-              <br />
-            </div>
-            <div className="p-4">
-              <span> 카테고리 : </span>
-              <span> 주방용품 </span>
-              <br />
-            </div>
-            <div className="p-4">
-              <span> 구매일 : </span>
-              <span> 21.08.30 </span>
-              <span> 210 </span>
-              <span> 일 경과 </span>
-              <br />
-            </div>
-            <div className="p-4">
-              <span> 유통기한 :</span>
-              <span> 24.9.20 </span>
-            </div>
-          </div>
-        </div>
+            <div className="relative flex flex-row items-center m-2 ">
+              <div className="lg:w-60 md:w-24 w-20 h-3 bg-beige rounded-full mr-2">
+                <div className="w-[20%] h-3 bg-light-brown rounded-full"></div>
+              </div>
 
-        <div className="flex lg:flex-row flex-col justify-between items-center w-1/2 ">
-          <div className="p-2">
-            <Button className="h-8 w-36  ">상태변경하기</Button>
+              <span className="text-light-brown md:text-md sm:text-sm text-[8px] mr-2">
+                {data.remain}
+              </span>
+              <p className="text-dark-brown md:text-md sm:text-sm text-[8px]">
+                남음
+              </p>
+            </div>
           </div>
-          <div className="p-2">
-            <Button className=" h-8 w-36">수정하기</Button>
+
+          <div className="relative w-2/3 md:w-full flex md:flex-row flex-col my-10 justify-center items-stretch ">
+            <div className="mr-4 mb-10">
+              <p className="text-dark-brown md:text-md text-sm font-bold">
+                재고 정보
+              </p>
+            </div>
+            <div className="text-dark-brown md:text-md text-sm md:space-y-4">
+              <p>
+                전체
+                <span className="text-light-brown inline"> {data.amount} </span>
+                의 예상 소진일은
+                <span className="text-light-brown inline">
+                  {' '}
+                  {data.expectionDate}{' '}
+                </span>
+                입니다.
+              </p>
+              <br />
+              <p>
+                카테고리 :
+                <span className="text-light-brown inline">{data.category}</span>
+              </p>
+              <br />
+              <p>
+                구매일 :
+                <span className="text-light-brown inline mr-4">
+                  {' '}
+                  {data.purchaseDate}{' '}
+                </span>
+                <span className="text-light-brown inline">
+                  {' '}
+                  {data.pastDays}{' '}
+                </span>
+                일 경과
+              </p>
+              <br />
+              <p>
+                유통기한 :
+                <span className="text-light-brown inline">
+                  {' '}
+                  {data.expirationDate}{' '}
+                </span>
+              </p>
+            </div>
           </div>
-          <div className="p-2">
-            <Button className=" h-8 w-36">삭제하기 </Button>
+          <div className="relative w-full flex sm:flex-row flex-col sm:mt-4 mb-20 justify-center sm:items-stretch items-center sm:text-sm text-[13px]">
+            <Button className="md:h-8 w-24 sm:m-2 mb-4"> 상태변경하기 </Button>
+            <Button className="md:h-8 w-24 sm:m-2 mb-4 "> 수정하기 </Button>
+            <Button className="md:h-8 w-24 sm:m-2"> 삭제하기 </Button>
           </div>
         </div>
       </div>
