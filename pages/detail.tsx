@@ -8,18 +8,36 @@ const NotoSans = Noto_Sans({
   weight: ['500', '400'],
   subsets: ['latin'],
 })
-const data = {
+
+interface Data {
+  icon: string
+  name: string
+  nickname: string
+  category: string
+  expectionDate: string
+  purchaseDate: string
+  amount: string
+  remain: string
+  expirationDate: string
+}
+
+const data: Data = {
   icon: '/icons/kitchen-icon.svg',
   name: '주방세제',
   nickname: '승연이의 주방세제 ',
   category: '주방용품',
-  expectionDate: '24.09.30',
-  purchaseDate: '24.09.20',
+  expectionDate: '2024.09.30',
+  purchaseDate: '2023.09.15',
   amount: '100L',
   remain: '39ml',
-  pastDays: '10', // purchaseDate - today
-  expirationDate: '2025.03.19',
+  expirationDate: '2024.09.30',
 }
+
+const purchaseDate = new Date(data.purchaseDate.replace(/\./g, '-')).getTime()
+const today = new Date().getTime()
+const pastDays = Math.floor(
+  (today - purchaseDate) / (1000 * 60 * 60 * 24)
+).toString()
 
 export default function Page() {
   return (
@@ -97,8 +115,8 @@ export default function Page() {
                 <span className="text-light-brown inline ml-1 mr-4">
                   {data.purchaseDate}
                 </span>
-                <span className="text-light-brown inline">{data.pastDays}</span>
-                일 경과
+                <span className="text-light-brown inline">{pastDays}</span>일
+                경과
               </p>
               <br />
               <p>
