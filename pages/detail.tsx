@@ -56,17 +56,17 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige " />
         </div>
 
-        <div className=" p-2 border border-beige flex sm:flex-row flex-col items-cetenr w-[90%] justify-around max-w-3xl m-auto sm:py-6 lg:px-10 lg:py-6">
-          <div className="relative flex flex-row justify-center items-center sm:px-2 sm:mb-0 mb-4">
+        <div className=" border border-beige flex sm:flex-row flex-col items-cetenr w-[90%] justify-around max-w-3xl m-auto px-4 py-6 lg:px-10 ">
+          <div className="relative flex flex-row justify-center items-center sm:px-2 sm:mb-0 mb-4 m-auto">
             <img
               src="/icons/kitchen-icon.svg"
               alt="icon"
-              className="w-10 h-10 md:w-14 md:h-14 lg:mr-8 mr-3"
+              className="w-10 h-10 md:w-12 md:h-12 lg:mr-8 mr-3"
             />
             <p className="text-dark-brown text-sm sm:text-md md:text-xl font-bold whitespace-nowrap">
               {data.name}
             </p>
-            <span className="text-dark-brown md:pl-3 text-[8px] sm:text-sm md:text-md overflow-hidden whitespace-nowrap overflow-ellipsis px-2">
+            <span className="text-dark-brown md:pl-3 text-sm s sm:text-md overflow-hidden whitespace-nowrap overflow-ellipsis px-2">
               {data.nickname}
             </span>
           </div>
@@ -76,10 +76,10 @@ export default function Page() {
               <div className="w-[20%] h-3 bg-light-brown rounded-full"></div>
             </div>
 
-            <span className="text-light-brown md:text-md sm:text-sm text-[8px] mr-2">
+            <span className="text-light-brown sm:text-md text-sm mr-2">
               {data.remain}
             </span>
-            <p className="text-dark-brown md:text-md sm:text-sm text-[8px] whitespace-nowrap">
+            <p className="text-dark-brown sm:text-md text-sm whitespace-nowrap">
               남음
             </p>
           </div>
