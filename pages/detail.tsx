@@ -43,56 +43,56 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center justify-center mx-2">
-        <div className="w-2/3 flex flex-col items-center justify-center mt-10 ">
-          <div className="flex flex-col w-full justify-center items-stretch mb-20">
-            <h1
-              className={classNames(
-                'md:text-2xl text-xl font-bold text-dark-brown mb-2',
-                NotoSans.className
-              )}
-            >
-              상세보기
-            </h1>
-            <hr className="relative w-full border-1 border-beige" />
+      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-2/3 min-w-[80%]">
+        <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full p-2">
+          <h1
+            className={classNames(
+              'md:text-2xl text-xl font-bold text-dark-brown mb-2',
+              NotoSans.className
+            )}
+          >
+            상세보기
+          </h1>
+          <hr className="relative w-full border-1 border-beige " />
+        </div>
+
+        <div className=" p-2 border border-beige flex sm:flex-row flex-col items-cetenr w-[90%] justify-around max-w-3xl m-auto sm:py-6 lg:px-10 lg:py-6">
+          <div className="relative flex flex-row justify-center items-center sm:px-2 sm:mb-0 mb-4">
+            <img
+              src="/icons/kitchen-icon.svg"
+              alt="icon"
+              className="w-10 h-10 md:w-14 md:h-14 lg:mr-8 mr-3"
+            />
+            <p className="text-dark-brown text-sm sm:text-md md:text-xl font-bold whitespace-nowrap">
+              {data.name}
+            </p>
+            <span className="text-dark-brown md:pl-3 text-[8px] sm:text-sm md:text-md overflow-hidden whitespace-nowrap overflow-ellipsis px-2">
+              {data.nickname}
+            </span>
           </div>
 
-          <div className="flex md:flex-row flex-col items-center justify-around border border-beige w-full h-full py-4 px-2">
-            <div className="flex flex-row items-center justify-around space-x-2 my-4 mx-2">
-              <img
-                src="/icons/kitchen-icon.svg"
-                alt="icon"
-                className="w-12 h-12 md:mr-10 mr-4"
-              />
-              <p className="text-dark-brown text-sm sm:text-md md:text-xl font-bold whitespace-nowrap">
-                {data.name}
-              </p>
-              <span className="text-dark-brown md:pl-3 text-[8px] sm:text-sm md:text-md overflow-hidden whitespace-nowrap overflow-ellipsis">
-                {data.nickname}
-              </span>
+          <div className="relative flex flex-row items-center sm:space-x-1 m-auto">
+            <div className="w-20 sm:w-32 md:w-60 h-3 bg-beige rounded-full mr-2 ">
+              <div className="w-[20%] h-3 bg-light-brown rounded-full"></div>
             </div>
 
-            <div className="relative flex flex-row items-center m-2 ">
-              <div className="lg:w-60 md:w-24 w-20 h-3 bg-beige rounded-full mr-2">
-                <div className="w-[20%] h-3 bg-light-brown rounded-full"></div>
-              </div>
-
-              <span className="text-light-brown md:text-md sm:text-sm text-[8px] mr-2">
-                {data.remain}
-              </span>
-              <p className="text-dark-brown md:text-md sm:text-sm text-[8px] whitespace-nowrap">
-                남음
-              </p>
-            </div>
+            <span className="text-light-brown md:text-md sm:text-sm text-[8px] mr-2">
+              {data.remain}
+            </span>
+            <p className="text-dark-brown md:text-md sm:text-sm text-[8px] whitespace-nowrap">
+              남음
+            </p>
           </div>
+        </div>
 
-          <div className="relative w-2/3 md:w-full flex md:flex-row flex-col my-10 justify-center items-stretch ">
-            <div className="mr-4 mb-10">
+        <div className="flex items-center justify-center mt-10 mb-8 sm:mb-10 mx-10  ">
+          <div className="justify-center flex flex-wrap sm:flex-row">
+            <div className="relative flex-row flex mx-2 sm:mr-10 sm:mb-0 mb-4">
               <p className="text-dark-brown md:text-md text-sm font-bold">
                 재고 정보
               </p>
             </div>
-            <div className="text-dark-brown md:text-md text-sm md:space-y-4">
+            <div className="flex flex-col justify-between items-stretch text-dark-brown sm:text-md text-sm sm:space-y-4">
               <p>
                 전체
                 <span className="text-light-brown inline"> {data.amount} </span>
@@ -112,7 +112,7 @@ export default function Page() {
               <br />
               <p>
                 구매일 :
-                <span className="text-light-brown inline ml-1 mr-4">
+                <span className="text-light-brown inline ml-1 md:mr-4 mr-1">
                   {data.purchaseDate}
                 </span>
                 <span className="text-light-brown inline">{pastDays}</span>일
@@ -127,13 +127,14 @@ export default function Page() {
               </p>
             </div>
           </div>
-          <div className="relative w-full flex sm:flex-row flex-col sm:mt-4 mb-20 justify-center sm:items-stretch items-center sm:text-sm text-[13px]">
-            <Button className="md:h-8 w-24 sm:m-2 mb-4"> 상태변경하기 </Button>
-            <Button className="md:h-8 w-24 sm:m-2 mb-4 "> 수정하기 </Button>
-            <Button className="md:h-8 w-24 sm:m-2"> 삭제하기 </Button>
-          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-center w-full space-y-7 md:space-y-0 mt-10 mb-20 max-w-3xl m-auto">
+          <Button className="w-28 h-8 p-1 sm:m-auto ">상태변경하기</Button>
+          <Button className="w-28 h-8 p-1 sm:m-auto ">수정하기</Button>
+          <Button className="w-28 h-8 p-1 sm:m-auto ">삭제하기</Button>
         </div>
       </div>
+      <footer className="h-[300px] bg-ivory">푸터</footer>
     </>
   )
 }
