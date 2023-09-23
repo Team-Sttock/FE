@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       <nav>
-        <div className="bg-white w-screen flex   p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
+        <div className="bg-white w-screen flex p-3 sm:px-10 justify-between items-center md:items-baseline border border-ivory">
           <div className="md:hidden flex items-center">
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           </div>
@@ -56,7 +56,7 @@ export default function Navbar() {
 
 const Logo = () => {
   return (
-    <div className="flex justify-center items-center p-2 md:pl-20">
+    <div className="flex justify-center items-center p-2 mx-4">
       <Link href="/">
         <img
           src="/main/sttock_logo_icon.svg"
@@ -71,7 +71,7 @@ const Logo = () => {
 const DeskTopMenu = () => {
   return (
     <>
-      <ul className="md:flex  flex-shrink-0 hidden gap-14 text-sm lg:text-lg text-dark-brown md:pr-20 ">
+      <ul className="md:flex  flex-shrink-0 hidden gap-14 text-sm lg:text-lg text-dark-brown mx-4 ">
         <li className="hover:text-light-brown">
           <Link href="/this-week">이번 주 구매</Link>
         </li>
@@ -88,7 +88,7 @@ const DeskTopMenu = () => {
 
 const Buttons = () => {
   return (
-    <div className="flex gap-6 p-2 lg:pr-20 ">
+    <div className="flex gap-6 p-2 mx-4">
       <button>
         <img src="main/add_Item_icon.svg" alt="추가버튼" />
       </button>
@@ -103,12 +103,12 @@ const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {
   return (
     <button
       onClick={toggleMenu}
-      className="lg:hidden flex  text-dark-brown mr-12 hover:text-beige"
+      className="lg:hidden flex  text-dark-brown mx-4 hover:text-beige"
     >
       {isMenuOpen ? (
-        <XMarkIcon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+        <XMarkIcon className="w-6 h-6 m-auto text-dark-brown hover:text-light-brown" />
       ) : (
-        <Bars3Icon className="w-6 h-6 text-dark-brown hover:text-light-brown" />
+        <Bars3Icon className="w-6 h-6 m-atuo text-dark-brown hover:text-light-brown" />
       )}
     </button>
   )
