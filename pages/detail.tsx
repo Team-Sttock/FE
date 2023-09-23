@@ -95,11 +95,11 @@ export default function Page() {
           <div className="flex flex-col text-dark-brown sm:text-md text-sm sm:space-y-4 sm:mt-0">
             <p>
               전체
-              <span className="text-light-brown inline mx-4">
+              <span className="text-light-brown inline sm:mx-4 mx-2">
                 {data.amount}
               </span>
               의 예상 소진일은
-              <span className="text-light-brown inline mx-4">
+              <span className="text-light-brown inline sm:mx-4 mx-2">
                 {data.expectionDate}
               </span>
               입니다.
@@ -107,23 +107,23 @@ export default function Page() {
             <br />
             <p>
               카테고리 :
-              <span className="text-light-brown inline mx-4">
+              <span className="text-light-brown inline sm:mx-4 mx-2">
                 {data.category}
               </span>
             </p>
             <br />
             <p>
               구매일 :
-              <span className="text-light-brown inline mx-4 ">
+              <span className="text-light-brown inline sm:mx-4 mx-2 ">
                 {data.purchaseDate}
               </span>
-              <span className="text-light-brown inline mx-4">{pastDays}</span>일
+              <span className="text-light-brown inline sm:mx-4 mx-2">{pastDays}</span>일
               경과
             </p>
             <br />
             <p>
               유통기한 :
-              <span className="text-light-brown inline mx-4">
+              <span className="text-light-brown inline sm:mx-4 mx-2">
                 {data.expirationDate}
               </span>
             </p>
