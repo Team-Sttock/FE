@@ -13,6 +13,7 @@ interface DropdownFieldProps {
   name: string
   control: Control<any>
   options: Option[]
+  className?: string
 }
 
 const CustomOption = ({ innerProps, data, isSelected }: any) => {
@@ -30,6 +31,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
   name,
   control,
   options,
+  className,
 }) => {
   const id = useId()
   return (
@@ -53,7 +55,9 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
                 primary: '#0f0e0d',
               },
             })}
-            className="border border-beige text-dark-brown"
+            className={[className, 'border border-beige text-dark-brown'].join(
+              ' '
+            )}
             components={{ Option: CustomOption }}
             instanceId={id}
           />
