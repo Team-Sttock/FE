@@ -14,7 +14,7 @@ interface Data {
   name: string
   nickname: string
   category: string
-  expectionDate: string
+  expectationDate: string
   purchaseDate: string
   amount: string
   remain: string
@@ -26,7 +26,7 @@ const data: Data = {
   name: '섬유유연제',
   nickname: '다우니 퍼퓸앤파워  ',
   category: '주방용품',
-  expectionDate: '2024.09.30',
+  expectationDate: '2024.09.30',
   purchaseDate: '2023.09.15',
   amount: '100L',
   remain: '39ml',
@@ -89,44 +89,27 @@ export default function Page() {
           <div className="flex flex-col text-dark-brown text-base space-y-4  sm:mt-0">
             <p>
               전체 용량:
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg ">
-                {data.amount}
-              </span>
+              <SpanComponent>{data.amount}</SpanComponent>
             </p>
 
             <p>
               예상 소진일:
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg">
-                {data.expectionDate}
-              </span>
+              <SpanComponent>{data.expectationDate}</SpanComponent>
             </p>
 
             <p>
-              카테고리 :
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg">
-                {data.category}
-              </span>
+              카테고리 :<SpanComponent>{data.category}</SpanComponent>
             </p>
 
             <p>
-              구매일 :
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg">
-                {data.purchaseDate}
-              </span>
+              구매일 :<SpanComponent>{data.purchaseDate}</SpanComponent>
             </p>
             <p>
-              경과일 :
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg">
-                {pastDays}
-              </span>
-              일 경과
+              경과일 :<SpanComponent>{pastDays}</SpanComponent>일 경과
             </p>
 
             <p>
-              유통기한 :
-              <span className="text-light-brown inline sm:mx-4 mx-2 text-lg">
-                {data.expirationDate}
-              </span>
+              유통기한 :<SpanComponent>{data.expirationDate}</SpanComponent>
             </p>
           </div>
         </div>
@@ -138,5 +121,17 @@ export default function Page() {
       </div>
       <footer className="h-[300px] bg-ivory">푸터</footer>
     </>
+  )
+}
+
+interface SpanComponentProps {
+  children: React.ReactNode
+}
+
+export const SpanComponent: React.FC<SpanComponentProps> = ({ children }) => {
+  return (
+    <span className={`text-light-brown inline sm:mx-4 mx-2 text-lg `}>
+      {children}
+    </span>
   )
 }
