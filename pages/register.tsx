@@ -66,21 +66,35 @@ export default function Page() {
           </p>
           <form onSubmit={handleSubmit(onSubmit, onError)}>
             <div className="space-y-2">
-              <InputLabel label="아이디" required>
+              <InputLabel
+                label="아이디"
+                required
+                errorMessage={errors.login_id?.message}
+              >
                 <div className="flex items-stretch space-x-1">
                   <Input
-                    {...register('login_id', {})}
-                    errorMessage={errors.login_id?.message}
+                    {...register('login_id', {
+                      required: '아이디는 필수 입력입니다.',
+                    })}
                     placeholder="testId"
                   ></Input>
                   <Button className="w-28">중복확인</Button>
                 </div>
               </InputLabel>
-              <InputLabel label="이메일" required>
+              <InputLabel
+                label="이메일"
+                required
+                errorMessage={errors.email?.message}
+              >
                 <div className="flex items-stretch space-x-1">
                   <Input
-                    {...register('email', {})}
-                    errorMessage={errors.email?.message}
+                    {...register('email', {
+                      pattern: {
+                        value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                        message: '유효한 이메일 형식이 아닙니다.',
+                      },
+                      required: '이메일은 필수 입력입니다.',
+                    })}
                     placeholder="test@example.com"
                   ></Input>
                   <Button className="w-28">인증하기</Button>
@@ -88,7 +102,14 @@ export default function Page() {
               </InputLabel>
               <InputLabel label="비밀번호" required>
                 <Input
-                  {...register('password', {})}
+                  {...register('password', {
+                    pattern: {
+                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                      message:
+                        '비밀번호는 영문과 숫자를 조합한 8자리 이상이어야 합니다.',
+                    },
+                    required: '비밀번호는 필수 입력입니다.',
+                  })}
                   errorMessage={errors.password?.message}
                   type="password"
                   placeholder="***********"
@@ -96,7 +117,14 @@ export default function Page() {
               </InputLabel>
               <InputLabel label="비밀번호 확인" required>
                 <Input
-                  {...register('password_check', {})}
+                  {...register('password_check', {
+                    required: '비밀번호 확인은 필수 입력입니다.',
+                    validate: {
+                      value: (passwordCheck) =>
+                        passwordCheck === watch().password ||
+                        '비밀번호와 일치하지 않습니다.',
+                    },
+                  })}
                   errorMessage={errors.password_check?.message}
                   type="password"
                   placeholder="***********"
@@ -104,7 +132,9 @@ export default function Page() {
               </InputLabel>
               <InputLabel label="이름" required>
                 <Input
-                  {...register('name', {})}
+                  {...register('name', {
+                    required: '이름은 필수 입력입니다.',
+                  })}
                   errorMessage={errors.name?.message}
                   placeholder="홍길동"
                 ></Input>
@@ -174,7 +204,7 @@ function InputLabel({
         )}
       </p>
       {children}
-      {errorMessage}
+      <p className="text-red-500 text-sm font-sans pt-0.5"> {errorMessage}</p>
     </div>
   )
 }
