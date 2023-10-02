@@ -1,4 +1,5 @@
 import { Noto_Sans } from 'next/font/google'
+import Link from 'next/link'
 
 import Button from '@/features/common/components/Button'
 import Navbar from '@/features/common/components/Navbar'
@@ -124,9 +125,11 @@ export default function Page() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center w-[80%] space-y-4 mt-4 max-w-xl m-auto sm:space-y-0 sm:space-x-8 ">
+          <Link href="/edit-state">
+            <Button className="w-full h-12 sm:w-40">상태변경하기</Button>
+          </Link>
           <Button className="w-full h-12 sm:w-40">수정하기</Button>
           <Button className="w-full h-12 sm:w-40">삭제하기</Button>
-          <Button className="w-full h-12 sm:w-40">상태변경하기</Button>
         </div>
       </div>
       <footer className="h-[300px] bg-ivory">푸터</footer>
