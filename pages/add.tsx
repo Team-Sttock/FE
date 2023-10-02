@@ -6,7 +6,6 @@ import Button from '@/features/common/components/Button'
 import DatePickerField from '@/features/common/components/DatepickerField'
 import DropdownField from '@/features/common/components/DropdownField'
 import Input from '@/features/common/components/Input'
-import InputLabel from '@/features/common/components/InputLabel'
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
 
@@ -27,6 +26,22 @@ export default function Page() {
     { value: '샴푸', label: '샴푸', category: '욕실용품' },
   ]
 
+  interface CapacityOptionsProps {
+    value: string
+    label: string
+  }
+
+  const capacityOptions: CapacityOptionsProps[] = [
+    {
+      value: 'ml',
+      label: 'ml',
+    },
+    {
+      value: 'L',
+      label: 'L',
+    },
+  ]
+
   const {
     register,
     formState: { errors },
@@ -39,6 +54,7 @@ export default function Page() {
     productNickname: string
     purchaseDate: string
     purchaseCapacity: number
+    capacityUnit: string
     purchaseNumber: number
     numberOfUser: number
     expectedDays: number
@@ -61,7 +77,7 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-4 mb-10">
+      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-3 mb-10">
         <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full py-2">
           <div className="flex justify-start items-center space-x-4 w-full mb-2 ">
             <h1
@@ -79,159 +95,149 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </div>
 
-        <main className="pb-16">
+        <main className="pb-10 px-6 w-full">
           <p className="text-right text-sm text-dark-brown">
             * 는 필수 입력입니다.
           </p>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="flex flex-col items-center justify-center w-full space-y-4 mt-4 max-w-3xl m-auto "
+            className=" flex flex-col mx-auto space-y-4 mt-4 max-w-xl w-full "
           >
-            <FieldForm>
-              <InputLabel
+            <FieldForm
+              label="상품명"
+              required
+              errorMessage={errors.product?.message}
+            >
+              <DropdownField
+                {...register('product', {
+                  required: '상품명은 필수 입력입니다',
+                })}
                 label="상품명"
-                required
-                errorMessage={errors.product?.message}
-              >
-                <DropdownField
-                  {...register('product', {
-                    required: '상품명은 필수 입력입니다',
-                  })}
-                  label="product"
-                  name="product"
-                  control={control}
-                  options={productsOptions}
-                  className=""
-                />
-              </InputLabel>
+                name="product"
+                control={control}
+                options={productsOptions}
+                className=""
+              />
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel label="카테고리" required>
-                <InputReadOnly
-                  value={watchProduct ? watchProduct.category : ''}
-                  readOnly
-                />
-              </InputLabel>
+            <FieldForm label="카테고리">
+              <InputReadOnly
+                className=""
+                value={watchProduct ? watchProduct.category : ''}
+                readOnly
+              />
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel
-                label="상품 별칭"
-                errorMessage={errors.productNickname?.message}
-              >
-                <Input {...register('productNickname', {})} />
-              </InputLabel>
+            <FieldForm
+              label="상품별칭"
+              errorMessage={errors.productNickname?.message}
+            >
+              <Input {...register('productNickname', {})} />
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel
-                label="구매일자"
-                required
-                errorMessage={errors.purchaseDate?.message}
-              >
-                <DatePickerField
-                  {...register('purchaseDate', {
-                    required: '구매일자는 필수 입력입니다',
-                  })}
-                  name="purchaseDate"
-                  control={control}
-                />
-              </InputLabel>
+            <FieldForm
+              label="구매일자"
+              required
+              errorMessage={errors.purchaseDate?.message}
+            >
+              <DatePickerField
+                {...register('purchaseDate', {
+                  required: '구매일자는 필수 입력입니다',
+                })}
+                name="purchaseDate"
+                control={control}
+              />
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel
-                label="구매용량"
-                required
-                errorMessage={errors.purchaseCapacity?.message}
-              >
+            <FieldForm
+              label="구매용량"
+              required
+              errorMessage={errors.purchaseCapacity?.message}
+            >
+              <div className="flex flex-row items-center justify-center space-x-2">
                 <Input
-                  placeholder="숫자만 입력"
                   {...register('purchaseCapacity', {
                     required: '구매용량은 필수 입력입니다',
                   })}
                 />
-              </InputLabel>
-            </FieldForm>
-
-            <FieldForm>
-              <InputLabel
-                label="구매개수"
-                required
-                errorMessage={errors.purchaseNumber?.message}
-              >
-                <Input
-                  placeholder="숫자만 입력"
-                  {...register('purchaseNumber', {
-                    required: '구매개수는 필수 입력입니다',
-                  })}
+                <DropdownField
+                  {...register('capacityUnit', {})}
+                  label="구매단위"
+                  name="capacityUnit"
+                  control={control}
+                  options={capacityOptions}
+                  className="w-24 text-sm "
                 />
-              </InputLabel>
+              </div>
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel
-                label="사용인원"
-                required
-                errorMessage={errors.numberOfUser?.message}
-              >
+            <FieldForm
+              label="구매개수"
+              required
+              errorMessage={errors.purchaseNumber?.message}
+            >
+              <Input
+                placeholder="숫자만 입력"
+                {...register('purchaseNumber', {
+                  required: '구매개수는 필수 입력입니다',
+                })}
+              />
+            </FieldForm>
+
+            <FieldForm
+              label="사용인원"
+              required
+              errorMessage={errors.numberOfUser?.message}
+            >
+              <Input
+                type="number"
+                placeholder="숫자만 입력"
+                {...register('numberOfUser', {
+                  required: '사용인원은 필수 입력입니다',
+                })}
+              />
+            </FieldForm>
+
+            <FieldForm label="사용예상일수" required>
+              <div className="flex flex-row items-center space-x-1">
                 <Input
                   type="number"
                   placeholder="숫자만 입력"
-                  {...register('numberOfUser', {
-                    required: '사용인원은 필수 입력입니다',
+                  {...register('expectedDays', {
+                    required: '사용예상일수는 필수 입력입니다',
                   })}
                 />
-              </InputLabel>
+                <Button className="w-24 h-10 text-sm">직접 입력</Button>
+              </div>
             </FieldForm>
-            <FieldForm>
-              <InputLabel
-                label="예상사용일수"
-                errorMessage={errors.expectedDays?.message}
-              >
-                <Input {...register('expectedDays', {})} />
-                <Button
-                  onClick={() => {
-                    console.log('click')
-                  }}
-                  className="w-28"
-                >
-                  직접입력
-                </Button>
-              </InputLabel>
-            </FieldForm>
-            <FieldForm>
-              <InputLabel
-                label="예상소진일"
-                errorMessage={errors.expectationDate?.message}
-              >
-                <DatePickerField
-                  {...register('expectationDate', {})}
-                  name="expectationDate"
-                  control={control}
-                />
-              </InputLabel>
+            <FieldForm
+              label="예상소진일"
+              errorMessage={errors.expectationDate?.message}
+            >
+              <DatePickerField
+                {...register('expectationDate', {})}
+                name="expectationDate"
+                control={control}
+              />
             </FieldForm>
 
-            <FieldForm>
-              <InputLabel
-                label="유통기한"
-                errorMessage={errors.expirationDate?.message}
-              >
-                <DatePickerField
-                  {...register('expirationDate', {})}
-                  name="expirationDate"
-                  control={control}
-                />
-              </InputLabel>
+            <FieldForm
+              label="유통기한"
+              errorMessage={errors.expirationDate?.message}
+            >
+              <DatePickerField
+                {...register('expirationDate', {})}
+                name="expirationDate"
+                control={control}
+              />
             </FieldForm>
           </form>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center w-[80%] space-y-4 mt-4 max-w-xl m-auto sm:space-y-0 sm:space-x-20 pt-10">
+            <Button className="w-full h-12 ">추가 완료</Button>
+            <Button className="w-full h-12 ">임시 저장</Button>
+          </div>
         </main>
-      </div>
-      <div className="flex flex-col sm:flex-row items-center justify-center w-[80%] space-y-4 mt-4 max-w-xl m-auto sm:space-y-0 sm:space-x-20 ">
-        <Button className="w-full h-12 sm:w-40">추가완료</Button>
-        <Button className="w-full h-12 sm:w-40">임시저장</Button>
       </div>
     </>
   )
@@ -241,23 +247,27 @@ interface InputReadOnlyProps {
   value: any
   errorMessage?: string
   readOnly?: boolean
+  className: string
 }
 function InputReadOnly({
   value,
   errorMessage,
   readOnly,
+  className,
 }: PropsWithChildren<InputReadOnlyProps>) {
   return (
     <div
       className={classNames(
         'relative w-full h-fit border border-beige ',
-        'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown'
+        'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
+        className
       )}
     >
       <input
         className={classNames(
-          'w-full h-10 p-3 border-none outline-none text-md text-dark-brown',
-          'placeholder:text-beige'
+          ' h-10 w-full p-3 border-none outline-none text-md text-dark-brown',
+          'placeholder:text-beige text-sm',
+          className
         )}
         readOnly={readOnly}
         value={value}
@@ -269,9 +279,32 @@ function InputReadOnly({
 }
 
 interface FieldFormProps {
+  label: string
+  required?: boolean
+  errorMessage?: string
   children: any
 }
 
-function FieldForm({ children }: PropsWithChildren<FieldFormProps>) {
-  return <div className={classNames('flex w-full')}>{children}</div>
+function FieldForm({
+  children,
+  label,
+  required,
+  errorMessage,
+}: PropsWithChildren<FieldFormProps>) {
+  return (
+    <div className="flex flex-col ">
+      <div className="flex flex-row justify-between items-center w-full m-auto ">
+        <p className="text-sm text-dark-brown pb-1 mx-2">
+          {label}
+          {required && (
+            <span className="text-light-brown text-base pl-0.5">*</span>
+          )}
+        </p>
+        <div className="w-52">{children}</div>
+      </div>
+      <p className="text-red-500 text-sm font-sans pt-1 px-7">
+        {errorMessage}
+      </p>
+    </div>
+  )
 }
