@@ -12,6 +12,7 @@ import { classNames } from '../utils/classNames'
 
 interface DatePickerFieldProps {
   control: Control<any>
+  name: string
 }
 
 registerLocale('ko', ko)
@@ -22,10 +23,10 @@ const YEARS = Array.from(
 )
 const MONTHS = range(0, 12)
 
-const DatePickerField: React.FC<DatePickerFieldProps> = ({ control }) => {
+const DatePickerField = ({ control, name }: DatePickerFieldProps) => {
   return (
     <Controller
-      name="productDate"
+      name={name}
       control={control}
       render={({ field: { onChange, value } }) => (
         <DatePicker
@@ -37,7 +38,7 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({ control }) => {
           dateFormatCalendar="yyyy년 MM월"
           locale="ko"
           placeholderText="날짜를 선택해주세요"
-          className="flex items-center justify-center p-2 w-full h-full border-beige border outline-none text-md text-dark-brown focus:outline-none placeholder:text-beige"
+          className="flex items-center justify-center p-3 w-full h-10 border-beige border outline-none text-md text-dark-brown focus:outline-none placeholder:text-beige"
           popperClassName="w-full max-w-xs relative"
           wrapperClassName="w-full"
           calendarContainer={({ children }) => {
