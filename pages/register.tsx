@@ -1,14 +1,11 @@
 import { Noto_Sans } from 'next/font/google'
-import {
-  forwardRef,
-  type InputHTMLAttributes,
-  type PropsWithChildren,
-} from 'react'
+import { forwardRef, type InputHTMLAttributes } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/features/common/components/Button'
 import DatePickerField from '@/features/common/components/DatepickerField'
 import Input from '@/features/common/components/Input'
+import InputLabel from '@/features/common/components/InputLabel'
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
 
@@ -180,32 +177,6 @@ export default function Page() {
         </main>
       </div>
     </>
-  )
-}
-
-interface InputLabelProps {
-  label: string
-  errorMessage?: string
-  required?: boolean
-}
-
-function InputLabel({
-  children,
-  label,
-  required,
-  errorMessage,
-}: PropsWithChildren<InputLabelProps>) {
-  return (
-    <div>
-      <p className="text-sm text-dark-brown pb-1">
-        {label}
-        {required && (
-          <span className="text-light-brown text-base pl-0.5">*</span>
-        )}
-      </p>
-      {children}
-      <p className="text-red-500 text-sm font-sans pt-0.5"> {errorMessage}</p>
-    </div>
   )
 }
 
