@@ -20,7 +20,7 @@ const CustomOption = ({ innerProps, data, isSelected }: any) => {
   return (
     <div
       {...innerProps}
-      className="px-2 py-2 flex items-center justify-between hover:bg-beige"
+      className="px-2 py-2 flex items-center justify-between hover:bg-beige "
     >
       {data.label} {isSelected && <CheckIcon className="w-6 h-6"></CheckIcon>}
     </div>
@@ -53,11 +53,13 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
                 ...theme.colors,
                 primary25: '#ebe4d9',
                 primary: '#0f0e0d',
+                neutral20: '#ebe4d9',
               },
             })}
-            className={[className, 'border border-beige text-dark-brown'].join(
-              ' '
-            )}
+            className={[
+              className,
+              'h-fit text-dark-brown  focus:border-light-brown focus:outline-none',
+            ].join(' ')}
             components={{ Option: CustomOption }}
             instanceId={id}
           />
