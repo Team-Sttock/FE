@@ -95,7 +95,7 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </div>
 
-        <main className="pb-10 px-6 w-full">
+        <main className="pb-10 w-full">
           <p className="text-right text-sm text-dark-brown">
             * 는 필수 입력입니다.
           </p>
@@ -103,7 +103,7 @@ export default function Page() {
             onSubmit={handleSubmit(onSubmit, onError)}
             className=" flex flex-col mx-auto space-y-4 mt-4 max-w-xl w-full "
           >
-            <FieldForm
+            <LabelWrapper
               label="상품명"
               required
               errorMessage={errors.product?.message}
@@ -118,24 +118,24 @@ export default function Page() {
                 options={productsOptions}
                 className=""
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm label="카테고리">
+            <LabelWrapper label="카테고리">
               <InputReadOnly
                 className=""
                 value={watchProduct ? watchProduct.category : ''}
                 readOnly
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="상품별칭"
               errorMessage={errors.productNickname?.message}
             >
               <Input {...register('productNickname', {})} />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="구매일자"
               required
               errorMessage={errors.purchaseDate?.message}
@@ -147,14 +147,14 @@ export default function Page() {
                 name="purchaseDate"
                 control={control}
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="구매용량"
               required
               errorMessage={errors.purchaseCapacity?.message}
             >
-              <div className="flex flex-row items-center justify-center space-x-2">
+              <div className="flex items-center justify-center space-x-2">
                 <Input
                   {...register('purchaseCapacity', {
                     required: '구매용량은 필수 입력입니다',
@@ -169,9 +169,9 @@ export default function Page() {
                   className="w-24 text-sm "
                 />
               </div>
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="구매개수"
               required
               errorMessage={errors.purchaseNumber?.message}
@@ -182,9 +182,9 @@ export default function Page() {
                   required: '구매개수는 필수 입력입니다',
                 })}
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="사용인원"
               required
               errorMessage={errors.numberOfUser?.message}
@@ -196,9 +196,9 @@ export default function Page() {
                   required: '사용인원은 필수 입력입니다',
                 })}
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm label="사용예상일수" required>
+            <LabelWrapper label="사용예상일수" required>
               <div className="flex flex-row items-center space-x-1">
                 <Input
                   type="number"
@@ -209,8 +209,8 @@ export default function Page() {
                 />
                 <Button className="w-24 h-10 text-sm">직접 입력</Button>
               </div>
-            </FieldForm>
-            <FieldForm
+            </LabelWrapper>
+            <LabelWrapper
               label="예상소진일"
               errorMessage={errors.expectationDate?.message}
             >
@@ -219,9 +219,9 @@ export default function Page() {
                 name="expectationDate"
                 control={control}
               />
-            </FieldForm>
+            </LabelWrapper>
 
-            <FieldForm
+            <LabelWrapper
               label="유통기한"
               errorMessage={errors.expirationDate?.message}
             >
@@ -230,12 +230,12 @@ export default function Page() {
                 name="expirationDate"
                 control={control}
               />
-            </FieldForm>
+            </LabelWrapper>
           </form>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center w-[80%] space-y-4 mt-4 max-w-xl m-auto sm:space-y-0 sm:space-x-20 pt-10">
-            <Button className="w-full h-12 ">추가 완료</Button>
-            <Button className="w-full h-12 ">임시 저장</Button>
+          <div className="flex flex-col items-center justify-center gap-10 mt-10 sm:flex-row">
+            <Button className="w-40 h-10 text-md">추가 완료</Button>
+            <Button className="w-40 h-10 text-md">임시 저장</Button>
           </div>
         </main>
       </div>
@@ -278,33 +278,31 @@ function InputReadOnly({
   )
 }
 
-interface FieldFormProps {
+interface LabelProps {
   label: string
   required?: boolean
   errorMessage?: string
   children: any
 }
 
-function FieldForm({
+function LabelWrapper({
   children,
   label,
   required,
   errorMessage,
-}: PropsWithChildren<FieldFormProps>) {
+}: PropsWithChildren<LabelProps>) {
   return (
-    <div className="flex flex-col ">
-      <div className="flex flex-row justify-between items-center w-full m-auto ">
-        <p className="text-sm text-dark-brown pb-1 mx-2">
-          {label}
-          {required && (
-            <span className="text-light-brown text-base pl-0.5">*</span>
-          )}
-        </p>
-        <div className="w-52">{children}</div>
-      </div>
-      <p className="text-red-500 text-sm font-sans pt-1 px-7">
-        {errorMessage}
+    <div className="flex w-full">
+      <p className="w-56 h-fit relative top-1.5 text-sm text-dark-brown ">
+        {label}
+        {required && (
+          <span className="text-light-brown text-base pl-0.5">*</span>
+        )}
       </p>
+      <div className="w-full relative">
+        {children}
+        <p className="text-red-500 text-sm font-sans mt-1">{errorMessage}</p>
+      </div>
     </div>
   )
 }

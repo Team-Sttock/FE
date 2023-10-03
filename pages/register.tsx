@@ -1,21 +1,11 @@
 import { Noto_Sans } from 'next/font/google'
-
 import { forwardRef, type InputHTMLAttributes } from 'react'
-
-import {
-  forwardRef,
-  type InputHTMLAttributes,
-  type PropsWithChildren,
-} from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/features/common/components/Button'
 import DatePickerField from '@/features/common/components/DatepickerField'
 import Input from '@/features/common/components/Input'
-
 import InputLabel from '@/features/common/components/InputLabel'
-
-
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
 
@@ -189,8 +179,6 @@ export default function Page() {
     </>
   )
 }
-
-
 
 interface RadioButtonProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
