@@ -77,9 +77,14 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-3 mb-10">
-        <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full py-2">
-          <div className="flex justify-start items-center space-x-4 w-full mb-2 ">
+      <main className="m-auto max-w-3xl w-full px-3 mb-10">
+        <header className="mt-10 mb-6 w-full py-2">
+          <div
+            className={classNames(
+              'space-y-2 w-full mb-2',
+              'sm:space-x-4 sm:space-y-0 sm:flex sm:justify-start sm:items-center'
+            )}
+          >
             <h1
               className={classNames(
                 'md:text-2xl text-xl font-bold text-dark-brown',
@@ -93,15 +98,15 @@ export default function Page() {
             </p>
           </div>
           <hr className="relative w-full border-1 border-beige" />
-        </div>
+        </header>
 
-        <main className="pb-10 w-full">
-          <p className="text-right text-sm text-dark-brown">
+        <div className="w-full mb-4 max-w-lg m-auto">
+          <p className="text-right text-sm text-dark-brown mb-5">
             * 는 필수 입력입니다.
           </p>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            className=" flex flex-col mx-auto space-y-4 mt-4 max-w-xl w-full "
+            className="space-y-4"
           >
             <LabelWrapper
               label="상품명"
@@ -233,12 +238,12 @@ export default function Page() {
             </LabelWrapper>
           </form>
 
-          <div className="flex flex-col items-center justify-center gap-10 mt-10 sm:flex-row">
-            <Button className="w-40 h-10 text-md">추가 완료</Button>
-            <Button className="w-40 h-10 text-md">임시 저장</Button>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <Button className="w-36 sm:w-40 h-10 text-md">추가 완료</Button>
+            <Button className="w-36 sm:w-40 h-10 text-md">임시 저장</Button>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </>
   )
 }
@@ -293,7 +298,7 @@ function LabelWrapper({
 }: PropsWithChildren<LabelProps>) {
   return (
     <div className="flex w-full">
-      <p className="w-56 h-fit relative top-1.5 text-sm text-dark-brown ">
+      <p className="w-36 sm:w-56 h-fit relative top-1.5 text-sm text-dark-brown ">
         {label}
         {required && (
           <span className="text-light-brown text-base pl-0.5">*</span>
