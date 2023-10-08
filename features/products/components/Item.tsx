@@ -1,5 +1,5 @@
 import Link from 'next/link'
-
+import { Line } from 'rc-progress'
 export default function Item() {
   const product = {
     id: 1,
@@ -18,10 +18,14 @@ export default function Item() {
         <h3 className="text-dark-brown font-bold">{product.name}</h3>
         <GoToDetailButton />
       </div>
-      <div className="flex flex-row items-center justify-between space-x-14">
-        <div className="w-60 h-4 bg-ivory rounded-full  ">
-          <div className="w-[20%] h-4 bg-light-brown rounded-full"></div>
-        </div>
+      <div className="flex flex-row items-center justify-between space-x-10">
+        <Line
+          percent={20}
+          strokeColor="#9f8772"
+          trailColor="#f5f0eb"
+          strokeLinecap="butt"
+          className="w-64 h-4 rounded-full"
+        ></Line>
         <h3 className="text-dark-brown text-sm">{product.remainDays}일 남음</h3>
       </div>
     </div>
