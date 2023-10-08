@@ -1,3 +1,5 @@
+import { Line } from 'rc-progress'
+
 import Navbar from '@/features/common/components/Navbar'
 
 export default function Home() {
@@ -158,10 +160,14 @@ export default function Home() {
                 </p>
               </div>
               <div className="pb-8 p-2">
-                <div>
-                  <div className="h-4 rounded-full shadow-lg bg-ivory">
-                    <div className="h-full w-[40%] rounded-full bg-light-brown  "></div>
-                  </div>
+                <div className="flex flex-col items-center justify-between">
+                  <Line
+                    percent={40}
+                    strokeColor="#9f8772"
+                    trailColor="#F6F4EF"
+                    strokeLinecap="butt"
+                    className="h-5 shadow-lg w-44 "
+                  />
                   <p className="text-xs md:text-sm mt-4 font-nexon font-light  text-dark-brown">
                     총 2L 중에 820ml 소진했어요!
                   </p>

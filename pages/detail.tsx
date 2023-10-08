@@ -1,5 +1,6 @@
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
+import { Line } from 'rc-progress'
 
 import Button from '@/features/common/components/Button'
 import Navbar from '@/features/common/components/Navbar'
@@ -83,10 +84,14 @@ export default function Page() {
             </span>
           </div>
 
-          <div className="relative flex flex-wrap items-center m-auto sm:space-x-1">
-            <div className="w-20 h-3 bg-ivory rounded-full mr-2 sm:w-32 md:w-52 ">
-              <div className="w-[20%] h-3 bg-light-brown rounded-full"></div>
-            </div>
+          <div className="relative flex flex-wrap items-center m-auto sm:space-x-2">
+            <Line
+              percent={20}
+              strokeColor="#9f8772"
+              trailColor="#F6F4EF"
+              strokeLinecap="butt"
+              className="w-52  h-3 rounded-full mr-2"
+            ></Line>
 
             <span className="text-light-brown mr-2">{data.remain}</span>
             <p className="text-dark-brown">남음</p>
