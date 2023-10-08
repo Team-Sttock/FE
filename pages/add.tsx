@@ -114,9 +114,6 @@ export default function Page() {
               errorMessage={errors.product?.message}
             >
               <ComboBox
-                {...register('product', {
-                  required: '상품명은 필수 입력입니다',
-                })}
                 label="상품명"
                 name="product"
                 control={control}
@@ -166,7 +163,6 @@ export default function Page() {
                   })}
                 />
                 <ComboBox
-                  {...register('capacityUnit', {})}
                   label="구매단위"
                   name="capacityUnit"
                   control={control}

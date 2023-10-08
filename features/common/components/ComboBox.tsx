@@ -3,6 +3,8 @@ import React, { useId } from 'react'
 import { type Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
+import { classNames } from '../utils/classNames'
+
 interface Option {
   value: string
   label: string
@@ -11,6 +13,7 @@ interface Option {
 interface DropdownFieldProps {
   label: string
   name: string
+  placeholder?: string
   control: Control<any>
   options: Option[]
   className?: string
@@ -32,6 +35,7 @@ export default function ComboBox({
   control,
   options,
   className,
+  placeholder,
 }: DropdownFieldProps) {
   const id = useId()
   return (
@@ -45,16 +49,17 @@ export default function ComboBox({
             ref={ref}
             onChange={onChange}
             value={options.find((option) => option.value === value)}
-            placeholder=""
+            placeholder={placeholder ?? '필드를 선택하세요.'}
             theme={(theme) => ({
               ...theme,
               borderRadius: 0,
+              borderWidth: 1,
 
               colors: {
                 ...theme.colors,
                 primary25: '#ebe4d9',
                 primary50: '#ebe4d9',
-                primary: '#0f0e0d',
+                primary: '#665a48',
                 neutral5: '#ebe4d9',
                 neutral20: '#ebe4d9',
                 neutral80: '#665a48',
@@ -65,9 +70,25 @@ export default function ComboBox({
                 baseUnit: 5,
               },
             })}
-            className={[className, 'text-dark-brown'].join(' ')}
+            className={classNames(
+              className ?? '',
+              'text-dark-brown border border-beige box-border text-sm',
+              'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown'
+            )}
             components={{ Option: CustomOption }}
             instanceId={id}
+            styles={{
+              placeholder: (styles: any) => ({
+                ...styles,
+                color: '#ebe4d9',
+              }),
+              control: (base) => ({
+                ...base,
+                // This line disable the blue border
+                boxShadow: 'none',
+                border: 0,
+              }),
+            }}
           />
         )}
       />
