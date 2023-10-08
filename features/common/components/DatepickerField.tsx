@@ -49,12 +49,6 @@ const DatePickerField = ({ control, name }: DatePickerFieldProps) => {
                   'relative inline-block w-full border border-light-brown bg-white'
                 )}
               >
-                <span
-                  className={classNames(
-                    'inline-block w-0 h-0 absolute -top-[10px] left-1/2 -translate-x-1/2',
-                    'border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-light-brown'
-                  )}
-                ></span>
                 {children}
               </div>
             )
