@@ -206,7 +206,7 @@ export default function Page() {
             </LabelWrapper>
 
             <LabelWrapper label="사용예상일수" required>
-              <div className="flex flex-row items-center space-x-1">
+              <div className="flex space-x-1 w-full items-stretch">
                 <Input
                   type="number"
                   placeholder="숫자만 입력"
@@ -214,7 +214,7 @@ export default function Page() {
                     required: '사용예상일수는 필수 입력입니다',
                   })}
                 />
-                <Button className="w-24 h-10 text-sm">직접 입력</Button>
+                <Button className="inline-block w-24 text-sm">직접 입력</Button>
               </div>
             </LabelWrapper>
             <LabelWrapper
