@@ -118,7 +118,7 @@ export default function Page() {
                 name="product"
                 control={control}
                 options={productsOptions}
-                className=""
+                placeholder="상품명을 입력하세요."
               />
             </LabelWrapper>
 
@@ -126,7 +126,7 @@ export default function Page() {
               <InputReadOnly
                 className=""
                 value={watchProduct ? watchProduct.category : ''}
-                readOnly
+                message="상품명을 입력하면 자동으로 결정됩니다."
               />
             </LabelWrapper>
 
@@ -134,7 +134,10 @@ export default function Page() {
               label="상품별칭"
               errorMessage={errors.productNickname?.message}
             >
-              <Input {...register('productNickname', {})} />
+              <Input
+                {...register('productNickname', {})}
+                placeholder="상품 별칭을 입력해주세요."
+              />
             </LabelWrapper>
 
             <LabelWrapper
@@ -147,6 +150,7 @@ export default function Page() {
                   required: '구매일자는 필수 입력입니다',
                 })}
                 name="purchaseDate"
+                placeholder="구매일자를 선택해주세요."
                 control={control}
               />
             </LabelWrapper>
@@ -161,10 +165,12 @@ export default function Page() {
                   {...register('purchaseCapacity', {
                     required: '구매용량은 필수 입력입니다',
                   })}
+                  placeholder="숫자만 입력"
                 />
                 <ComboBox
                   label="구매단위"
                   name="capacityUnit"
+                  placeholder="용량"
                   control={control}
                   options={capacityOptions}
                   className="w-24 text-sm "
@@ -219,6 +225,7 @@ export default function Page() {
                 {...register('expectationDate', {})}
                 name="expectationDate"
                 control={control}
+                placeholder="예상소진일을 선택해주세요."
               />
             </LabelWrapper>
 
@@ -230,6 +237,7 @@ export default function Page() {
                 {...register('expirationDate', {})}
                 name="expirationDate"
                 control={control}
+                placeholder="유통기한을 선택해주세요."
               />
             </LabelWrapper>
           </form>
@@ -246,36 +254,38 @@ export default function Page() {
 
 interface InputReadOnlyProps {
   value: any
-  errorMessage?: string
+  message?: string
   readOnly?: boolean
-  className: string
+  placeholder?: string
+  className?: string
 }
 function InputReadOnly({
   value,
-  errorMessage,
-  readOnly,
+  message,
   className,
 }: PropsWithChildren<InputReadOnlyProps>) {
   return (
-    <div
-      className={classNames(
-        'relative w-full h-fit border border-beige ',
-        'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
-        className
-      )}
-    >
-      <input
+    <>
+      <div
         className={classNames(
-          ' h-10 w-full p-3 border-none outline-none text-md text-dark-brown',
-          'placeholder:text-beige text-sm',
-          className
+          'relative w-full h-fit border border-beige ',
+          className ?? ''
         )}
-        readOnly={readOnly}
-        value={value}
-      />
-
-      <p className="text-red-500 text-sm font-sans pt-0.5"> {errorMessage}</p>
-    </div>
+      >
+        <input
+          className={classNames(
+            ' h-10 w-full p-3 border-none outline-none text-md text-dark-brown box-border',
+            'text-sm bg-ivory',
+            className ?? ''
+          )}
+          readOnly
+          value={value}
+        />
+      </div>
+      {message && (
+        <p className="text-light-brown text-sm font-sans pt-0.5"> {message}</p>
+      )}
+    </>
   )
 }
 
@@ -294,15 +304,17 @@ function LabelWrapper({
 }: PropsWithChildren<LabelProps>) {
   return (
     <div className="flex w-full">
-      <p className="w-36 sm:w-56 h-fit relative top-1.5 text-sm text-dark-brown ">
+      <p className="w-36 sm:w-56 h-fit relative top-2.5 text-sm text-dark-brown ">
         {label}
         {required && (
           <span className="text-light-brown text-base pl-0.5">*</span>
         )}
       </p>
-      <div className="w-full relative">
+      <div className="w-full h-fit relative">
         {children}
-        <p className="text-red-500 text-sm font-sans mt-1">{errorMessage}</p>
+        {errorMessage && (
+          <p className="text-red-500 text-sm font-sans mt-1">{errorMessage}</p>
+        )}
       </div>
     </div>
   )
