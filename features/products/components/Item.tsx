@@ -8,25 +8,29 @@ export default function Item() {
     remainDays: 3,
   }
   return (
-    <div className="border border-beige max-w-[467px] h-[158px] flex flex-col justify-center items-center p-5 space-y-8">
-      <div className="flex flex-row items-center justify-between space-x-8">
+    <div className="border border-beige max-w-[467px] w-full h-fit py-5 px-5 sm:px-8 space-y-6">
+      <div className="flex flex-row items-center w-full">
         <img
           src={product.categoryIcon}
           alt={product.categoryIcon}
-          className="w-14 h-14"
+          className="w-14 h-14 mr-6"
         />
-        <h3 className="text-dark-brown font-bold">{product.name}</h3>
+        <h3 className="mr-3 flex-1 text-dark-brown font-bold">
+          {product.name}
+        </h3>
         <GoToDetailButton />
       </div>
-      <div className="flex flex-row items-center justify-between space-x-12 mx-2">
+      <div className="flex flex-row items-center justify-between  w-full">
         <Line
           percent={20}
           strokeColor="#9f8772"
           trailColor="#f5f0eb"
           strokeLinecap="butt"
-          className="w-52 h-4 rounded-full"
+          className="w-full h-4 rounded-full mr-4"
         ></Line>
-        <h3 className="text-dark-brown text-sm">{product.remainDays}일 남음</h3>
+        <h3 className="text-dark-brown text-sm w-20 text-right">
+          {product.remainDays}일 남음
+        </h3>
       </div>
     </div>
   )
@@ -36,9 +40,13 @@ const GoToDetailButton = () => {
   return (
     <>
       <Link href="/detail/[id]" as="/detail/1" passHref>
-        <button className="flex flex-row items-center justify-center space-x-2">
-          <img src="/icons/goto.svg" alt="goto" />
-          <span className="text-light-brown">상세보기</span>
+        <button className="flex flex-row items-center justify-center space-x-2 ">
+          <img
+            src="/icons/goto.svg"
+            alt="goto"
+            className="w-4 h-4 object-cover"
+          />
+          <span className="text-light-brown text-sm">상세보기</span>
         </button>
       </Link>
     </>

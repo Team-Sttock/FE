@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <main className="m-auto max-w-3xl w-full px-3 mb-10">
+      <main className="m-auto max-w-5xl w-full px-4 mb-10">
         <header className="mt-10 mb-6 w-full py-2">
           <div
             className={classNames(
@@ -36,7 +36,9 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </header>
 
-        <div className="flex md:flex-row flex-col items-center justify-center md:space-x-4 md:space-y-0 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-3 w-full max-w-4xl m-auto">
+          <Item />
+          <Item />
           <Item />
           <Item />
         </div>
