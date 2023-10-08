@@ -13,6 +13,7 @@ import { classNames } from '../utils/classNames'
 interface DatePickerFieldProps {
   control: Control<any>
   name: string
+  placeholder?: string
 }
 
 registerLocale('ko', ko)
@@ -23,7 +24,11 @@ const YEARS = Array.from(
 )
 const MONTHS = range(0, 12)
 
-const DatePickerField = ({ control, name }: DatePickerFieldProps) => {
+const DatePickerField = ({
+  control,
+  name,
+  placeholder,
+}: DatePickerFieldProps) => {
   return (
     <Controller
       name={name}
@@ -37,8 +42,8 @@ const DatePickerField = ({ control, name }: DatePickerFieldProps) => {
           dateFormat="yyyy년 MM월 dd일"
           dateFormatCalendar="yyyy년 MM월"
           locale="ko"
-          placeholderText="날짜를 선택해주세요"
-          className="flex items-center justify-center p-3 w-full h-10 border-beige border outline-none text-md text-dark-brown focus:outline-none placeholder:text-beige"
+          placeholderText={placeholder ?? '날짜를 선택해주세요'}
+          className="flex items-center justify-center p-3 w-full h-10 border-beige border outline-none text-md text-dark-brown focus:outline-none placeholder:text-beige placeholder:text-sm"
           popperClassName="w-full max-w-xs relative"
           wrapperClassName="w-full"
           calendarContainer={({ children }) => {
@@ -49,12 +54,6 @@ const DatePickerField = ({ control, name }: DatePickerFieldProps) => {
                   'relative inline-block w-full border border-light-brown bg-white'
                 )}
               >
-                <span
-                  className={classNames(
-                    'inline-block w-0 h-0 absolute -top-[10px] left-1/2 -translate-x-1/2',
-                    'border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-light-brown'
-                  )}
-                ></span>
                 {children}
               </div>
             )
