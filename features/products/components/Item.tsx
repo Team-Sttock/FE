@@ -8,8 +8,8 @@ export default function Item() {
     remainDays: 3,
   }
   return (
-    <div className="border border-beige w-[467px] h-[158px] flex flex-col justify-center items-center px-4 m-auto space-y-8">
-      <div className="flex flex-row items-center justify-between space-x-12">
+    <div className="border border-beige max-w-[467px] h-[158px] flex flex-col justify-center items-center p-5 space-y-8">
+      <div className="flex flex-row items-center justify-between space-x-8">
         <img
           src={product.categoryIcon}
           alt={product.categoryIcon}
@@ -18,13 +18,13 @@ export default function Item() {
         <h3 className="text-dark-brown font-bold">{product.name}</h3>
         <GoToDetailButton />
       </div>
-      <div className="flex flex-row items-center justify-between space-x-10">
+      <div className="flex flex-row items-center justify-between space-x-12 mx-2">
         <Line
           percent={20}
           strokeColor="#9f8772"
           trailColor="#f5f0eb"
           strokeLinecap="butt"
-          className="w-64 h-4 rounded-full"
+          className="w-52 h-4 rounded-full"
         ></Line>
         <h3 className="text-dark-brown text-sm">{product.remainDays}일 남음</h3>
       </div>
