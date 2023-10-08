@@ -3,8 +3,8 @@ import { type PropsWithChildren } from 'react'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/features/common/components/Button'
+import ComboBox from '@/features/common/components/ComboBox'
 import DatePickerField from '@/features/common/components/DatepickerField'
-import DropdownField from '@/features/common/components/DropdownField'
 import Input from '@/features/common/components/Input'
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
@@ -113,7 +113,7 @@ export default function Page() {
               required
               errorMessage={errors.product?.message}
             >
-              <DropdownField
+              <ComboBox
                 {...register('product', {
                   required: '상품명은 필수 입력입니다',
                 })}
@@ -165,7 +165,7 @@ export default function Page() {
                     required: '구매용량은 필수 입력입니다',
                   })}
                 />
-                <DropdownField
+                <ComboBox
                   {...register('capacityUnit', {})}
                   label="구매단위"
                   name="capacityUnit"

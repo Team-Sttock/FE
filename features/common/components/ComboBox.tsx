@@ -16,7 +16,7 @@ interface DropdownFieldProps {
   className?: string
 }
 
-const CustomOption = ({ innerProps, data, isSelected }: any) => {
+function CustomOption({ innerProps, data, isSelected }: any) {
   return (
     <div
       {...innerProps}
@@ -27,12 +27,12 @@ const CustomOption = ({ innerProps, data, isSelected }: any) => {
   )
 }
 
-const DropdownField: React.FC<DropdownFieldProps> = ({
+export default function ComboBox({
   name,
   control,
   options,
   className,
-}) => {
+}: DropdownFieldProps) {
   const id = useId()
   return (
     <div>
@@ -74,5 +74,3 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
     </div>
   )
 }
-
-export default DropdownField
