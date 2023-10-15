@@ -26,8 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           ref={ref}
           className={classNames(
             'w-full h-10 p-3 border-none outline-none text-md text-dark-brown',
-            'focus:otuline-none',
-            'placeholder:text-beige'
+            'placeholder:text-beige text-sm'
           )}
           {...props}
         ></input>
