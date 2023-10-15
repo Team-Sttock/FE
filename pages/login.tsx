@@ -1,7 +1,12 @@
+import { isAxiosError } from 'axios'
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
+import { type PostLoginProps } from '@/apis/auth/postLogin'
+import { type ServerErrorRes } from '@/apis/client'
+import { useLogin } from '@/features/auth/mutations/useLogin'
 import Button from '@/features/common/components/Button'
 import Input from '@/features/common/components/Input'
 import { classNames } from '@/features/common/utils/classNames'
@@ -16,16 +21,25 @@ export default function Page() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<{
-    id: string
-    password: string
-  }>({
+  } = useForm<PostLoginProps>({
     mode: 'onChange',
   })
+  const router = useRouter()
 
-  const onSubmit = () => {}
+  const { mutateAsync } = useLogin()
 
-  const onError = () => {}
+  const onSubmit = async (data: PostLoginProps) => {
+    try {
+      await mutateAsync(data)
+      await router.push('/list')
+    } catch (error) {
+      if (isAxiosError<ServerErrorRes>(error)) {
+        alert(error.response?.data.message ?? '')
+        return
+      }
+      alert('서버 에러가 발생했습니다.')
+    }
+  }
 
   return (
     <div className="w-full max-w-sm m-auto px-4">
@@ -40,10 +54,10 @@ export default function Page() {
         </h1>
       </header>
       <main className="pb-10">
-        <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <Input
-            {...register('id', {})}
-            errorMessage={errors.id?.message}
+            {...register('login_id', {})}
+            errorMessage={errors.login_id?.message}
             placeholder="아이디"
           ></Input>
           <Input
