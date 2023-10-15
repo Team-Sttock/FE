@@ -31,7 +31,7 @@ export default function Page() {
           <div className="flex flex-col justify-center items-stretch w-full mt-10 space-y-6 ">
             <p className="text-lg text-dark-brown">
               이 상품의 상태는
-              <span className="font-semibold text-xl text-dark-brown mx-4 bg-ivory border border-beige px-2">
+              <span className="font-semibold text-xl text-dark-brown mx-4">
                 사용중
               </span>
               입니다.
@@ -50,10 +50,6 @@ export default function Page() {
             <StateButtonComponent
               state={'구매 쉴래요!'}
               stateComment={`상품의 상태가 ‘사용중지’로 변경됩니다. `}
-            />
-            <StateButtonComponent
-              state={'더 이상 사용하지 않아요!'}
-              stateComment={`상품이 완전히 삭제됩니다`}
             />
           </div>
         </div>
