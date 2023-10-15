@@ -1,13 +1,9 @@
-import { client } from '../client'
+import { client, type MutationRes } from '../client'
 
 export interface PostLoginProps {
   login_id: string
   password: string
 }
 
-export interface PostLoginRes {
-  message: string
-}
-
 export const postLogin = async (props: PostLoginProps) =>
-  await client.post<PostLoginRes, PostLoginProps>('/login', props)
+  await client.post<MutationRes, PostLoginProps>('/login', props)
