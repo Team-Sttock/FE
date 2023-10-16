@@ -3,6 +3,7 @@ import { Noto_Sans } from 'next/font/google'
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
 import Item from '@/features/products/components/Item'
+import FilteringField from '@/features/common/components/FilteringField'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
@@ -41,6 +42,9 @@ export default function Page() {
           <Item />
           <Item />
           <Item />
+        </div>
+        <div>
+          <FilteringField/>
         </div>
       </main>
     </>
