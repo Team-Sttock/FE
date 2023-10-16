@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@headlessui/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:1.7.17"],\
             ["@heroicons/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18"],\
             ["@types/lodash-es", "npm:4.17.8"],\
             ["@types/node", "npm:20.4.5"],\
@@ -421,6 +422,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@floating-ui-utils-npm-0.1.2-22eefe56f0-3e29fd3c69.zip/node_modules/@floating-ui/utils/",\
           "packageDependencies": [\
             ["@floating-ui/utils", "npm:0.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@headlessui/react", [\
+        ["npm:1.7.17", {\
+          "packageLocation": "./.yarn/cache/@headlessui-react-npm-1.7.17-c3f120aed0-0cdb67747e.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "npm:1.7.17"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:1.7.17", {\
+          "packageLocation": "./.yarn/__virtual__/@headlessui-react-virtual-3a6bbb6b5e/0/cache/@headlessui-react-npm-1.7.17-c3f120aed0-0cdb67747e.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:1.7.17"],\
+            ["@types/react", "npm:18.2.17"],\
+            ["@types/react-dom", "npm:18.2.7"],\
+            ["client-only", "npm:0.0.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6046,6 +6074,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["sttock-fe", "workspace:."],\
+            ["@headlessui/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:1.7.17"],\
             ["@heroicons/react", "virtual:7d28dca476efdcc32f72bf0de63c5459cdbaf67b986a0e2795daafab14e73c0aeebcd26c2565fc5e6978654acda646926ade6db510286d7878bdb30018d80437#npm:2.0.18"],\
             ["@types/lodash-es", "npm:4.17.8"],\
             ["@types/node", "npm:20.4.5"],\
