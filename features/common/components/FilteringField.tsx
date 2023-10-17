@@ -44,18 +44,26 @@ const Dropdown: React.FC<DropdownProps> = ({
   items,
   onSelect,
   filterTitle,
+  selectedValue,
 }) => {
   return (
     <>
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="flex items-center justify-center bg-ivory w-fit h-fit px-4 py-1.5 text-sm text-light-brown rounded-md border-beige hover-bg-beige">
+        <Menu.Button
+          className={`flex items-center justify-center w-fit h-fit px-4 py-1.5 text-sm rounded-md hover:bg-beige ${
+            selectedValue
+              ? 'bg-light-brown text-ivory'
+              : 'bg-ivory text-light-brown'
+          }`}
+        >
           <img
-            src="/icons/down-arrow.svg"
+            src={`/icons/down-arrow${selectedValue ? '-selected' : ''}.svg`}
             alt="down-arrow"
             className="w-3 h-3 mr-2"
           />
           <span>{filterTitle}</span>
         </Menu.Button>
+
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -71,8 +79,11 @@ const Dropdown: React.FC<DropdownProps> = ({
                 {({ active }) => (
                   <button
                     className={`${
-                      active ? 'bg-beige' : 'bg-white'
-                    } flex items-center justify-center w-full h-8 rounded-md text-sm`}
+                      selectedValue === item.value
+                        ? 'text-light-brown font-bold'
+                        : ''
+                    } ${active ? 'bg-beige' : ''}
+                    w-full hover:text-light-brown px-2 py-1.5 rounded-md`}
                     onClick={() => {
                       onSelect(item.value)
                     }}
@@ -93,6 +104,12 @@ const Dropdown: React.FC<DropdownProps> = ({
 export default function FilteringField() {
   const router = useRouter()
   const { query } = router
+
+  const selectedFilters = [
+    { type: 'sorting', value: query.sorting },
+    { type: 'category', value: query.category },
+    { type: 'state', value: query.state },
+  ].filter((filter) => filter.value)
 
   const handleSortingSelect = (value: string) => {
     updateQueryParams({ sorting: value })
@@ -154,34 +171,22 @@ export default function FilteringField() {
 
         {/* 필터에 따른 요소 */}
         <div className="flex flex-wrap space-x-2">
-          {query.sorting && (
+          {selectedFilters.map((filter) => (
             <FilterWords
-              word={query.sorting}
+              key={filter?.type}
+              word={filter?.value}
               onClear={() => {
-                clearFilter('sorting')
+                clearFilter(filter?.type ?? '')
               }}
-              options={filterSorting}
+              options={
+                filter?.type === 'sorting'
+                  ? filterSorting
+                  : filter?.type === 'category'
+                  ? filterCategory
+                  : filterState
+              }
             />
-          )}
-          {query.category && (
-            <FilterWords
-              word={query.category}
-              onClear={() => {
-                clearFilter('category')
-              }}
-              options={filterCategory}
-            />
-          )}
-          {query.state && (
-            <FilterWords
-              word={query.state}
-              onClear={() => {
-                clearFilter('state')
-              }}
-              options={filterState}
-            />
-          )}
-
+          ))}
           {(query.sorting ?? query.category ?? query.state) && (
             <button className=" text-dark-brown text-sm " onClick={clearAll}>
               <span>초기화</span>
