@@ -48,7 +48,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   return (
     <>
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className="relative">
         <Menu.Button
           className={`flex items-center justify-center w-fit h-fit px-4 py-1.5 text-sm rounded-md hover:bg-beige ${
             selectedValue
@@ -76,14 +76,12 @@ const Dropdown: React.FC<DropdownProps> = ({
           <Menu.Items className="flex flex-col border-2 space-y-2 w-32 p-4 mt-2 bg-white border-ivory rounded-lg text-dark-brown shadow-md absolute">
             {items.map((item) => (
               <Menu.Item key={item.id}>
-                {({ active }) => (
+                {() => (
                   <button
                     className={`${
-                      selectedValue === item.value
-                        ? 'text-light-brown font-bold'
-                        : ''
-                    } ${active ? 'bg-beige' : ''}
-                    w-full hover:text-light-brown px-2 py-1.5 rounded-md`}
+                      selectedValue === item.value ? 'text-light-brown ' : ''
+                    } 
+                    w-full hover:text-light-brown `}
                     onClick={() => {
                       onSelect(item.value)
                     }}
