@@ -199,7 +199,11 @@ export default function FilteringField() {
                   <Menu.Item
                     as="button"
                     key={state.id}
-                    className={`w-full hover:text-light-brown`}
+                    className={`w-full hover:text-light-brown ${
+                      state.value === router.query.state
+                        ? 'text-light-brown font-bold'
+                        : ''
+                    }`}
                     onClick={() => {
                       handleStateSelect(state.value)
                     }}
