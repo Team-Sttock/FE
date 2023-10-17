@@ -1,65 +1,49 @@
 import { Menu, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 
 interface SortOptionProps {
   id: number
-  type: string
+  label: string
   value: string
 }
 
 const filterSorting: SortOptionProps[] = [
-  { id: 1, type: '최신순', value: 'recent' },
-  { id: 2, type: '오래된 순', value: 'old' },
-  { id: 3, type: '소진임박순', value: 'upcoming' },
+  { id: 1, label: '최신순', value: 'recent' },
+  { id: 2, label: '오래된 순', value: 'old' },
+  { id: 3, label: '소진임박순', value: 'upcoming' },
 ]
 
 const filterCategory: SortOptionProps[] = [
-  { id: 1, type: '주방용품', value: 'kitchen' },
-  { id: 2, type: '생활용품', value: 'living' },
-  { id: 3, type: '구강|면도', value: 'oral' },
-  { id: 4, type: '욕실용품', value: 'bathroom' },
-  { id: 5, type: '헤어|바디', value: 'hair' },
-  { id: 6, type: '스킨케어', value: 'skincare' },
-  { id: 7, type: '여성용품', value: 'feminine' },
-  { id: 8, type: '기타', value: 'etc' },
+  { id: 1, label: '주방용품', value: 'kitchen' },
+  { id: 2, label: '생활용품', value: 'living' },
+  { id: 3, label: '구강 | 면도', value: 'oral' },
+  { id: 4, label: '욕실용품', value: 'bathroom' },
+  { id: 5, label: '헤어 | 바디', value: 'hair' },
+  { id: 6, label: '스킨케어', value: 'skincare' },
+  { id: 7, label: '여성용품', value: 'feminine' },
+  { id: 8, label: '기타', value: 'etc' },
 ]
 
 const filterState: SortOptionProps[] = [
-  { id: 1, type: '사용중', value: 'using' },
-  { id: 2, type: '사용중지', value: 'stop' },
-  { id: 3, type: '소진', value: 'exhausted' },
+  { id: 1, label: '사용중', value: 'using' },
+  { id: 2, label: '사용중지', value: 'stop' },
+  { id: 3, label: '소진', value: 'exhausted' },
 ]
 
 export default function FilteringField() {
   const router = useRouter()
-  const [selectedSorting, setSelectedSorting] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
-  const [selectedState, setSelectedState] = useState('')
 
-  const handleSortingSelect = (type: string, value: string) => {
-    setSelectedSorting(type)
+  const handleSortingSelect = (value: string) => {
     updateQueryParams({ sorting: value })
   }
 
-  const handleCategorySelect = (type: string, value: string) => {
-    setSelectedCategory(type)
+  const handleCategorySelect = (value: string) => {
     updateQueryParams({ category: value })
   }
 
-  const handleStateSelect = (type: string, value: string) => {
-    setSelectedState(type)
+  const handleStateSelect = (value: string) => {
     updateQueryParams({ state: value })
-  }
-
-  const clearAll = () => {
-    const newParams = { ...router.query }
-    delete newParams.sorting
-    delete newParams.category
-    delete newParams.state
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
   }
 
   const updateQueryParams = (params: any) => {
@@ -87,6 +71,16 @@ export default function FilteringField() {
 
   const clearState = () => {
     const newParams = { ...router.query }
+    delete newParams.state
+    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
+      // console.log(err)
+    })
+  }
+
+  const clearAll = () => {
+    const newParams = { ...router.query }
+    delete newParams.sorting
+    delete newParams.category
     delete newParams.state
     router.push({ pathname: router.pathname, query: newParams }).catch(() => {
       // console.log(err)
@@ -122,15 +116,15 @@ export default function FilteringField() {
                     as="button"
                     key={sort.id}
                     className={`w-full hover:text-light-brown ${
-                      selectedSorting === sort.type
+                      sort.value === router.query.sorting
                         ? 'text-light-brown font-bold'
                         : ''
                     }`}
                     onClick={() => {
-                      handleSortingSelect(sort.type, sort.value)
+                      handleSortingSelect(sort.value)
                     }}
                   >
-                    {sort.type}
+                    {sort.label}
                   </Menu.Item>
                 ))}
               </Menu.Items>
@@ -164,15 +158,15 @@ export default function FilteringField() {
                     as="button"
                     key={category.id}
                     className={`w-full hover:text-light-brown ${
-                      selectedCategory === category.type
+                      category.value === router.query.category
                         ? 'text-light-brown font-bold'
                         : ''
                     }`}
                     onClick={() => {
-                      handleCategorySelect(category.type, category.value)
+                      handleCategorySelect(category.value)
                     }}
                   >
-                    {category.type}
+                    {category.label}
                   </Menu.Item>
                 ))}
               </Menu.Items>
@@ -205,16 +199,12 @@ export default function FilteringField() {
                   <Menu.Item
                     as="button"
                     key={state.id}
-                    className={`w-full hover:text-light-brown ${
-                      selectedState === state.type
-                        ? 'text-light-brown font-bold'
-                        : ''
-                    }`}
+                    className={`w-full hover:text-light-brown`}
                     onClick={() => {
-                      handleStateSelect(state.type, state.value)
+                      handleStateSelect(state.value)
                     }}
                   >
-                    {state.type}
+                    {state.label}
                   </Menu.Item>
                 ))}
               </Menu.Items>
@@ -224,18 +214,28 @@ export default function FilteringField() {
 
         {/* 필터에 따른 요소 */}
         <div className="flex flex-wrap space-x-2">
-          {selectedSorting && (
-            <FilterWords sorting={selectedSorting} onClear={clearSorting} />
+          {router.query.sorting && (
+            <FilterWords
+              sorting={router.query.sorting}
+              onClear={clearSorting}
+            />
           )}
-          {selectedCategory && (
-            <FilterWords sorting={selectedCategory} onClear={clearCategory} />
+          {router.query.category && (
+            <FilterWords
+              sorting={router.query.category}
+              onClear={clearCategory}
+            />
           )}
-          {selectedState && (
-            <FilterWords sorting={selectedState} onClear={clearState} />
+          {router.query.state && (
+            <FilterWords sorting={router.query.state} onClear={clearState} />
           )}
-          {(selectedSorting || selectedCategory || selectedState) && (
-            <button className="text-dark-brown text-sm pl-2" onClick={clearAll}>
-              초기화
+
+          {/* 초기화버튼 */}
+          {(router.query.sorting ??
+            router.query.category ??
+            router.query.state) && (
+            <button className=" text-dark-brown text-sm " onClick={clearAll}>
+              <span>초기화</span>
             </button>
           )}
         </div>
@@ -245,14 +245,18 @@ export default function FilteringField() {
 }
 
 interface FilterWordsProps {
-  sorting: string
+  sorting: any
   onClear: () => void
 }
 
 const FilterWords: React.FC<FilterWordsProps> = ({ sorting, onClear }) => {
+  const filter = [...filterSorting, ...filterCategory, ...filterState].find(
+    (item) => item.value === sorting
+  )
+  const displayText = filter?.label ?? sorting
   return (
     <div className="flex justify-center bg-beige text-dark-brown w-fit h-fit px-4 py-1.5 my-1 text-sm space-x-2 rounded-full">
-      <span>{sorting}</span>
+      <span>{displayText}</span>
       <button onClick={onClear}>
         <img
           src="/icons/deleteButton.svg"
