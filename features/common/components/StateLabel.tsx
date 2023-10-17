@@ -12,7 +12,7 @@ export interface StateLabelProps {
 
 export const StateLabel = ({ state }: StateLabelProps) => {
   const className = classNames(
-    'text-xs rounded-xl w-20 h-fit text-center px-1.5 py-0.5',
+    'text-xs rounded-xl w-20 h-fit text-center px-1.5 py-1 mx-1 whitespace-nowrap',
     LabelContent[state]?.className
   )
 
