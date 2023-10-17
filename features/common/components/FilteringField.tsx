@@ -31,8 +31,68 @@ const filterState: SortOptionProps[] = [
   { id: 3, label: '소진', value: 'exhausted' },
 ]
 
+// 드롭다운 메뉴 컴포넌트
+interface DropdownProps {
+  items: SortOptionProps[]
+  onSelect: (value: string) => void
+  filterTitle: string
+  selectedValue: string | string[] | undefined
+  filterType: string
+}
+
+const Dropdown: React.FC<DropdownProps> = ({
+  items,
+  onSelect,
+  filterTitle,
+}) => {
+  return (
+    <>
+      <Menu as="div" className="relative inline-block text-left">
+        <Menu.Button className="flex items-center justify-center bg-ivory w-fit h-fit px-4 py-1.5 text-sm text-light-brown rounded-md border-beige hover-bg-beige">
+          <img
+            src="/icons/down-arrow.svg"
+            alt="down-arrow"
+            className="w-3 h-3 mr-2"
+          />
+          <span>{filterTitle}</span>
+        </Menu.Button>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="flex flex-col border-2 space-y-2 w-32 p-4 mt-2 bg-white border-ivory rounded-lg text-dark-brown shadow-md absolute">
+            {items.map((item) => (
+              <Menu.Item key={item.id}>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? 'bg-beige' : 'bg-white'
+                    } flex items-center justify-center w-full h-8 rounded-md text-sm`}
+                    onClick={() => {
+                      onSelect(item.value)
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                )}
+              </Menu.Item>
+            ))}
+          </Menu.Items>
+        </Transition>
+      </Menu>
+    </>
+  )
+}
+
+// 필터링 컴포넌트
 export default function FilteringField() {
   const router = useRouter()
+  const { query } = router
 
   const handleSortingSelect = (value: string) => {
     updateQueryParams({ sorting: value })
@@ -47,197 +107,82 @@ export default function FilteringField() {
   }
 
   const updateQueryParams = (params: any) => {
-    const currentParams = router.query
-    const newParams = { ...currentParams, ...params }
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
-  }
-  const clearSorting = () => {
-    const newParams = { ...router.query }
-    delete newParams.sorting
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
+    const newParams = { ...query, ...params }
+    void router.push({ pathname: router.pathname, query: newParams })
   }
 
-  const clearCategory = () => {
-    const newParams = { ...router.query }
-    delete newParams.category
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
-  }
-
-  const clearState = () => {
-    const newParams = { ...router.query }
-    delete newParams.state
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
+  const clearFilter = (filterType: string) => {
+    const { [filterType]: removedFilter, ...rest } = query
+    void router.push({ pathname: router.pathname, query: rest })
   }
 
   const clearAll = () => {
-    const newParams = { ...router.query }
-    delete newParams.sorting
-    delete newParams.category
-    delete newParams.state
-    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
-      // console.log(err)
-    })
+    void router.push({ pathname: router.pathname })
   }
 
   return (
     <>
-      {/* 정렬 필터링 */}
+      {/* 정렬 */}
       <div className="flex flex-col space-y-2">
         <div className="flex space-x-3">
-          <Menu className="relative inline-block text-left" as="div">
-            <Menu.Button className="flex items-center justify-center bg-ivory w-fit h-fit px-4 py-1.5 text-sm text-light-brown rounded-md border-beige hover:bg-beige">
-              <img
-                src="/icons/down-arrow.svg"
-                alt="down-arrow"
-                className="w-3 h-3 mr-2"
-              />
-              정렬
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className=" flex flex-col border-2 space-y-2 w-32 p-4 mt-2 bg-white border-ivory rounded-lg text-dark-brown shadow-md absolute ">
-                {filterSorting.map((sort) => (
-                  <Menu.Item
-                    as="button"
-                    key={sort.id}
-                    className={`w-full hover:text-light-brown ${
-                      sort.value === router.query.sorting
-                        ? 'text-light-brown font-bold'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      handleSortingSelect(sort.value)
-                    }}
-                  >
-                    {sort.label}
-                  </Menu.Item>
-                ))}
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <Dropdown
+            items={filterSorting}
+            onSelect={handleSortingSelect}
+            selectedValue={query.sorting}
+            filterTitle="정렬"
+            filterType="sorting"
+          />
 
-          {/* 카테고리 필터링 */}
-          <Menu className="relative inline-block text-left" as="div">
-            <Menu.Button
-              className={`flex items-center justify-center bg-ivory w-fit h-fit px-4 py-1.5 text-sm text-light-brown rounded-md border-beige hover:bg-beige`}
-            >
-              <img
-                src="/icons/down-arrow.svg"
-                alt="down-arrow"
-                className="w-3 h-3 mr-2"
-              />
-              카테고리
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute flex flex-col border-2 space-y-2 w-32 p-4 mt-2 bg-white border-ivory rounded-lg text-dark-brown shadow-md">
-                {filterCategory.map((category) => (
-                  <Menu.Item
-                    as="button"
-                    key={category.id}
-                    className={`w-full hover:text-light-brown ${
-                      category.value === router.query.category
-                        ? 'text-light-brown font-bold'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      handleCategorySelect(category.value)
-                    }}
-                  >
-                    {category.label}
-                  </Menu.Item>
-                ))}
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          {/* 카테고리 */}
+          <Dropdown
+            items={filterCategory}
+            onSelect={handleCategorySelect}
+            selectedValue={query.category}
+            filterTitle="카테고리"
+            filterType="category"
+          />
 
-          {/* 상태 필터링 */}
-          <Menu className="relative inline-block text-left" as="div">
-            <Menu.Button
-              className={`flex items-center justify-center bg-ivory w-fit h-fit px-4 py-1.5 text-sm text-light-brown rounded-md border-beige hover:bg-beige`}
-            >
-              <img
-                src="/icons/down-arrow.svg"
-                alt="down-arrow"
-                className="w-3 h-3 mr-2"
-              />
-              상태
-            </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute flex flex-col border-2 space-y-2 w-32 p-4 bg-white border-ivory rounded-lg text-dark-brown shadow-md">
-                {filterState.map((state) => (
-                  <Menu.Item
-                    as="button"
-                    key={state.id}
-                    className={`w-full hover:text-light-brown ${
-                      state.value === router.query.state
-                        ? 'text-light-brown font-bold'
-                        : ''
-                    }`}
-                    onClick={() => {
-                      handleStateSelect(state.value)
-                    }}
-                  >
-                    {state.label}
-                  </Menu.Item>
-                ))}
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          {/* 상태 */}
+          <Dropdown
+            items={filterState}
+            onSelect={handleStateSelect}
+            selectedValue={query.state}
+            filterTitle="상태"
+            filterType="state"
+          />
         </div>
 
         {/* 필터에 따른 요소 */}
         <div className="flex flex-wrap space-x-2">
-          {router.query.sorting && (
+          {query.sorting && (
             <FilterWords
-              sorting={router.query.sorting}
-              onClear={clearSorting}
+              word={query.sorting}
+              onClear={() => {
+                clearFilter('sorting')
+              }}
+              options={filterSorting}
             />
           )}
-          {router.query.category && (
+          {query.category && (
             <FilterWords
-              sorting={router.query.category}
-              onClear={clearCategory}
+              word={query.category}
+              onClear={() => {
+                clearFilter('category')
+              }}
+              options={filterCategory}
             />
           )}
-          {router.query.state && (
-            <FilterWords sorting={router.query.state} onClear={clearState} />
+          {query.state && (
+            <FilterWords
+              word={query.state}
+              onClear={() => {
+                clearFilter('state')
+              }}
+              options={filterState}
+            />
           )}
 
-          {/* 초기화버튼 */}
-          {(router.query.sorting ??
-            router.query.category ??
-            router.query.state) && (
+          {(query.sorting ?? query.category ?? query.state) && (
             <button className=" text-dark-brown text-sm " onClick={clearAll}>
               <span>초기화</span>
             </button>
@@ -249,18 +194,22 @@ export default function FilteringField() {
 }
 
 interface FilterWordsProps {
-  sorting: any
+  word: string | string[] | undefined
   onClear: () => void
+  options: SortOptionProps[]
 }
 
-const FilterWords: React.FC<FilterWordsProps> = ({ sorting, onClear }) => {
-  const filter = [...filterSorting, ...filterCategory, ...filterState].find(
-    (item) => item.value === sorting
-  )
-  const displayText = filter?.label ?? sorting
+// 드롭다운으로 선택된 필터링 단어들이 나열되는 컴포넌트
+const FilterWords: React.FC<FilterWordsProps> = ({
+  word,
+  onClear,
+  options,
+}) => {
+  const filter = options.find((option) => option.value === word)
+  const displayLabel = filter?.label ?? ''
   return (
     <div className="flex justify-center bg-beige text-dark-brown w-fit h-fit px-4 py-1.5 my-1 text-sm space-x-2 rounded-full">
-      <span>{displayText}</span>
+      <span>{displayLabel}</span>
       <button onClick={onClear}>
         <img
           src="/icons/deleteButton.svg"
