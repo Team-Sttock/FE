@@ -1,9 +1,9 @@
 import { Noto_Sans } from 'next/font/google'
 
+import FilteringField from '@/features/common/components/FilteringField'
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
 import Item from '@/features/products/components/Item'
-import FilteringField from '@/features/common/components/FilteringField'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
@@ -36,15 +36,15 @@ export default function Page() {
           </div>
           <hr className="relative w-full border-1 border-beige" />
         </header>
+        <div className="w-full mb-10">
+          <FilteringField />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-3 w-full max-w-4xl m-auto">
           <Item />
           <Item />
           <Item />
           <Item />
-        </div>
-        <div>
-          <FilteringField/>
         </div>
       </main>
     </>
