@@ -53,10 +53,13 @@ export default function FilteringField() {
   }
 
   const clearAll = () => {
-    setSelectedSorting('')
-    setSelectedCategory('')
-    setSelectedState('')
-    updateQueryParams({ sorting: '', category: '', state: '' })
+    const newParams = { ...router.query }
+    delete newParams.sorting
+    delete newParams.category
+    delete newParams.state
+    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
+      // console.log(err)
+    })
   }
 
   const updateQueryParams = (params: any) => {
@@ -67,18 +70,27 @@ export default function FilteringField() {
     })
   }
   const clearSorting = () => {
-    setSelectedSorting('')
-    updateQueryParams({ sorting: '' })
+    const newParams = { ...router.query }
+    delete newParams.sorting
+    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
+      // console.log(err)
+    })
   }
 
   const clearCategory = () => {
-    setSelectedCategory('')
-    updateQueryParams({ category: '' })
+    const newParams = { ...router.query }
+    delete newParams.category
+    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
+      // console.log(err)
+    })
   }
 
   const clearState = () => {
-    setSelectedState('')
-    updateQueryParams({ state: '' })
+    const newParams = { ...router.query }
+    delete newParams.state
+    router.push({ pathname: router.pathname, query: newParams }).catch(() => {
+      // console.log(err)
+    })
   }
 
   return (
