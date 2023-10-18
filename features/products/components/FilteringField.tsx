@@ -29,15 +29,14 @@ const filterState: SortOptionProps[] = [
   { id: 3, label: '소진', value: 'exhausted' },
 ]
 
-// 필터링 컴포넌트
 export default function FilteringField() {
   const router = useRouter()
-  const { query } = router
+  const { sorting, category, state } = router.query
 
   const selectedFilters = [
-    { type: 'sorting', value: query.sorting },
-    { type: 'category', value: query.category },
-    { type: 'state', value: query.state },
+    { type: 'sorting', value: sorting },
+    { type: 'category', value: category },
+    { type: 'state', value: state },
   ].filter((filter) => filter.value)
 
   const handleSortingSelect = (value: string) => {
@@ -53,13 +52,13 @@ export default function FilteringField() {
   }
 
   const updateQueryParams = (params: any) => {
-    const newParams = { ...query, ...params }
+    const newParams = { ...router.query, ...params }
     void router.push({ pathname: router.pathname, query: newParams })
   }
 
   const clearFilter = (filterType: string) => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { [filterType]: _, ...rest } = query
+    const { [filterType]: _, ...rest } = router.query
     void router.push({ pathname: router.pathname, query: rest })
   }
 
@@ -75,7 +74,7 @@ export default function FilteringField() {
           <Dropdown
             items={filterSorting}
             onSelect={handleSortingSelect}
-            selectedValue={query.sorting}
+            selectedValue={sorting}
             title="정렬"
             filterType="sorting"
           />
@@ -84,7 +83,7 @@ export default function FilteringField() {
           <Dropdown
             items={filterCategory}
             onSelect={handleCategorySelect}
-            selectedValue={query.category}
+            selectedValue={category}
             title="카테고리"
             filterType="category"
           />
@@ -93,7 +92,7 @@ export default function FilteringField() {
           <Dropdown
             items={filterState}
             onSelect={handleStateSelect}
-            selectedValue={query.state}
+            selectedValue={state}
             title="상태"
             filterType="state"
           />
@@ -117,7 +116,7 @@ export default function FilteringField() {
               }
             />
           ))}
-          {(query.sorting ?? query.category ?? query.state) && (
+          {(sorting ?? category ?? state) && (
             <button className=" text-dark-brown text-sm " onClick={clearAll}>
               <span>초기화</span>
             </button>
