@@ -1,12 +1,10 @@
-import { Menu, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
-import React, { Fragment } from 'react'
+import React from 'react'
 
-interface SortOptionProps {
-  id: number
-  label: string
-  value: string
-}
+import {
+  Dropdown,
+  type SortOptionProps,
+} from '../../common/components/Dropdown'
 
 const filterSorting: SortOptionProps[] = [
   { id: 1, label: '최신순', value: 'recent' },
@@ -30,73 +28,6 @@ const filterState: SortOptionProps[] = [
   { id: 2, label: '사용중지', value: 'stop' },
   { id: 3, label: '소진', value: 'exhausted' },
 ]
-
-// 드롭다운 메뉴 컴포넌트
-interface DropdownProps {
-  items: SortOptionProps[]
-  onSelect: (value: string) => void
-  filterTitle: string
-  selectedValue: string | string[] | undefined
-  filterType: string
-}
-
-const Dropdown: React.FC<DropdownProps> = ({
-  items,
-  onSelect,
-  filterTitle,
-  selectedValue,
-}) => {
-  return (
-    <>
-      <Menu as="div" className="relative">
-        <Menu.Button
-          className={`flex items-center justify-center w-fit h-fit px-4 py-1.5 text-sm rounded-md hover:bg-beige ${
-            selectedValue
-              ? 'bg-light-brown text-ivory'
-              : 'bg-ivory text-light-brown'
-          }`}
-        >
-          <img
-            src={`/icons/down-arrow${selectedValue ? '-selected' : ''}.svg`}
-            alt="down-arrow"
-            className="w-3 h-3 mr-2"
-          />
-          <span>{filterTitle}</span>
-        </Menu.Button>
-
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="flex flex-col border-2 space-y-2 w-32 p-4 mt-2 bg-white border-ivory rounded-lg text-dark-brown shadow-md absolute">
-            {items.map((item) => (
-              <Menu.Item key={item.id}>
-                {() => (
-                  <button
-                    className={`${
-                      selectedValue === item.value ? 'text-light-brown ' : ''
-                    } 
-                    w-full hover:text-light-brown `}
-                    onClick={() => {
-                      onSelect(item.value)
-                    }}
-                  >
-                    {item.label}
-                  </button>
-                )}
-              </Menu.Item>
-            ))}
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </>
-  )
-}
 
 // 필터링 컴포넌트
 export default function FilteringField() {
@@ -127,7 +58,8 @@ export default function FilteringField() {
   }
 
   const clearFilter = (filterType: string) => {
-    const { [filterType]: removedFilter, ...rest } = query
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { [filterType]: _, ...rest } = query
     void router.push({ pathname: router.pathname, query: rest })
   }
 
@@ -144,7 +76,7 @@ export default function FilteringField() {
             items={filterSorting}
             onSelect={handleSortingSelect}
             selectedValue={query.sorting}
-            filterTitle="정렬"
+            title="정렬"
             filterType="sorting"
           />
 
@@ -153,7 +85,7 @@ export default function FilteringField() {
             items={filterCategory}
             onSelect={handleCategorySelect}
             selectedValue={query.category}
-            filterTitle="카테고리"
+            title="카테고리"
             filterType="category"
           />
 
@@ -162,7 +94,7 @@ export default function FilteringField() {
             items={filterState}
             onSelect={handleStateSelect}
             selectedValue={query.state}
-            filterTitle="상태"
+            title="상태"
             filterType="state"
           />
         </div>
