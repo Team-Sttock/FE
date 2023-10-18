@@ -2,6 +2,7 @@ import { Noto_Sans } from 'next/font/google'
 
 import Navbar from '@/features/common/components/Navbar'
 import { classNames } from '@/features/common/utils/classNames'
+import FilteringField from '@/features/products/components/FilteringField'
 import Item from '@/features/products/components/Item'
 
 const NotoSans = Noto_Sans({
@@ -14,7 +15,7 @@ export default function Page() {
     <>
       <Navbar />
       <main className="m-auto max-w-5xl w-full px-4 mb-10">
-        <header className="mt-10 mb-6 w-full py-2">
+        <header className="mt-10 mb-4 w-full py-2">
           <div
             className={classNames(
               'space-y-2 w-full mb-2',
@@ -35,6 +36,11 @@ export default function Page() {
           </div>
           <hr className="relative w-full border-1 border-beige" />
         </header>
+        <div className="flex w-full mb-6">
+          <div className="flex space-x-2 ">
+            <FilteringField />
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center gap-3 w-full max-w-4xl m-auto">
           <Item />

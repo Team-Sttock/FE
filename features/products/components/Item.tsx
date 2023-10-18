@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Line } from 'rc-progress'
+
+import { State, StateLabel } from '@/features/common/components/StateLabel'
 export default function Item() {
   const product = {
     id: 1,
@@ -20,17 +22,18 @@ export default function Item() {
         </h3>
         <GoToDetailButton />
       </div>
-      <div className="flex flex-row items-center justify-between  w-full">
+      <div className="flex flex-row items-center justify-between w-full gap-3">
         <Line
           percent={20}
           strokeColor="#9f8772"
           trailColor="#f5f0eb"
           strokeLinecap="butt"
-          className="w-full h-4 rounded-full mr-4"
+          className="w-full h-4 rounded-full mr-2"
         ></Line>
-        <h3 className="text-dark-brown text-sm w-20 text-right">
+        <span className="text-dark-brown text-sm w-28 text-right">
           {product.remainDays}일 남음
-        </h3>
+        </span>
+        <StateLabel state={State.STOP} />
       </div>
     </div>
   )

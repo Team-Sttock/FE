@@ -4,6 +4,7 @@ import { Line } from 'rc-progress'
 
 import Button from '@/features/common/components/Button'
 import Navbar from '@/features/common/components/Navbar'
+import { State, StateLabel } from '@/features/common/components/StateLabel'
 import { classNames } from '@/features/common/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -46,7 +47,7 @@ export default function Page() {
     <>
       <Navbar />
 
-      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-4  mb-10">
+      <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-4 mb-10">
         <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full py-2">
           <h1
             className={classNames(
@@ -61,40 +62,42 @@ export default function Page() {
 
         <div
           className={classNames(
-            'flex flex-col items-center justify-around w-full max-w-3xl min-w-fit-content border border-beige m-auto px-4 py-4 ',
-            'sm:flex-row sm:py-6 sm:px-0'
+            'w-full max-w-3xl border border-beige space-y-4  px-4 py-4 m-auto',
+            'sm:flex sm:flex-row sm:items-center sm:py-6 sm:space-y-0'
           )}
         >
           <div
             className={classNames(
-              'relative flex flex-row justify-center items-center m-auto mb-4',
-              'sm:mb-0'
+              'flex flex-row items-center w-full max-w-md m-auto'
             )}
           >
             <img
               src="/icons/kitchen-icon.svg"
               alt="icon"
-              className={classNames('w-14 h-14  mr-3', 'lg:mr-8')}
+              className={classNames('w-14 h-14 mr-4', 'lg:mr-8')}
             />
-            <p className="text-dark-brown text-lg font-bold whitespace-nowrap mr-2">
+            <p className="text-dark-brown text-xl font-bold whitespace-nowrap  ">
               {data.name}
             </p>
-            <span className="text-dark-brown text-base overflow-hidden overflow-ellipsis mx-2">
+            <span className="text-dark-brown text-base overflow-hidden whitespace-nowrap overflow-ellipsis mx-2 flex-1">
               {data.nickname}
             </span>
           </div>
 
-          <div className="relative flex flex-wrap items-center m-auto sm:space-x-2">
+          <div className="relative flex items-center w-full max-w-md m-auto sm:max-w-none sm:min-w-[330px]">
             <Line
               percent={20}
               strokeColor="#9f8772"
               trailColor="#F6F4EF"
               strokeLinecap="butt"
-              className="w-52  h-3 rounded-full mr-2"
+              className="h-3 rounded-full mr-4 w-full "
             ></Line>
 
-            <span className="text-light-brown mr-2">{data.remain}</span>
-            <p className="text-dark-brown">남음</p>
+            <span className="text-dark-brown text-base w-12 text-center">
+              {data.remain}
+            </span>
+            <p className="text-dark-brown text-base w-14 text-center">남음</p>
+            <StateLabel state={State.INUSE} />
           </div>
         </div>
 
