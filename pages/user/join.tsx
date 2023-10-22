@@ -2,31 +2,26 @@ import { Noto_Sans } from 'next/font/google'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useCheckLoginId } from '@/features/auth/mutations/useCheckLoginId'
-import { useEmailCode } from '@/features/auth/mutations/useEmailCode'
-import { useSignUp } from '@/features/auth/mutations/useSignUp'
-import { useVerifyEmail } from '@/features/auth/mutations/useVerifyEmail'
-import Button from '@/features/common/components/Button'
-import DatePickerField from '@/features/common/components/DatepickerField'
-import Input from '@/features/common/components/Input'
-import InputLabel from '@/features/common/components/InputLabel'
-import Navbar from '@/features/common/components/Navbar'
-import { classNames } from '@/features/common/utils/classNames'
+import { type PostSignupProps } from '@/apis/user'
+import Button from '@/components/Button'
+import DatePickerField from '@/components/DatepickerField'
+import Input from '@/components/Input'
+import InputLabel from '@/components/InputLabel'
+import Navbar from '@/components/Navbar'
+import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
+import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
+import { useSignUp } from '@/hooks/auth/mutations/useSignUp'
+import { useVerifyEmail } from '@/hooks/auth/mutations/useVerifyEmail'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
   subsets: ['latin'],
 })
 
-interface RegisterForm {
-  login_id: string
-  email: string
+interface RegisterForm extends Omit<PostSignupProps, 'birthday'> {
   auth_number: string
-  password: string
   password_check: string
-  name: string
-  gender_cd: '1' | '2'
-  family_num: number
   birthday: Date
 }
 

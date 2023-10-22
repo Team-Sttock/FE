@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import { type PostLoginProps } from '@/apis/auth/postLogin'
-import { type ServerErrorRes } from '@/apis/client'
-import { useLogin } from '@/features/auth/mutations/useLogin'
-import Button from '@/features/common/components/Button'
-import Input from '@/features/common/components/Input'
-import { classNames } from '@/features/common/utils/classNames'
+import { type ServerErrorRes } from '@/apis'
+import { type PostLoginProps } from '@/apis/auth'
+import Button from '@/components/Button'
+import Input from '@/components/Input'
+import { useLogin } from '@/hooks/auth/mutations/useLogin'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],

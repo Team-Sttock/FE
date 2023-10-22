@@ -1,10 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import {
-  Dropdown,
-  type SortOptionProps,
-} from '../../common/components/Dropdown'
+import { Dropdown, type SortOptionProps } from '../Dropdown'
 
 const filterSorting: SortOptionProps[] = [
   { id: 1, label: '최신순', value: 'recent' },

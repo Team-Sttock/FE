@@ -2,10 +2,10 @@ import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 import { Line } from 'rc-progress'
 
-import Button from '@/features/common/components/Button'
-import Navbar from '@/features/common/components/Navbar'
-import { State, StateLabel } from '@/features/common/components/StateLabel'
-import { classNames } from '@/features/common/utils/classNames'
+import Button from '@/components/Button'
+import Navbar from '@/components/Navbar'
+import { State, StateLabel } from '@/components/StateLabel'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],

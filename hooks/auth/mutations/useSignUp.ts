@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { postSignup, type PostSignupProps } from '@/apis/user/postSignup'
+import { postSignup, type PostSignupProps } from '@/apis/user'
 
 export const useSignUp = () =>
   useMutation({

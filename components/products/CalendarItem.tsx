@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { State, StateLabel } from '@/features/common/components/StateLabel'
+import { State, StateLabel } from '@/components/StateLabel'
 export default function CalendarItem() {
   const product = {
     id: 1,

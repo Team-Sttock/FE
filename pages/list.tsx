@@ -1,9 +1,9 @@
 import { Noto_Sans } from 'next/font/google'
 
-import Navbar from '@/features/common/components/Navbar'
-import { classNames } from '@/features/common/utils/classNames'
-import FilteringField from '@/features/products/components/FilteringField'
-import Item from '@/features/products/components/Item'
+import Navbar from '@/components/Navbar'
+import FilteringField from '@/components/products/FilteringField'
+import Item from '@/components/products/Item'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
