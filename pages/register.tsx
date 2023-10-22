@@ -1,7 +1,11 @@
 import { Noto_Sans } from 'next/font/google'
-import { forwardRef, type InputHTMLAttributes } from 'react'
+import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { useCheckLoginId } from '@/features/auth/mutations/useCheckLoginId'
+import { useEmailCode } from '@/features/auth/mutations/useEmailCode'
+import { useSignUp } from '@/features/auth/mutations/useSignUp'
+import { useVerifyEmail } from '@/features/auth/mutations/useVerifyEmail'
 import Button from '@/features/common/components/Button'
 import DatePickerField from '@/features/common/components/DatepickerField'
 import Input from '@/features/common/components/Input'
@@ -14,32 +18,88 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
+interface RegisterForm {
+  login_id: string
+  email: string
+  auth_number: string
+  password: string
+  password_check: string
+  name: string
+  gender_cd: '1' | '2'
+  family_num: number
+  birthday: Date
+}
+
 export default function Page() {
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
     control,
     watch,
-  } = useForm<{
-    login_id: string
-    email: string
-    password: string
-    password_check: string
-    name: string
-    gender_cd: '1' | '2'
-    family_num: number
-    birthday: Date
-  }>({
+  } = useForm<RegisterForm>({
     mode: 'onChange',
     defaultValues: {
       gender_cd: '1',
     },
   })
 
-  const isMan = watch().gender_cd === '1'
+  const { login_id, email, gender_cd, auth_number, password } = watch()
 
-  const onSubmit = () => {}
+  const isMan = gender_cd === '1'
+
+  const [isSendEmail, setIsSendEmail] = useState(false)
+  const [isValidEmail, setIsValidEmail] = useState(false)
+  const [isValidLoginId, setIsValidLoginId] = useState(false)
+
+  const { mutateAsync: checkLoginId } = useCheckLoginId()
+  const onCheckLoginId = async () => {
+    try {
+      await checkLoginId({ login_id })
+      setIsValidLoginId(true)
+    } catch (err) {
+      setError('login_id', { message: '중복된 로그인 아이디입니다.' })
+    }
+  }
+
+  const { mutateAsync: sendEmailCode } = useEmailCode()
+  const onSendCode = async () => {
+    try {
+      await sendEmailCode({ email })
+      setIsSendEmail(true)
+    } catch (err) {
+      setError('email', { message: '중복된 이메일 입니다.' })
+    }
+  }
+
+  const { mutateAsync: verifyEmail } = useVerifyEmail()
+  const onCheckEmail = async () => {
+    try {
+      await verifyEmail({ email, auth_number })
+      setIsValidEmail(true)
+    } catch (err) {
+      setError('auth_number', { message: '유효하지 않은 인증번호입니다.' })
+    }
+  }
+
+  const { mutateAsync: signUp } = useSignUp()
+  const onSubmit = async (data: RegisterForm) => {
+    if (!isValidEmail) {
+      setError('email', { message: '이메일 인증이 완료되지 않았습니다.' })
+    }
+    if (!isValidLoginId) {
+      setError('login_id', {
+        message: '로그인 아이디 중복 검사를 완료하지 않았습니다.',
+      })
+    }
+
+    try {
+      await signUp({ ...data, birthday: data.birthday.toISOString() })
+    } catch (err) {
+      // 추후 정의
+    }
+  }
 
   const onError = () => {}
 
@@ -75,7 +135,13 @@ export default function Page() {
                     })}
                     placeholder="testId"
                   ></Input>
-                  <Button className="w-28">중복확인</Button>
+                  <Button
+                    className="w-28"
+                    onClick={onCheckLoginId}
+                    type="button"
+                  >
+                    중복확인
+                  </Button>
                 </div>
               </InputLabel>
               <InputLabel
@@ -94,10 +160,27 @@ export default function Page() {
                     })}
                     placeholder="test@example.com"
                   ></Input>
-                  <Button className="w-28">인증하기</Button>
+                  <Button className="w-28" onClick={onSendCode} type="button">
+                    인증하기
+                  </Button>
                 </div>
               </InputLabel>
-              <InputLabel label="비밀번호" required>
+              {isSendEmail && (
+                <div className="flex items-stretch space-x-1">
+                  <Input
+                    {...register('auth_number')}
+                    placeholder="********"
+                  ></Input>
+                  <Button className="w-28" onClick={onCheckEmail} type="button">
+                    확인
+                  </Button>
+                </div>
+              )}
+              <InputLabel
+                label="비밀번호"
+                errorMessage={errors.password?.message}
+                required
+              >
                 <Input
                   {...register('password', {
                     pattern: {
@@ -107,32 +190,37 @@ export default function Page() {
                     },
                     required: '비밀번호는 필수 입력입니다.',
                   })}
-                  errorMessage={errors.password?.message}
                   type="password"
                   placeholder="***********"
                 ></Input>
               </InputLabel>
-              <InputLabel label="비밀번호 확인" required>
+              <InputLabel
+                label="비밀번호 확인"
+                errorMessage={errors.password_check?.message}
+                required
+              >
                 <Input
                   {...register('password_check', {
                     required: '비밀번호 확인은 필수 입력입니다.',
                     validate: {
                       value: (passwordCheck) =>
-                        passwordCheck === watch().password ||
+                        passwordCheck === password ||
                         '비밀번호와 일치하지 않습니다.',
                     },
                   })}
-                  errorMessage={errors.password_check?.message}
                   type="password"
                   placeholder="***********"
                 ></Input>
               </InputLabel>
-              <InputLabel label="이름" required>
+              <InputLabel
+                label="이름"
+                errorMessage={errors.name?.message}
+                required
+              >
                 <Input
                   {...register('name', {
                     required: '이름은 필수 입력입니다.',
                   })}
-                  errorMessage={errors.name?.message}
                   placeholder="홍길동"
                 ></Input>
               </InputLabel>
@@ -159,7 +247,6 @@ export default function Page() {
                 <Input
                   {...register('family_num', {})}
                   type="number"
-                  errorMessage={errors.family_num?.message}
                   placeholder="4"
                 ></Input>
               </InputLabel>

@@ -4,9 +4,9 @@ export interface PostSignupProps {
   login_id: string
   password: string
   name: string
-  gender_cd: number
+  gender_cd: '1' | '2'
   email: string
-  family_num: string
+  family_num: number
   birthday: string
 }
 
