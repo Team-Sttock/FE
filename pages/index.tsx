@@ -1,6 +1,6 @@
 import { Line } from 'rc-progress'
 
-import Navbar from '@/features/common/components/Navbar'
+import Navbar from '@/components/Navbar'
 
 export default function Home() {
   return (

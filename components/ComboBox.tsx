@@ -3,7 +3,7 @@ import React, { useId } from 'react'
 import { type Control, Controller } from 'react-hook-form'
 import Select from 'react-select'
 
-import { classNames } from '../../../utils/classNames'
+import { classNames } from '../utils/classNames'
 
 interface Option {
   value: string

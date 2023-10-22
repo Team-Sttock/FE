@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes } from 'react'
 
-import { classNames } from '../../../utils/classNames'
+import { classNames } from '../utils/classNames'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isSelected?: boolean

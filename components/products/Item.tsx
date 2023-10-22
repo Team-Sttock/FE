@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Line } from 'rc-progress'
 
-import { State, StateLabel } from '@/features/common/components/StateLabel'
+import { State, StateLabel } from '@/components/StateLabel'
 export default function Item() {
   const product = {
     id: 1,
