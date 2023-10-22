@@ -2,7 +2,7 @@ import { Noto_Sans } from 'next/font/google'
 import { useState } from 'react'
 
 import Navbar from '@/features/common/components/Navbar'
-import { classNames } from '@/features/common/utils/classNames'
+import { classNames } from '@/utils/classNames'
 import Calendar from '@/features/products/components/Calendar'
 import CalendarItem from '@/features/products/components/CalendarItem'
 

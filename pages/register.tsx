@@ -11,7 +11,7 @@ import DatePickerField from '@/features/common/components/DatepickerField'
 import Input from '@/features/common/components/Input'
 import InputLabel from '@/features/common/components/InputLabel'
 import Navbar from '@/features/common/components/Navbar'
-import { classNames } from '@/features/common/utils/classNames'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],

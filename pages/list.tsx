@@ -1,7 +1,7 @@
 import { Noto_Sans } from 'next/font/google'
 
 import Navbar from '@/features/common/components/Navbar'
-import { classNames } from '@/features/common/utils/classNames'
+import { classNames } from '@/utils/classNames'
 import FilteringField from '@/features/products/components/FilteringField'
 import Item from '@/features/products/components/Item'
 

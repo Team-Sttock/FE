@@ -5,7 +5,7 @@ import { Line } from 'rc-progress'
 import Button from '@/features/common/components/Button'
 import Navbar from '@/features/common/components/Navbar'
 import { State, StateLabel } from '@/features/common/components/StateLabel'
-import { classNames } from '@/features/common/utils/classNames'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],

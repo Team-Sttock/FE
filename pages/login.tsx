@@ -9,7 +9,7 @@ import { type ServerErrorRes } from '@/apis/client'
 import { useLogin } from '@/features/auth/mutations/useLogin'
 import Button from '@/features/common/components/Button'
 import Input from '@/features/common/components/Input'
-import { classNames } from '@/features/common/utils/classNames'
+import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
   weight: ['500', '400'],
