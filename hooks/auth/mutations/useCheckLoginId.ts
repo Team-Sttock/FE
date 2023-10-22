@@ -1,9 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-import {
-  getCheckLoginId,
-  type GetCheckLoginIdProps,
-} from '@/apis/user/getCheckEmail'
+import { getCheckLoginId, type GetCheckLoginIdProps } from '@/apis/user'
 
 export const useCheckLoginId = () =>
   useMutation({

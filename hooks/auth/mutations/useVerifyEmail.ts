@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { postEmail, type PostEmailProps } from '@/apis/user/postEmail'
+import { postEmail, type PostEmailProps } from '@/apis/user'
 
 export const useVerifyEmail = () =>
   useMutation({

@@ -2,6 +2,7 @@ import { Noto_Sans } from 'next/font/google'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { type PostSignupProps } from '@/apis/user'
 import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
@@ -18,15 +19,9 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-interface RegisterForm {
-  login_id: string
-  email: string
+interface RegisterForm extends Omit<PostSignupProps, 'birthday'> {
   auth_number: string
-  password: string
   password_check: string
-  name: string
-  gender_cd: '1' | '2'
-  family_num: number
   birthday: Date
 }
 

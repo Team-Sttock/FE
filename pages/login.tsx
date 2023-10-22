@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { type PostLoginProps } from '@/apis/auth/postLogin'
-import { type ServerErrorRes } from '@/apis/client'
+import { type ServerErrorRes } from '@/apis'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import { useLogin } from '@/hooks/auth/mutations/useLogin'
