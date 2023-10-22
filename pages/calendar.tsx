@@ -31,11 +31,9 @@ export default function Page() {
                 NotoSans.className
               )}
             >
-              항목별 보기
+              스똑 캘린더
             </h1>
-            <p className="text-dark-brown">
-              우리집 생활용품의 소진량을 한눈에 확인하세요!
-            </p>
+            <p className="text-dark-brown">우리집 생활용품 캘린더</p>
           </div>
           <hr className="relative w-full border-1 border-beige" />
         </header>

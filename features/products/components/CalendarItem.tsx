@@ -17,7 +17,7 @@ export default function CalendarItem() {
           className="w-14 h-14 mr-6"
         />
       </div>
-      <div className="flex-1 min-w-[140px] flex flex-col justify-between items-start gap-4">
+      <div className="flex-1 min-w-[140px] flex flex-col justify-between items-start gap-3">
         <h3 className="mr-3 flex-1 text-dark-brown font-bold">
           {product.name}
         </h3>
