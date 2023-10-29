@@ -44,9 +44,11 @@ export default function Page() {
 
   const isMan = gender_cd === '1'
 
-  const [isSendEmail, setIsSendEmail] = useState(false)
-  const [isValidEmail, setIsValidEmail] = useState(false)
   const [isValidLoginId, setIsValidLoginId] = useState(false)
+  const [isSendEmail, setIsSendEmail] = useState(false)
+  const [isValidEmail, setIsValidEmail] = useState<
+    'sended' | 'error' | 'success'
+  >('sended')
 
   const { mutateAsync: checkLoginId } = useCheckLoginId()
   const onCheckLoginId = async () => {
@@ -62,9 +64,11 @@ export default function Page() {
   const onSendCode = async () => {
     try {
       await sendEmailCode({ email })
+      setIsValidEmail('sended')
       setIsSendEmail(true)
     } catch (err) {
-      setError('email', { message: '중복된 이메일 입니다.' })
+      setError('email', { message: '이미 존재하는 이메일 입니다.' })
+      setIsSendEmail(false)
     }
   }
 
@@ -72,9 +76,9 @@ export default function Page() {
   const onCheckEmail = async () => {
     try {
       await verifyEmail({ email, auth_number })
-      setIsValidEmail(true)
+      setIsValidEmail('success')
     } catch (err) {
-      setError('auth_number', { message: '유효하지 않은 인증번호입니다.' })
+      setIsValidEmail('error')
     }
   }
 
@@ -127,6 +131,9 @@ export default function Page() {
                   <Input
                     {...register('login_id', {
                       required: '아이디는 필수 입력입니다.',
+                      onChange: () => {
+                        setIsValidLoginId(false)
+                      },
                     })}
                     placeholder="testId"
                   ></Input>
@@ -138,6 +145,11 @@ export default function Page() {
                     중복확인
                   </Button>
                 </div>
+                {isValidLoginId && (
+                  <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                    사용 가능한 아이디 입니다.
+                  </p>
+                )}
               </InputLabel>
               <InputLabel
                 label="이메일"
@@ -161,14 +173,41 @@ export default function Page() {
                 </div>
               </InputLabel>
               {isSendEmail && (
-                <div className="flex items-stretch space-x-1">
-                  <Input
-                    {...register('auth_number')}
-                    placeholder="********"
-                  ></Input>
-                  <Button className="w-28" onClick={onCheckEmail} type="button">
-                    확인
-                  </Button>
+                <div>
+                  <div className="flex items-stretch space-x-1">
+                    <Input
+                      {...register('auth_number')}
+                      placeholder="********"
+                    ></Input>
+                    <Button
+                      className="w-28"
+                      onClick={onCheckEmail}
+                      type="button"
+                    >
+                      확인
+                    </Button>
+                  </div>
+                  {(() => {
+                    if (isValidEmail === 'sended') {
+                      return (
+                        <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                          이메일 확인 후 인증 번호를 입력해주세요.{' '}
+                        </p>
+                      )
+                    }
+                    if (isValidEmail === 'error') {
+                      return (
+                        <p className="text-red-500 text-sm font-sans pt-0.5">
+                          잘못된 인증 번호 입니다.
+                        </p>
+                      )
+                    }
+                    return (
+                      <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                        인증에 성공하셨습니다.
+                      </p>
+                    )
+                  })()}
                 </div>
               )}
               <InputLabel

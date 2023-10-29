@@ -25,15 +25,15 @@ export interface PostCodeProps {
 }
 
 export const postCode = async (props: PostCodeProps) =>
-  await userClient.post('/verification-code', props)
+  await userClient.post('/email/verification-code', props)
 
-export interface PostEmailProps {
+export interface PostCheckCodeProps {
   email: string
   auth_number: string
 }
 
-export const postEmail = async (props: PostEmailProps) =>
-  await userClient.post('/email', props)
+export const postCheckCode = async (props: PostCheckCodeProps) =>
+  await userClient.post('/email/check-verification-code', props)
 
 export interface PostFindLoginIdProps {
   email: string
