@@ -7,7 +7,6 @@ import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
-import Navbar from '@/components/Navbar'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
 import { useSignUp } from '@/hooks/auth/mutations/useSignUp'
@@ -104,7 +103,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar></Navbar>
       <div className="w-full max-w-md m-auto px-4">
         <header className="pt-20 pb-6">
           <h1

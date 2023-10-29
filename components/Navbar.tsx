@@ -2,12 +2,11 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-interface MenuProps {
-  isMenuOpen: boolean
-  toggleMenu: () => void
+interface NavbarProps {
+  isAuth?: boolean
 }
 
-export default function Navbar() {
+export default function Navbar({ isAuth = true }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => {
@@ -90,13 +89,18 @@ const Buttons = () => {
   return (
     <div className="flex gap-6 md:mr-10 mx-4 ">
       <button>
-        <img src="main/add_Item_icon.svg" alt="추가버튼" />
+        <img src="/main/add_Item_icon.svg" alt="추가버튼" />
       </button>
       <Link href="/mypage">
-        <img src="main/my_page_icon.svg" alt="마이페이지버튼" />
+        <img src="/main/my_page_icon.svg" alt="마이페이지버튼" />
       </Link>
     </div>
   )
+}
+
+interface MenuProps {
+  isMenuOpen: boolean
+  toggleMenu: () => void
 }
 
 const SideIcon = ({ isMenuOpen, toggleMenu }: MenuProps) => {

@@ -6,7 +6,6 @@ import Button from '@/components/Button'
 import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
-import Navbar from '@/components/Navbar'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -75,180 +74,174 @@ export default function Page() {
   }
 
   return (
-    <>
-      <Navbar />
-      <main className="m-auto max-w-3xl w-full px-3 mb-10">
-        <header className="mt-10 mb-6 w-full py-2">
-          <div
+    <main className="m-auto max-w-3xl w-full px-3 mb-10">
+      <header className="mt-10 mb-6 w-full py-2">
+        <div
+          className={classNames(
+            'space-y-2 w-full mb-2',
+            'sm:space-x-4 sm:space-y-0 sm:flex sm:justify-start sm:items-center'
+          )}
+        >
+          <h1
             className={classNames(
-              'space-y-2 w-full mb-2',
-              'sm:space-x-4 sm:space-y-0 sm:flex sm:justify-start sm:items-center'
+              'md:text-2xl text-xl font-bold text-dark-brown',
+              NotoSans.className
             )}
           >
-            <h1
-              className={classNames(
-                'md:text-2xl text-xl font-bold text-dark-brown',
-                NotoSans.className
-              )}
-            >
-              상품 추가
-            </h1>
-            <p className="text-dark-brown">
-              관리하고 싶은 생활용품을 추가해보세요!
-            </p>
-          </div>
-          <hr className="relative w-full border-1 border-beige" />
-        </header>
-
-        <div className="w-full mb-4 max-w-lg m-auto">
-          <p className="text-right text-sm text-dark-brown mb-5">
-            * 는 필수 입력입니다.
+            상품 추가
+          </h1>
+          <p className="text-dark-brown">
+            관리하고 싶은 생활용품을 추가해보세요!
           </p>
-          <form
-            onSubmit={handleSubmit(onSubmit, onError)}
-            className="space-y-4"
+        </div>
+        <hr className="relative w-full border-1 border-beige" />
+      </header>
+
+      <div className="w-full mb-4 max-w-lg m-auto">
+        <p className="text-right text-sm text-dark-brown mb-5">
+          * 는 필수 입력입니다.
+        </p>
+        <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-4">
+          <LabelWrapper
+            label="상품명"
+            required
+            errorMessage={errors.product?.message}
           >
-            <LabelWrapper
+            <ComboBox
               label="상품명"
-              required
-              errorMessage={errors.product?.message}
-            >
-              <ComboBox
-                label="상품명"
-                name="product"
-                control={control}
-                options={productsOptions}
-                placeholder="상품명을 입력하세요."
-              />
-            </LabelWrapper>
+              name="product"
+              control={control}
+              options={productsOptions}
+              placeholder="상품명을 입력하세요."
+            />
+          </LabelWrapper>
 
-            <LabelWrapper label="카테고리">
-              <InputReadOnly
-                className=""
-                value={watchProduct ? watchProduct.category : ''}
-                message="상품명을 입력하면 자동으로 결정됩니다."
-              />
-            </LabelWrapper>
+          <LabelWrapper label="카테고리">
+            <InputReadOnly
+              className=""
+              value={watchProduct ? watchProduct.category : ''}
+              message="상품명을 입력하면 자동으로 결정됩니다."
+            />
+          </LabelWrapper>
 
-            <LabelWrapper
-              label="상품별칭"
-              errorMessage={errors.productNickname?.message}
-            >
+          <LabelWrapper
+            label="상품별칭"
+            errorMessage={errors.productNickname?.message}
+          >
+            <Input
+              {...register('productNickname', {})}
+              placeholder="상품 별칭을 입력해주세요."
+            />
+          </LabelWrapper>
+
+          <LabelWrapper
+            label="구매일자"
+            required
+            errorMessage={errors.purchaseDate?.message}
+          >
+            <DatePickerField
+              {...register('purchaseDate', {
+                required: '구매일자는 필수 입력입니다',
+              })}
+              name="purchaseDate"
+              placeholder="구매일자를 선택해주세요."
+              control={control}
+            />
+          </LabelWrapper>
+
+          <LabelWrapper
+            label="구매용량"
+            required
+            errorMessage={errors.purchaseCapacity?.message}
+          >
+            <div className="flex items-center justify-center space-x-2">
               <Input
-                {...register('productNickname', {})}
-                placeholder="상품 별칭을 입력해주세요."
-              />
-            </LabelWrapper>
-
-            <LabelWrapper
-              label="구매일자"
-              required
-              errorMessage={errors.purchaseDate?.message}
-            >
-              <DatePickerField
-                {...register('purchaseDate', {
-                  required: '구매일자는 필수 입력입니다',
+                {...register('purchaseCapacity', {
+                  required: '구매용량은 필수 입력입니다',
                 })}
-                name="purchaseDate"
-                placeholder="구매일자를 선택해주세요."
-                control={control}
-              />
-            </LabelWrapper>
-
-            <LabelWrapper
-              label="구매용량"
-              required
-              errorMessage={errors.purchaseCapacity?.message}
-            >
-              <div className="flex items-center justify-center space-x-2">
-                <Input
-                  {...register('purchaseCapacity', {
-                    required: '구매용량은 필수 입력입니다',
-                  })}
-                  placeholder="숫자만 입력"
-                />
-                <ComboBox
-                  label="구매단위"
-                  name="capacityUnit"
-                  placeholder="용량"
-                  control={control}
-                  options={capacityOptions}
-                  className="w-24 text-sm "
-                />
-              </div>
-            </LabelWrapper>
-
-            <LabelWrapper
-              label="구매개수"
-              required
-              errorMessage={errors.purchaseNumber?.message}
-            >
-              <Input
                 placeholder="숫자만 입력"
-                {...register('purchaseNumber', {
-                  required: '구매개수는 필수 입력입니다',
-                })}
               />
-            </LabelWrapper>
+              <ComboBox
+                label="구매단위"
+                name="capacityUnit"
+                placeholder="용량"
+                control={control}
+                options={capacityOptions}
+                className="w-24 text-sm "
+              />
+            </div>
+          </LabelWrapper>
 
-            <LabelWrapper
-              label="사용인원"
-              required
-              errorMessage={errors.numberOfUser?.message}
-            >
+          <LabelWrapper
+            label="구매개수"
+            required
+            errorMessage={errors.purchaseNumber?.message}
+          >
+            <Input
+              placeholder="숫자만 입력"
+              {...register('purchaseNumber', {
+                required: '구매개수는 필수 입력입니다',
+              })}
+            />
+          </LabelWrapper>
+
+          <LabelWrapper
+            label="사용인원"
+            required
+            errorMessage={errors.numberOfUser?.message}
+          >
+            <Input
+              type="number"
+              placeholder="숫자만 입력"
+              {...register('numberOfUser', {
+                required: '사용인원은 필수 입력입니다',
+              })}
+            />
+          </LabelWrapper>
+
+          <LabelWrapper label="사용예상일수" required>
+            <div className="flex space-x-1 w-full items-stretch">
               <Input
                 type="number"
                 placeholder="숫자만 입력"
-                {...register('numberOfUser', {
-                  required: '사용인원은 필수 입력입니다',
+                {...register('expectedDays', {
+                  required: '사용예상일수는 필수 입력입니다',
                 })}
               />
-            </LabelWrapper>
+              <Button className="inline-block w-24 text-sm">직접 입력</Button>
+            </div>
+          </LabelWrapper>
+          <LabelWrapper
+            label="예상소진일"
+            errorMessage={errors.expectationDate?.message}
+          >
+            <DatePickerField
+              {...register('expectationDate', {})}
+              name="expectationDate"
+              control={control}
+              placeholder="예상소진일을 선택해주세요."
+            />
+          </LabelWrapper>
 
-            <LabelWrapper label="사용예상일수" required>
-              <div className="flex space-x-1 w-full items-stretch">
-                <Input
-                  type="number"
-                  placeholder="숫자만 입력"
-                  {...register('expectedDays', {
-                    required: '사용예상일수는 필수 입력입니다',
-                  })}
-                />
-                <Button className="inline-block w-24 text-sm">직접 입력</Button>
-              </div>
-            </LabelWrapper>
-            <LabelWrapper
-              label="예상소진일"
-              errorMessage={errors.expectationDate?.message}
-            >
-              <DatePickerField
-                {...register('expectationDate', {})}
-                name="expectationDate"
-                control={control}
-                placeholder="예상소진일을 선택해주세요."
-              />
-            </LabelWrapper>
+          <LabelWrapper
+            label="유통기한"
+            errorMessage={errors.expirationDate?.message}
+          >
+            <DatePickerField
+              {...register('expirationDate', {})}
+              name="expirationDate"
+              control={control}
+              placeholder="유통기한을 선택해주세요."
+            />
+          </LabelWrapper>
+        </form>
 
-            <LabelWrapper
-              label="유통기한"
-              errorMessage={errors.expirationDate?.message}
-            >
-              <DatePickerField
-                {...register('expirationDate', {})}
-                name="expirationDate"
-                control={control}
-                placeholder="유통기한을 선택해주세요."
-              />
-            </LabelWrapper>
-          </form>
-
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <Button className="w-36 sm:w-40 h-10 text-md">추가 완료</Button>
-            <Button className="w-36 sm:w-40 h-10 text-md">임시 저장</Button>
-          </div>
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <Button className="w-36 sm:w-40 h-10 text-md">추가 완료</Button>
+          <Button className="w-36 sm:w-40 h-10 text-md">임시 저장</Button>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   )
 }
 
