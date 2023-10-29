@@ -29,13 +29,13 @@ export default function Navbar({ isAuth = true }: NavbarProps) {
   return (
     <>
       <nav>
-        <div className="bg-white w-screen flex p-4 md:px-10 justify-between items-center md:items-baseline border border-ivory">
+        <div className="bg-white w-screen flex p-4 md:px-10 justify-between md:justify-start items-center md:items-baseline border border-ivory">
           <div className="md:hidden flex items-center mx-4">
             <SideIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           </div>
           <Logo />
           <DeskTopMenu />
-          <Buttons />
+          <Buttons isAuth={isAuth} />
         </div>
       </nav>
 
@@ -70,7 +70,7 @@ const Logo = () => {
 const DeskTopMenu = () => {
   return (
     <>
-      <ul className="md:flex flex-shrink-0 hidden gap-14 text-sm lg:text-lg text-dark-brown mx-4 lg:mr-40 md:mr-20 ">
+      <ul className="md:flex flex-1 hidden text-md text-dark-brown gap-8 lg:gap-14 ml-12 lg:ml-20">
         <li className="hover:text-light-brown">
           <Link href="/this-week">이번 주 구매</Link>
         </li>
@@ -85,15 +85,27 @@ const DeskTopMenu = () => {
   )
 }
 
-const Buttons = () => {
+interface ButtonsProps {
+  isAuth?: boolean
+}
+
+const Buttons = ({ isAuth = true }: ButtonsProps) => {
   return (
     <div className="flex gap-6 md:mr-10 mx-4 ">
-      <button>
-        <img src="/main/add_Item_icon.svg" alt="추가버튼" />
-      </button>
-      <Link href="/mypage">
-        <img src="/main/my_page_icon.svg" alt="마이페이지버튼" />
-      </Link>
+      {isAuth ? (
+        <>
+          <Link href="/product/add">
+            <img src="/main/add_Item_icon.svg" alt="추가버튼" />
+          </Link>
+          <Link href="/mypage">
+            <img src="/main/my_page_icon.svg" alt="마이페이지버튼" />
+          </Link>
+        </>
+      ) : (
+        <Link href="/login" className="text-base text-dark-brown">
+          로그인하기
+        </Link>
+      )}
     </div>
   )
 }
