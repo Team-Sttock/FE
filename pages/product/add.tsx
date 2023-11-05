@@ -1,3 +1,4 @@
+import { range } from 'lodash-es'
 import { Noto_Sans } from 'next/font/google'
 import { type PropsWithChildren } from 'react'
 import { useForm } from 'react-hook-form'
@@ -6,6 +7,7 @@ import Button from '@/components/Button'
 import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
+import ListBox from '@/components/ListBox'
 import Navbar from '@/components/Navbar'
 import { classNames } from '@/utils/classNames'
 
@@ -62,6 +64,9 @@ export default function Page() {
     expirationDate: string
   }>({
     mode: 'onChange',
+    defaultValues: {
+      numberOfUser: 2,
+    },
   })
 
   const watchProduct: any = watch('product')
@@ -196,13 +201,14 @@ export default function Page() {
               required
               errorMessage={errors.numberOfUser?.message}
             >
-              <Input
-                type="number"
-                placeholder="숫자만 입력"
-                {...register('numberOfUser', {
-                  required: '사용인원은 필수 입력입니다',
-                })}
-              />
+              <ListBox
+                options={range(1, 5).map((number) => ({
+                  value: number,
+                  label: number.toString(),
+                }))}
+                control={control}
+                name="numberOfUser"
+              ></ListBox>
             </LabelWrapper>
 
             <LabelWrapper label="사용예상일수" required>
