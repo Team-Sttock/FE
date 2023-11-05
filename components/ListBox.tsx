@@ -1,5 +1,5 @@
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
 import { type Control, Controller } from 'react-hook-form'
 
@@ -35,10 +35,10 @@ export default function ListBox({ name, control, options }: ListBoxProps) {
                 {options.filter((option) => option.value === value)[0].label}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                <ChevronUpDownIcon
+                <ChevronDownIcon
                   className="h-5 w-5 text-dark-brown"
                   aria-hidden="true"
-                />
+                ></ChevronDownIcon>
               </span>
             </Listbox.Button>
             <Transition
