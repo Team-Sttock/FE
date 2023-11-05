@@ -48,11 +48,12 @@ export default function ComboBox({
         name={name}
         control={control}
         rules={rules}
-        render={({ field: { onChange, value, ref } }) => (
+        render={({ field: { onChange, value } }) => (
           <Select
             options={options}
-            ref={ref}
-            onChange={onChange}
+            onChange={(elem) => {
+              onChange(elem?.value)
+            }}
             value={options.find((option) => option.value === value)}
             placeholder={placeholder ?? '필드를 선택하세요.'}
             theme={(theme) => ({

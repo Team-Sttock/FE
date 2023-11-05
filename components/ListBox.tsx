@@ -18,6 +18,7 @@ interface ListBoxProps {
     RegisterOptions<any, string>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >
+  placeholder?: string
 }
 
 export default function ListBox({
@@ -25,6 +26,7 @@ export default function ListBox({
   control,
   options,
   rules,
+  placeholder,
 }: ListBoxProps) {
   return (
     <Controller
@@ -36,13 +38,14 @@ export default function ListBox({
           <Listbox value={value} onChange={onChange}>
             <Listbox.Button
               className={classNames(
-                'relative w-full h-10 p-3 text-md text-dark-brown border border-beige',
+                'relative w-full h-10 p-3 pr-8 text-md text-dark-brown border border-beige',
                 'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
                 'flex items-center justify-center'
               )}
             >
               <span className="inline-flex">
-                {options.filter((option) => option.value === value)[0].label}
+                {options.filter((option) => option.value === value)[0]
+                  ?.label ?? <span className="text-beige">{placeholder}</span>}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon
