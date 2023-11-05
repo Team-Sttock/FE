@@ -26,7 +26,7 @@ const MONTHS = range(0, 12)
 
 // eslint-disable-next-line react/display-name
 const DatePickerField = forwardRef<any, DatePickerFieldProps>(
-  ({ control, name, placeholder, rules }, ref) => {
+  ({ control, name, placeholder, rules }) => {
     return (
       <Controller
         name={name}
