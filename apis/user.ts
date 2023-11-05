@@ -7,7 +7,7 @@ export interface GetCheckLoginIdProps {
 export const getCheckLoginId = async ({ login_id }: GetCheckLoginIdProps) =>
   await userClient(`/check?login_id=${login_id}`)
 
-export const getMe = userClient.get<null>('/me')
+export const getMe = async () => await userClient.get<null>('/me')
 
 export interface GetUserRes {
   login_id: string
@@ -18,7 +18,7 @@ export interface GetUserRes {
   birthday: string
 }
 
-export const getUser = userClient.get<GetUserRes>('')
+export const getUser = async () => await userClient.get<GetUserRes>('')
 
 export interface PostCodeProps {
   email: string

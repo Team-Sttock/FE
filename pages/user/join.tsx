@@ -7,10 +7,10 @@ import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
+import { useCheckCode } from '@/hooks/auth/mutations/useCheckCode'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
 import { useSignUp } from '@/hooks/auth/mutations/useSignUp'
-import { useVerifyEmail } from '@/hooks/auth/mutations/useVerifyEmail'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -71,7 +71,7 @@ export default function Page() {
     }
   }
 
-  const { mutateAsync: verifyEmail } = useVerifyEmail()
+  const { mutateAsync: verifyEmail } = useCheckCode()
   const onCheckEmail = async () => {
     try {
       await verifyEmail({ email, auth_number })
