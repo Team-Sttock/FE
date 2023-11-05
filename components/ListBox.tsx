@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
-import { type Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type RegisterOptions } from 'react-hook-form'
 
 import { classNames } from '@/utils/classNames'
 
@@ -14,25 +14,38 @@ interface ListBoxProps {
   name: string
   control: Control<any>
   options: Option[]
+  rules?: Omit<
+    RegisterOptions<any, string>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
+  placeholder?: string
 }
 
-export default function ListBox({ name, control, options }: ListBoxProps) {
+export default function ListBox({
+  name,
+  control,
+  options,
+  rules,
+  placeholder,
+}: ListBoxProps) {
   return (
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field: { onChange, value } }) => (
         <div className="w-full relative">
           <Listbox value={value} onChange={onChange}>
             <Listbox.Button
               className={classNames(
-                'relative w-full h-10 p-3 text-md text-dark-brown border border-beige',
+                'relative w-full h-10 p-3 pr-8 text-md text-dark-brown border border-beige',
                 'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
                 'flex items-center justify-center'
               )}
             >
               <span className="inline-flex">
-                {options.filter((option) => option.value === value)[0].label}
+                {options.filter((option) => option.value === value)[0]
+                  ?.label ?? <span className="text-beige">{placeholder}</span>}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronDownIcon

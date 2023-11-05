@@ -65,6 +65,7 @@ export default function Page() {
   }>({
     mode: 'onChange',
     defaultValues: {
+      product: '',
       numberOfUser: 2,
     },
   })
@@ -119,11 +120,11 @@ export default function Page() {
               errorMessage={errors.product?.message}
             >
               <ComboBox
-                label="상품명"
                 name="product"
                 control={control}
                 options={productsOptions}
                 placeholder="상품명을 입력하세요."
+                rules={{ required: '상품명은 필수 입력입니다.' }}
               />
             </LabelWrapper>
 
@@ -151,9 +152,6 @@ export default function Page() {
               errorMessage={errors.purchaseDate?.message}
             >
               <DatePickerField
-                {...register('purchaseDate', {
-                  required: '구매일자는 필수 입력입니다',
-                })}
                 name="purchaseDate"
                 placeholder="구매일자를 선택해주세요."
                 control={control}
@@ -165,21 +163,21 @@ export default function Page() {
               required
               errorMessage={errors.purchaseCapacity?.message}
             >
-              <div className="flex items-center justify-center space-x-2">
+              <div className="flex items-center space-x-2">
                 <Input
                   {...register('purchaseCapacity', {
                     required: '구매용량은 필수 입력입니다',
                   })}
                   placeholder="숫자만 입력"
                 />
-                <ComboBox
-                  label="구매단위"
-                  name="capacityUnit"
-                  placeholder="용량"
-                  control={control}
-                  options={capacityOptions}
-                  className="w-24 text-sm "
-                />
+                <div className="w-40">
+                  <ListBox
+                    name="capacityUnit"
+                    placeholder="용량"
+                    control={control}
+                    options={capacityOptions}
+                  />
+                </div>
               </div>
             </LabelWrapper>
 
@@ -220,7 +218,9 @@ export default function Page() {
                     required: '사용예상일수는 필수 입력입니다',
                   })}
                 />
-                <Button className="inline-block w-24 text-sm">직접 입력</Button>
+                <Button className="inline-block w-24 text-sm" type="button">
+                  직접 입력
+                </Button>
               </div>
             </LabelWrapper>
             <LabelWrapper
@@ -228,7 +228,6 @@ export default function Page() {
               errorMessage={errors.expectationDate?.message}
             >
               <DatePickerField
-                {...register('expectationDate', {})}
                 name="expectationDate"
                 control={control}
                 placeholder="예상소진일을 선택해주세요."
@@ -240,7 +239,6 @@ export default function Page() {
               errorMessage={errors.expirationDate?.message}
             >
               <DatePickerField
-                {...register('expirationDate', {})}
                 name="expirationDate"
                 control={control}
                 placeholder="유통기한을 선택해주세요."
