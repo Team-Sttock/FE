@@ -31,7 +31,8 @@ export default function Page() {
   const onSubmit = async (data: PostLoginProps) => {
     try {
       await mutateAsync(data)
-      await router.push('/list')
+      console.log('끝')
+      void router.push('/list')
     } catch (error) {
       if (isAxiosError<ServerErrorRes>(error)) {
         alert(error.response?.data.message ?? '')
@@ -57,11 +58,13 @@ export default function Page() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <Input
             {...register('login_id', {})}
+            type="text"
             errorMessage={errors.login_id?.message}
             placeholder="아이디"
           ></Input>
           <Input
             {...register('password', {})}
+            type="password"
             errorMessage={errors.password?.message}
             placeholder="비밀번호"
           ></Input>

@@ -1,13 +1,12 @@
 import { type MutationRes, userClient } from '.'
 
-export interface GetCheckLoginIdProps {
+export interface PostCheckLoginIdProps {
   login_id: string
 }
 
-export const getCheckLoginId = async ({ login_id }: GetCheckLoginIdProps) =>
-  await userClient(`/check?login_id=${login_id}`)
-
-export const getMe = async () => await userClient.get<null>('/me')
+export const postCheckLoginId = async ({ login_id }: PostCheckLoginIdProps) => {
+  return await userClient.post(`/check?login_id=${login_id}`, {})
+}
 
 export interface GetUserRes {
   login_id: string
@@ -64,11 +63,15 @@ export interface PostSignupProps {
   login_id: string
   password: string
   name: string
-  gender_cd: '1' | '2'
+  gender_cd: number
   email: string
   family_num: number
   birthday: string
 }
 
 export const postSignup = async (props: PostSignupProps) =>
-  await userClient.post<MutationRes, PostSignupProps>('/signup', props)
+  await userClient.post<MutationRes, PostSignupProps>('/signup', props, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })

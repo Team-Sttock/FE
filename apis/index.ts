@@ -1,17 +1,18 @@
 import axios from 'axios'
-import { memoize } from 'lodash-es'
 
-export const client = memoize(
-  axios.create({
-    baseURL: 'https://api.sttock.co.kr',
-  })
-)
+export const authClient = axios.create({
+  baseURL: '/api/v1/auth',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+})
 
-export const userClient = memoize(
-  axios.create({
-    baseURL: 'https://api.sttock.co.kr/api/v1/user',
-  })
-)
+export const userClient = axios.create({
+  baseURL: '/api/v1/user',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+})
 
 export interface MutationRes {
   message: string

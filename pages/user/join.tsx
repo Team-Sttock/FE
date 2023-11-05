@@ -1,4 +1,5 @@
 import { Noto_Sans } from 'next/font/google'
+import { useRouter } from 'next/router'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -18,7 +19,8 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-interface RegisterForm extends Omit<PostSignupProps, 'birthday'> {
+interface RegisterForm extends Omit<PostSignupProps, 'birthday' | 'gender_cd'> {
+  gender_cd: '1' | '2'
   auth_number: string
   password_check: string
   birthday: Date
@@ -40,7 +42,10 @@ export default function Page() {
     },
   })
 
+  const router = useRouter()
+
   const { login_id, email, gender_cd, auth_number, password } = watch()
+  console.log(typeof gender_cd)
 
   const isMan = gender_cd === '1'
 
@@ -50,7 +55,8 @@ export default function Page() {
     'sended' | 'error' | 'success'
   >('sended')
 
-  const { mutateAsync: checkLoginId } = useCheckLoginId()
+  const { mutateAsync: checkLoginId, isPending: isCheckLoginIdPending } =
+    useCheckLoginId()
   const onCheckLoginId = async () => {
     try {
       await checkLoginId({ login_id })
@@ -60,19 +66,22 @@ export default function Page() {
     }
   }
 
-  const { mutateAsync: sendEmailCode } = useEmailCode()
+  const { mutateAsync: sendEmailCode, isPending: isSendEmailPending } =
+    useEmailCode()
   const onSendCode = async () => {
     try {
       await sendEmailCode({ email })
       setIsValidEmail('sended')
       setIsSendEmail(true)
     } catch (err) {
+      console.log(err)
       setError('email', { message: '이미 존재하는 이메일 입니다.' })
       setIsSendEmail(false)
     }
   }
 
-  const { mutateAsync: verifyEmail } = useCheckCode()
+  const { mutateAsync: verifyEmail, isPending: isCheckCodePending } =
+    useCheckCode()
   const onCheckEmail = async () => {
     try {
       await verifyEmail({ email, auth_number })
@@ -82,8 +91,14 @@ export default function Page() {
     }
   }
 
-  const { mutateAsync: signUp } = useSignUp()
-  const onSubmit = async (data: RegisterForm) => {
+  const { mutateAsync: signUp, isPending: isSignUpPeading } = useSignUp()
+  const onSubmit = async ({
+    auth_number,
+    password_check,
+    birthday,
+    gender_cd,
+    ...props
+  }: RegisterForm) => {
     if (!isValidEmail) {
       setError('email', { message: '이메일 인증이 완료되지 않았습니다.' })
     }
@@ -94,8 +109,16 @@ export default function Page() {
     }
 
     try {
-      await signUp({ ...data, birthday: data.birthday.toISOString() })
+      await signUp({
+        ...props,
+        gender_cd: parseInt(gender_cd, 10),
+        birthday: birthday.toISOString(),
+      })
+      alert('회원가입에 성공하셨습니다. 로그인 해주시기 바랍니다.')
+      void router.push('/login')
     } catch (err) {
+      console.log(err)
+      alert('회원가입에 실패했습니다.')
       // 추후 정의
     }
   }
@@ -140,6 +163,10 @@ export default function Page() {
                     className="w-28"
                     onClick={onCheckLoginId}
                     type="button"
+                    disabled={
+                      login_id?.length === 0 || !!errors.login_id?.message
+                    }
+                    isLoading={isCheckLoginIdPending}
                   >
                     중복확인
                   </Button>
@@ -166,7 +193,13 @@ export default function Page() {
                     })}
                     placeholder="test@example.com"
                   ></Input>
-                  <Button className="w-28" onClick={onSendCode} type="button">
+                  <Button
+                    className="w-28"
+                    onClick={onSendCode}
+                    type="button"
+                    disabled={email?.length === 0 || !!errors.email?.message}
+                    isLoading={isSendEmailPending}
+                  >
                     인증하기
                   </Button>
                 </div>
@@ -182,6 +215,9 @@ export default function Page() {
                       className="w-28"
                       onClick={onCheckEmail}
                       type="button"
+                      isLoading={
+                        auth_number?.length === 0 && isCheckCodePending
+                      }
                     >
                       확인
                     </Button>
@@ -190,7 +226,7 @@ export default function Page() {
                     if (isValidEmail === 'sended') {
                       return (
                         <p className="pt-0.5 text-sm font-sans text-dark-brown">
-                          이메일 확인 후 인증 번호를 입력해주세요.{' '}
+                          이메일 확인 후 인증 번호를 입력해주세요.
                         </p>
                       )
                     }
@@ -217,9 +253,10 @@ export default function Page() {
                 <Input
                   {...register('password', {
                     pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                      value:
+                        /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/,
                       message:
-                        '비밀번호는 영문과 숫자를 조합한 8자리 이상이어야 합니다.',
+                        '비밀번호는 영어, 숫자, 특수 문자를 포함하여 6자리 이상이어야 합니다.',
                     },
                     required: '비밀번호는 필수 입력입니다.',
                   })}
@@ -292,7 +329,9 @@ export default function Page() {
               </InputLabel>
             </div>
             <div className="mt-8">
-              <Button className="h-12 w-full">회원가입</Button>
+              <Button className="h-12 w-full" isLoading={isSignUpPeading}>
+                회원가입
+              </Button>
             </div>
           </form>
         </main>

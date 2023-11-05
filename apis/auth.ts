@@ -1,4 +1,4 @@
-import { client, type MutationRes } from '.'
+import { authClient, type MutationRes } from '.'
 
 export interface PostLoginProps {
   login_id: string
@@ -6,4 +6,8 @@ export interface PostLoginProps {
 }
 
 export const postLogin = async (props: PostLoginProps) =>
-  await client.post<MutationRes, PostLoginProps>('/login', props)
+  await authClient.post<MutationRes, PostLoginProps>('/login', props, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
