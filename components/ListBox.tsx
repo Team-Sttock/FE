@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
-import { type Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type RegisterOptions } from 'react-hook-form'
 
 import { classNames } from '@/utils/classNames'
 
@@ -14,13 +14,23 @@ interface ListBoxProps {
   name: string
   control: Control<any>
   options: Option[]
+  rules?: Omit<
+    RegisterOptions<any, string>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
 }
 
-export default function ListBox({ name, control, options }: ListBoxProps) {
+export default function ListBox({
+  name,
+  control,
+  options,
+  rules,
+}: ListBoxProps) {
   return (
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field: { onChange, value } }) => (
         <div className="w-full relative">
           <Listbox value={value} onChange={onChange}>

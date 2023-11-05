@@ -119,7 +119,6 @@ export default function Page() {
               errorMessage={errors.product?.message}
             >
               <ComboBox
-                label="상품명"
                 name="product"
                 control={control}
                 options={productsOptions}
@@ -173,7 +172,6 @@ export default function Page() {
                   placeholder="숫자만 입력"
                 />
                 <ComboBox
-                  label="구매단위"
                   name="capacityUnit"
                   placeholder="용량"
                   control={control}

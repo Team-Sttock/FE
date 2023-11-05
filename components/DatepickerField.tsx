@@ -6,7 +6,7 @@ import ko from 'date-fns/locale/ko'
 import { range } from 'lodash-es'
 import React, { forwardRef } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { type Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type RegisterOptions } from 'react-hook-form'
 
 import { classNames } from '../utils/classNames'
 
@@ -14,6 +14,10 @@ interface DatePickerFieldProps {
   control: Control<any>
   name: string
   placeholder?: string
+  rules?: Omit<
+    RegisterOptions<any, string>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
 }
 
 registerLocale('ko', ko)
