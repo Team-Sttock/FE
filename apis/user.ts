@@ -66,7 +66,7 @@ export interface PostSignupProps {
   name: string
   gender_cd: '1' | '2'
   email: string
-  family_num: number
+  family_num: string
   birthday: string
 }
 

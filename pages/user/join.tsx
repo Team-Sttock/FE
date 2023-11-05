@@ -7,6 +7,7 @@ import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
+import ListBox from '@/components/ListBox'
 import { useCheckCode } from '@/hooks/auth/mutations/useCheckCode'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
@@ -36,6 +37,7 @@ export default function Page() {
     mode: 'onChange',
     defaultValues: {
       gender_cd: '1',
+      family_num: '1',
     },
   })
 
@@ -276,11 +278,14 @@ export default function Page() {
                 </div>
               </InputLabel>
               <InputLabel label="가족 수">
-                <Input
-                  {...register('family_num', {})}
-                  type="number"
-                  placeholder="4"
-                ></Input>
+                <ListBox
+                  control={control}
+                  name="family_num"
+                  options={['1', '2', '3', '4'].map((elem) => ({
+                    value: elem,
+                    label: elem,
+                  }))}
+                ></ListBox>
               </InputLabel>
               <InputLabel label="생일">
                 <DatePickerField
