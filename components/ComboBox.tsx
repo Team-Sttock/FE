@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/20/solid'
 import React, { useId } from 'react'
-import { type Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type RegisterOptions } from 'react-hook-form'
 import Select from 'react-select'
 
 import { classNames } from '../utils/classNames'
@@ -10,13 +10,16 @@ interface Option {
   label: string
 }
 
-interface DropdownFieldProps {
-  label: string
+interface ComboBoxProps {
   name: string
   placeholder?: string
   control: Control<any>
   options: Option[]
   className?: string
+  rules?: Omit<
+    RegisterOptions<any, string>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
 }
 
 function CustomOption({ innerProps, data, isSelected }: any) {
@@ -36,18 +39,21 @@ export default function ComboBox({
   options,
   className,
   placeholder,
-}: DropdownFieldProps) {
+  rules,
+}: ComboBoxProps) {
   const id = useId()
   return (
     <div>
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange, value, ref } }) => (
+        rules={rules}
+        render={({ field: { onChange, value } }) => (
           <Select
             options={options}
-            ref={ref}
-            onChange={onChange}
+            onChange={(elem) => {
+              onChange(elem?.value)
+            }}
             value={options.find((option) => option.value === value)}
             placeholder={placeholder ?? '필드를 선택하세요.'}
             theme={(theme) => ({

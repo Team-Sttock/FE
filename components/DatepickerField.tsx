@@ -6,7 +6,7 @@ import ko from 'date-fns/locale/ko'
 import { range } from 'lodash-es'
 import React from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { type Control, Controller } from 'react-hook-form'
+import { type Control, Controller, type RegisterOptions } from 'react-hook-form'
 
 import { classNames } from '../utils/classNames'
 
@@ -14,6 +14,10 @@ interface DatePickerFieldProps {
   control: Control<any>
   name: string
   placeholder?: string
+  rules?: Omit<
+    RegisterOptions<any, string>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >
 }
 
 registerLocale('ko', ko)
@@ -24,17 +28,21 @@ const YEARS = Array.from(
 )
 const MONTHS = range(0, 12)
 
-const DatePickerField = ({
+// eslint-disable-next-line react/display-name
+export default function DatePickerField({
   control,
   name,
   placeholder,
-}: DatePickerFieldProps) => {
+  rules,
+}: DatePickerFieldProps) {
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field: { onChange, value } }) => (
+      rules={rules}
+      render={({ field: { onChange, value, ref } }) => (
         <DatePicker
+          ref={ref}
           selected={value}
           onChange={(data: any) => {
             onChange(data)
@@ -47,7 +55,6 @@ const DatePickerField = ({
           popperClassName="w-full max-w-xs relative"
           wrapperClassName="w-full"
           calendarContainer={({ children }) => {
-            console.log(children)
             return (
               <div
                 className={classNames(
@@ -118,5 +125,3 @@ const DatePickerField = ({
     />
   )
 }
-
-export default DatePickerField
