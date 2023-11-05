@@ -89,11 +89,12 @@ const DeskTopMenu = () => {
 const Buttons = () => {
   return (
     <div className="flex gap-6 md:mr-10 mx-4 ">
-      <button>
-        <img src="main/add_Item_icon.svg" alt="추가버튼" />
-      </button>
+      <Link href="/product/add">
+        <img src="/main/add_Item_icon.svg" alt="추가버튼" />
+      </Link>
+
       <Link href="/mypage">
-        <img src="main/my_page_icon.svg" alt="마이페이지버튼" />
+        <img src="/main/my_page_icon.svg" alt="마이페이지버튼" />
       </Link>
     </div>
   )
