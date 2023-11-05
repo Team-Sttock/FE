@@ -7,7 +7,6 @@ import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
-import ListBox from '@/components/ListBox'
 import { useCheckCode } from '@/hooks/auth/mutations/useCheckCode'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
@@ -37,7 +36,7 @@ export default function Page() {
     mode: 'onChange',
     defaultValues: {
       gender_cd: '1',
-      family_num: '1',
+      family_num: 1,
     },
   })
 
@@ -261,6 +260,14 @@ export default function Page() {
             </div>
             <hr className="my-4 bg-dark-brown"></hr>
             <div className="space-y-2">
+              <InputLabel label="가족 수" required>
+                <Input
+                  {...register('family_num', {
+                    required: '가족 수는 필수 입력입니다.',
+                  })}
+                  placeholder="4"
+                ></Input>
+              </InputLabel>
               <InputLabel label="성별">
                 <div className="flex items-center justify-between gap-3">
                   <RadioButton
@@ -276,16 +283,6 @@ export default function Page() {
                     value={2}
                   ></RadioButton>
                 </div>
-              </InputLabel>
-              <InputLabel label="가족 수">
-                <ListBox
-                  control={control}
-                  name="family_num"
-                  options={['1', '2', '3', '4'].map((elem) => ({
-                    value: elem,
-                    label: elem,
-                  }))}
-                ></ListBox>
               </InputLabel>
               <InputLabel label="생일">
                 <DatePickerField
