@@ -31,8 +31,7 @@ export default function Page() {
   const onSubmit = async (data: PostLoginProps) => {
     try {
       await mutateAsync(data)
-      console.log('끝')
-      void router.push('/list')
+      void router.push((router.query?.continue as string) ?? '/list')
     } catch (error) {
       if (isAxiosError<ServerErrorRes>(error)) {
         alert(error.response?.data.message ?? '')
