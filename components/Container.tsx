@@ -9,7 +9,7 @@ export default function Container({ children }: PropsWithChildren) {
 
   useLayoutEffect(() => {
     setIsAuth(getCookie('isAuth') === 'true')
-  })
+  }, [])
 
   return (
     <>
