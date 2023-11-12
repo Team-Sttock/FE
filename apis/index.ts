@@ -25,6 +25,7 @@ export interface MutationRes {
   message: string
 }
 export interface ServerErrorRes {
+  status: string
   code: string
   message: string
 }

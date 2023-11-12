@@ -4,11 +4,13 @@ import { useRouter } from 'next/router'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { type ServerErrorRes } from '@/apis'
 import { type PostSignupProps } from '@/apis/user'
 import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
+import { useModal } from '@/components/Modal'
 import { useCheckCode } from '@/hooks/auth/mutations/useCheckCode'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
@@ -28,6 +30,11 @@ interface RegisterForm extends Omit<PostSignupProps, 'birthday' | 'gender_cd'> {
 }
 
 export default function Page() {
+  const { open: successOpen } = useModal({
+    title: '회원가입 성공',
+    description: '회원가입에 성공하셨습니다.\n 로그인 페이지로 이동합니다. ',
+  })
+
   const {
     register,
     formState: { errors },
@@ -61,11 +68,11 @@ export default function Page() {
       await checkLoginId({ login_id })
       setIsValidLoginId(true)
     } catch (err) {
-      if (!isAxiosError(err)) {
+      if (!isAxiosError<ServerErrorRes>(err)) {
         setError('login_id', { message: '에러가 발생했습니다.' })
         return
       }
-      if (err.response?.data?.code === 'E409001') {
+      if (err.response?.data.code === 'E409001') {
         setError('login_id', { message: '이미 존재하는 아이디입니다.' })
         return
       }
@@ -82,7 +89,7 @@ export default function Page() {
       await sendEmailCode({ email })
       setEmailStatus('sended')
     } catch (err) {
-      if (!isAxiosError(err)) {
+      if (!isAxiosError<ServerErrorRes>(err)) {
         setError('email', { message: '에러가 발생했습니다.' })
         return
       }
@@ -109,7 +116,7 @@ export default function Page() {
       await verifyEmail({ email, auth_number })
       setEmailStatus('success')
     } catch (err) {
-      if (!isAxiosError(err)) {
+      if (!isAxiosError<ServerErrorRes>(err)) {
         setError('auth_number', { message: '에러가 발생했습니다.' })
         return
       }
@@ -155,6 +162,7 @@ export default function Page() {
         gender_cd: parseInt(gender_cd, 10),
         birthday: birthday.toISOString(),
       })
+      await successOpen()
       void router.push('/login')
     } catch (err) {}
   }
