@@ -68,7 +68,9 @@ export default function Page() {
             placeholder="비밀번호"
           ></Input>
           <div className="py-1">
-            <Button className="h-12 w-full">로그인</Button>
+            <Button type="submit" className="h-12 w-full">
+              로그인
+            </Button>
           </div>
         </form>
         <section className="flex items-center justify-center py-3 space-x-2 text-dark-brown">
@@ -117,7 +119,12 @@ export default function Page() {
           >
             처음 오셨나요?
           </p>
-          <Button className="h-12 mt-6 w-full"> 회원 가입</Button>
+          <Link
+            href="/user/join"
+            className="h-12 mt-6 w-full border border-beige font-semibold flex items-center justify-center bg-ivory text-dark-brown"
+          >
+            회원 가입
+          </Link>
         </section>
       </main>
     </div>
