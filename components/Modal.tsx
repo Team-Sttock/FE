@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { useOverlay } from '@toss/use-overlay'
 import { Fragment } from 'react'
 
 interface ModalProps {
@@ -7,7 +8,7 @@ interface ModalProps {
   title: string
   description: string
   btnText?: string
-  onAfterClose?: () => void
+  onConfirm: () => void
   showCloseBtn?: boolean
   closeBtnText?: string
 }
@@ -18,7 +19,7 @@ export default function Modal({
   title,
   description,
   btnText,
-  onAfterClose,
+  onConfirm,
   showCloseBtn,
   closeBtnText,
 }: ModalProps) {
@@ -74,10 +75,7 @@ export default function Modal({
                     type="button"
                     className="inline-flex min-w-[80px]  justify-center rounded-sm border border-transparent bg-light-brown px-4 py-1.5 text-md font-medium text-ivory hover:bg-dark-brown focus:outline-none focus-visible:ring-1 focus-visible:ring-light-brown focus-visible:ring-offset-2"
                     onClick={() => {
-                      onClose()
-                      if (onAfterClose) {
-                        onAfterClose()
-                      }
+                      onConfirm()
                     }}
                   >
                     {btnText ?? '확인'}
@@ -90,4 +88,42 @@ export default function Modal({
       </Dialog>
     </Transition>
   )
+}
+
+export const useModal = ({
+  title,
+  description,
+  btnText,
+  showCloseBtn,
+  closeBtnText,
+}: Pick<
+  ModalProps,
+  'title' | 'description' | 'btnText' | 'closeBtnText' | 'showCloseBtn'
+>) => {
+  const overlay = useOverlay()
+
+  const open = async () => {
+    return await new Promise<boolean>((resolve) => {
+      overlay.open(({ isOpen, close }) => (
+        <Modal
+          isOpen={isOpen}
+          title={title}
+          description={description}
+          btnText={btnText}
+          onClose={() => {
+            resolve(false)
+            close()
+          }}
+          onConfirm={() => {
+            resolve(true)
+            close()
+          }}
+          showCloseBtn={showCloseBtn}
+          closeBtnText={closeBtnText}
+        ></Modal>
+      ))
+    })
+  }
+
+  return { open }
 }
