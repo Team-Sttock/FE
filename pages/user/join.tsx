@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios'
 import { Noto_Sans } from 'next/font/google'
 import { useRouter } from 'next/router'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
@@ -45,15 +46,13 @@ export default function Page() {
   const router = useRouter()
 
   const { login_id, email, gender_cd, auth_number, password } = watch()
-  console.log(typeof gender_cd)
 
   const isMan = gender_cd === '1'
 
   const [isValidLoginId, setIsValidLoginId] = useState(false)
-  const [isSendEmail, setIsSendEmail] = useState(false)
-  const [isValidEmail, setIsValidEmail] = useState<
-    'sended' | 'error' | 'success'
-  >('sended')
+  const [emailStatus, setEmailStatus] = useState<'none' | 'sended' | 'success'>(
+    'none'
+  )
 
   const { mutateAsync: checkLoginId, isPending: isCheckLoginIdPending } =
     useCheckLoginId()
@@ -62,36 +61,68 @@ export default function Page() {
       await checkLoginId({ login_id })
       setIsValidLoginId(true)
     } catch (err) {
-      setError('login_id', { message: '중복된 로그인 아이디입니다.' })
+      if (!isAxiosError(err)) {
+        setError('login_id', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data?.code === 'E409001') {
+        setError('login_id', { message: '이미 존재하는 아이디입니다.' })
+        return
+      }
+      setError('login_id', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
   const { mutateAsync: sendEmailCode, isPending: isSendEmailPending } =
     useEmailCode()
+
   const onSendCode = async () => {
     try {
+      setEmailStatus('none')
       await sendEmailCode({ email })
-      setIsValidEmail('sended')
-      setIsSendEmail(true)
+      setEmailStatus('sended')
     } catch (err) {
-      console.log(err)
-      setError('email', { message: '이미 존재하는 이메일 입니다.' })
-      setIsSendEmail(false)
+      if (!isAxiosError(err)) {
+        setError('email', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data?.code === 'E409002') {
+        setError('email', { message: '이미 존재하는 이메일입니다.' })
+        return
+      }
+      setError('email', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
   const { mutateAsync: verifyEmail, isPending: isCheckCodePending } =
     useCheckCode()
+
   const onCheckEmail = async () => {
     try {
+      if (emailStatus === 'none') {
+        setError('email', {
+          message: '이메일 인증번호 전송 요청이 필요합니다.',
+        })
+        return
+      }
+
       await verifyEmail({ email, auth_number })
-      setIsValidEmail('success')
+      setEmailStatus('success')
     } catch (err) {
-      setIsValidEmail('error')
+      if (!isAxiosError(err)) {
+        setError('auth_number', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data?.code === 'E400001') {
+        setError('auth_number', { message: '인증 번호가 일치하지 않습니다.' })
+        return
+      }
+      setError('auth_number', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
   const { mutateAsync: signUp, isPending: isSignUpPeading } = useSignUp()
+
   const onSubmit = async ({
     auth_number,
     password_check,
@@ -99,13 +130,23 @@ export default function Page() {
     gender_cd,
     ...props
   }: RegisterForm) => {
-    if (!isValidEmail) {
-      setError('email', { message: '이메일 인증이 완료되지 않았습니다.' })
+    if (emailStatus === 'none') {
+      setError('email', {
+        message: '이메일로 확인 코드를 받아야 합니다.',
+      })
+      return
+    }
+    if (emailStatus === 'sended') {
+      setError('auth_number', {
+        message: '이메일 확인 번호 인증이 완료되지 않았습니다.',
+      })
+      return
     }
     if (!isValidLoginId) {
       setError('login_id', {
         message: '로그인 아이디 중복 검사를 완료하지 않았습니다.',
       })
+      return
     }
 
     try {
@@ -114,13 +155,8 @@ export default function Page() {
         gender_cd: parseInt(gender_cd, 10),
         birthday: birthday.toISOString(),
       })
-      alert('회원가입에 성공하셨습니다. 로그인 해주시기 바랍니다.')
       void router.push('/login')
-    } catch (err) {
-      console.log(err)
-      alert('회원가입에 실패했습니다.')
-      // 추후 정의
-    }
+    } catch (err) {}
   }
 
   const onError = () => {}
@@ -204,7 +240,7 @@ export default function Page() {
                   </Button>
                 </div>
               </InputLabel>
-              {isSendEmail && (
+              {emailStatus === 'sended' && (
                 <div>
                   <div className="flex items-stretch space-x-1">
                     <Input
@@ -223,17 +259,17 @@ export default function Page() {
                     </Button>
                   </div>
                   {(() => {
-                    if (isValidEmail === 'sended') {
+                    if (errors.auth_number?.message) {
                       return (
-                        <p className="pt-0.5 text-sm font-sans text-dark-brown">
-                          이메일 확인 후 인증 번호를 입력해주세요.
+                        <p className="text-red-500 text-sm font-sans pt-0.5">
+                          {errors.auth_number?.message}
                         </p>
                       )
                     }
-                    if (isValidEmail === 'error') {
+                    if (emailStatus === 'sended') {
                       return (
-                        <p className="text-red-500 text-sm font-sans pt-0.5">
-                          잘못된 인증 번호 입니다.
+                        <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                          이메일 확인 후 인증 번호를 입력해주세요.
                         </p>
                       )
                     }
