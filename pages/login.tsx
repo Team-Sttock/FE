@@ -33,7 +33,7 @@ export default function Page() {
   const onSubmit = async (data: PostLoginProps) => {
     try {
       await mutateAsync(data)
-      void router.push((router.query?.continue as string) ?? '/list')
+      location.href = (router.query?.continue as string) ?? '/list'
     } catch (error) {
       if (
         isAxiosError<ServerErrorRes>(error) &&
