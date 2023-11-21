@@ -8,7 +8,6 @@ import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import ListBox from '@/components/ListBox'
-import Navbar from '@/components/Navbar'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -82,7 +81,6 @@ export default function Page() {
 
   return (
     <>
-      <Navbar />
       <main className="m-auto max-w-3xl w-full px-3 mb-10">
         <header className="mt-10 mb-6 w-full py-2">
           <div

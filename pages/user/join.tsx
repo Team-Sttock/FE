@@ -1,17 +1,20 @@
+import { isAxiosError } from 'axios'
 import { Noto_Sans } from 'next/font/google'
+import { useRouter } from 'next/router'
 import { forwardRef, type InputHTMLAttributes, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { type ServerErrorRes } from '@/apis'
 import { type PostSignupProps } from '@/apis/user'
 import Button from '@/components/Button'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
-import Navbar from '@/components/Navbar'
+import { useModal } from '@/components/Modal'
+import { useCheckCode } from '@/hooks/auth/mutations/useCheckCode'
 import { useCheckLoginId } from '@/hooks/auth/mutations/useCheckLoginId'
 import { useEmailCode } from '@/hooks/auth/mutations/useEmailCode'
 import { useSignUp } from '@/hooks/auth/mutations/useSignUp'
-import { useVerifyEmail } from '@/hooks/auth/mutations/useVerifyEmail'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -19,13 +22,19 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-interface RegisterForm extends Omit<PostSignupProps, 'birthday'> {
+interface RegisterForm extends Omit<PostSignupProps, 'birthday' | 'gender_cd'> {
+  gender_cd: '1' | '2'
   auth_number: string
   password_check: string
   birthday: Date
 }
 
 export default function Page() {
+  const { open: successOpen } = useModal({
+    title: '회원가입 성공',
+    description: '회원가입에 성공하셨습니다.\n 로그인 페이지로 이동합니다. ',
+  })
+
   const {
     register,
     formState: { errors },
@@ -37,70 +46,131 @@ export default function Page() {
     mode: 'onChange',
     defaultValues: {
       gender_cd: '1',
+      family_num: 1,
     },
   })
+
+  const router = useRouter()
 
   const { login_id, email, gender_cd, auth_number, password } = watch()
 
   const isMan = gender_cd === '1'
 
-  const [isSendEmail, setIsSendEmail] = useState(false)
-  const [isValidEmail, setIsValidEmail] = useState(false)
   const [isValidLoginId, setIsValidLoginId] = useState(false)
+  const [emailStatus, setEmailStatus] = useState<'none' | 'sended' | 'success'>(
+    'none'
+  )
 
-  const { mutateAsync: checkLoginId } = useCheckLoginId()
+  const { mutateAsync: checkLoginId, isPending: isCheckLoginIdPending } =
+    useCheckLoginId()
   const onCheckLoginId = async () => {
     try {
       await checkLoginId({ login_id })
       setIsValidLoginId(true)
     } catch (err) {
-      setError('login_id', { message: '중복된 로그인 아이디입니다.' })
+      if (!isAxiosError<ServerErrorRes>(err)) {
+        setError('login_id', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data.code === 'E409001') {
+        setError('login_id', { message: '이미 존재하는 아이디입니다.' })
+        return
+      }
+      setError('login_id', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
-  const { mutateAsync: sendEmailCode } = useEmailCode()
+  const { mutateAsync: sendEmailCode, isPending: isSendEmailPending } =
+    useEmailCode()
+
   const onSendCode = async () => {
     try {
+      setEmailStatus('none')
       await sendEmailCode({ email })
-      setIsSendEmail(true)
+      setEmailStatus('sended')
     } catch (err) {
-      setError('email', { message: '중복된 이메일 입니다.' })
+      if (!isAxiosError<ServerErrorRes>(err)) {
+        setError('email', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data?.code === 'E409002') {
+        setError('email', { message: '이미 존재하는 이메일입니다.' })
+        return
+      }
+      setError('email', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
-  const { mutateAsync: verifyEmail } = useVerifyEmail()
+  const { mutateAsync: verifyEmail, isPending: isCheckCodePending } =
+    useCheckCode()
+
   const onCheckEmail = async () => {
     try {
+      if (emailStatus === 'none') {
+        setError('email', {
+          message: '이메일 인증번호 전송 요청이 필요합니다.',
+        })
+        return
+      }
+
       await verifyEmail({ email, auth_number })
-      setIsValidEmail(true)
+      setEmailStatus('success')
     } catch (err) {
-      setError('auth_number', { message: '유효하지 않은 인증번호입니다.' })
+      if (!isAxiosError<ServerErrorRes>(err)) {
+        setError('auth_number', { message: '에러가 발생했습니다.' })
+        return
+      }
+      if (err.response?.data?.code === 'E400001') {
+        setError('auth_number', { message: '인증 번호가 일치하지 않습니다.' })
+        return
+      }
+      setError('auth_number', { message: '요청 중 에러가 발생했습니다.' })
     }
   }
 
-  const { mutateAsync: signUp } = useSignUp()
-  const onSubmit = async (data: RegisterForm) => {
-    if (!isValidEmail) {
-      setError('email', { message: '이메일 인증이 완료되지 않았습니다.' })
+  const { mutateAsync: signUp, isPending: isSignUpPeading } = useSignUp()
+
+  const onSubmit = async ({
+    auth_number,
+    password_check,
+    birthday,
+    gender_cd,
+    ...props
+  }: RegisterForm) => {
+    if (emailStatus === 'none') {
+      setError('email', {
+        message: '이메일로 확인 코드를 받아야 합니다.',
+      })
+      return
+    }
+    if (emailStatus === 'sended') {
+      setError('auth_number', {
+        message: '이메일 확인 번호 인증이 완료되지 않았습니다.',
+      })
+      return
     }
     if (!isValidLoginId) {
       setError('login_id', {
         message: '로그인 아이디 중복 검사를 완료하지 않았습니다.',
       })
+      return
     }
 
     try {
-      await signUp({ ...data, birthday: data.birthday.toISOString() })
-    } catch (err) {
-      // 추후 정의
-    }
+      await signUp({
+        ...props,
+        gender_cd: parseInt(gender_cd, 10),
+        birthday: birthday.toISOString(),
+      })
+      await successOpen()
+      void router.push('/login')
+    } catch (err) {}
   }
 
   const onError = () => {}
 
   return (
     <>
-      <Navbar></Navbar>
       <div className="w-full max-w-md m-auto px-4">
         <header className="pt-20 pb-6">
           <h1
@@ -127,6 +197,9 @@ export default function Page() {
                   <Input
                     {...register('login_id', {
                       required: '아이디는 필수 입력입니다.',
+                      onChange: () => {
+                        setIsValidLoginId(false)
+                      },
                     })}
                     placeholder="testId"
                   ></Input>
@@ -134,10 +207,19 @@ export default function Page() {
                     className="w-28"
                     onClick={onCheckLoginId}
                     type="button"
+                    disabled={
+                      login_id?.length === 0 || !!errors.login_id?.message
+                    }
+                    isLoading={isCheckLoginIdPending}
                   >
                     중복확인
                   </Button>
                 </div>
+                {isValidLoginId && (
+                  <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                    사용 가능한 아이디 입니다.
+                  </p>
+                )}
               </InputLabel>
               <InputLabel
                 label="이메일"
@@ -155,20 +237,56 @@ export default function Page() {
                     })}
                     placeholder="test@example.com"
                   ></Input>
-                  <Button className="w-28" onClick={onSendCode} type="button">
+                  <Button
+                    className="w-28"
+                    onClick={onSendCode}
+                    type="button"
+                    disabled={email?.length === 0 || !!errors.email?.message}
+                    isLoading={isSendEmailPending}
+                  >
                     인증하기
                   </Button>
                 </div>
               </InputLabel>
-              {isSendEmail && (
-                <div className="flex items-stretch space-x-1">
-                  <Input
-                    {...register('auth_number')}
-                    placeholder="********"
-                  ></Input>
-                  <Button className="w-28" onClick={onCheckEmail} type="button">
-                    확인
-                  </Button>
+              {emailStatus === 'sended' && (
+                <div>
+                  <div className="flex items-stretch space-x-1">
+                    <Input
+                      {...register('auth_number')}
+                      placeholder="********"
+                    ></Input>
+                    <Button
+                      className="w-28"
+                      onClick={onCheckEmail}
+                      type="button"
+                      isLoading={
+                        auth_number?.length === 0 && isCheckCodePending
+                      }
+                    >
+                      확인
+                    </Button>
+                  </div>
+                  {(() => {
+                    if (errors.auth_number?.message) {
+                      return (
+                        <p className="text-red-500 text-sm font-sans pt-0.5">
+                          {errors.auth_number?.message}
+                        </p>
+                      )
+                    }
+                    if (emailStatus === 'sended') {
+                      return (
+                        <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                          이메일 확인 후 인증 번호를 입력해주세요.
+                        </p>
+                      )
+                    }
+                    return (
+                      <p className="pt-0.5 text-sm font-sans text-dark-brown">
+                        인증에 성공하셨습니다.
+                      </p>
+                    )
+                  })()}
                 </div>
               )}
               <InputLabel
@@ -179,9 +297,10 @@ export default function Page() {
                 <Input
                   {...register('password', {
                     pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                      value:
+                        /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/,
                       message:
-                        '비밀번호는 영문과 숫자를 조합한 8자리 이상이어야 합니다.',
+                        '비밀번호는 영어, 숫자, 특수 문자를 포함하여 6자리 이상이어야 합니다.',
                     },
                     required: '비밀번호는 필수 입력입니다.',
                   })}
@@ -222,6 +341,14 @@ export default function Page() {
             </div>
             <hr className="my-4 bg-dark-brown"></hr>
             <div className="space-y-2">
+              <InputLabel label="가족 수" required>
+                <Input
+                  {...register('family_num', {
+                    required: '가족 수는 필수 입력입니다.',
+                  })}
+                  placeholder="4"
+                ></Input>
+              </InputLabel>
               <InputLabel label="성별">
                 <div className="flex items-center justify-between gap-3">
                   <RadioButton
@@ -238,13 +365,6 @@ export default function Page() {
                   ></RadioButton>
                 </div>
               </InputLabel>
-              <InputLabel label="가족 수">
-                <Input
-                  {...register('family_num', {})}
-                  type="number"
-                  placeholder="4"
-                ></Input>
-              </InputLabel>
               <InputLabel label="생일">
                 <DatePickerField
                   control={control}
@@ -253,7 +373,9 @@ export default function Page() {
               </InputLabel>
             </div>
             <div className="mt-8">
-              <Button className="h-12 w-full">회원가입</Button>
+              <Button className="h-12 w-full" isLoading={isSignUpPeading}>
+                회원가입
+              </Button>
             </div>
           </form>
         </main>

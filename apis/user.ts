@@ -1,13 +1,12 @@
 import { type MutationRes, userClient } from '.'
 
-export interface GetCheckLoginIdProps {
+export interface PostCheckLoginIdProps {
   login_id: string
 }
 
-export const getCheckLoginId = async ({ login_id }: GetCheckLoginIdProps) =>
-  await userClient(`/check?login_id=${login_id}`)
-
-export const getMe = userClient.get<null>('/me')
+export const postCheckLoginId = async ({ login_id }: PostCheckLoginIdProps) => {
+  return await userClient.post(`/check?login_id=${login_id}`, {})
+}
 
 export interface GetUserRes {
   login_id: string
@@ -18,22 +17,22 @@ export interface GetUserRes {
   birthday: string
 }
 
-export const getUser = userClient.get<GetUserRes>('')
+export const getUser = async () => await userClient.get<GetUserRes>('')
 
 export interface PostCodeProps {
   email: string
 }
 
 export const postCode = async (props: PostCodeProps) =>
-  await userClient.post('/verification-code', props)
+  await userClient.post('/email/verification-code', props)
 
-export interface PostEmailProps {
+export interface PostCheckCodeProps {
   email: string
   auth_number: string
 }
 
-export const postEmail = async (props: PostEmailProps) =>
-  await userClient.post('/email', props)
+export const postCheckCode = async (props: PostCheckCodeProps) =>
+  await userClient.post('/email/check-verification-code', props)
 
 export interface PostFindLoginIdProps {
   email: string
@@ -64,11 +63,15 @@ export interface PostSignupProps {
   login_id: string
   password: string
   name: string
-  gender_cd: '1' | '2'
+  gender_cd: number
   email: string
   family_num: number
   birthday: string
 }
 
 export const postSignup = async (props: PostSignupProps) =>
-  await userClient.post<MutationRes, PostSignupProps>('/signup', props)
+  await userClient.post<MutationRes, PostSignupProps>('/signup', props, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })

@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Line } from 'rc-progress'
 
 import Button from '@/components/Button'
-import Navbar from '@/components/Navbar'
 import { State, StateLabel } from '@/components/StateLabel'
 import { classNames } from '@/utils/classNames'
 
@@ -45,8 +44,6 @@ const pastDays = Math.floor(
 export default function Page() {
   return (
     <>
-      <Navbar />
-
       <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-4 mb-10">
         <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full py-2">
           <h1

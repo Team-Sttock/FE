@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { getCheckLoginId, type GetCheckLoginIdProps } from '@/apis/user'
+import { postCheckLoginId, type PostCheckLoginIdProps } from '@/apis/user'
 
 export const useCheckLoginId = () =>
   useMutation({
-    mutationFn: async (props: GetCheckLoginIdProps) =>
-      await getCheckLoginId(props),
+    mutationFn: async (props: PostCheckLoginIdProps) =>
+      await postCheckLoginId(props),
   })
