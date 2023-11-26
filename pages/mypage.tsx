@@ -13,6 +13,7 @@ const userInfo = {
   name: '이승연',
   email: 'been0822@naver.com',
 }
+
 export default function Page() {
   return (
     <>
@@ -56,7 +57,7 @@ export default function Page() {
           </div>
           <div className="bg-ivory border border-beige px-6 py-8 space-y-6">
             <Link
-              href="/user/find-password"
+              href="/user/change-password"
               className="font-bold text-dark-brown flex items-center justify-between"
             >
               <span>비밀번호 변경</span>
@@ -79,7 +80,7 @@ export default function Page() {
           </div>
           <div className="bg-ivory border border-beige px-6 py-8 space-y-6">
             <Link
-              href="/user/"
+              href="/user/notice"
               className="font-bold text-dark-brown flex items-center justify-between"
             >
               <span>공지사항</span>
@@ -87,6 +88,7 @@ export default function Page() {
             </Link>
             <Link
               href="/user/"
+              // 구글폼 연결
               className="font-bold text-dark-brown flex items-center justify-between"
             >
               <span>고객센터</span>
