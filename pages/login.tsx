@@ -18,11 +18,7 @@ const NotoSans = Noto_Sans({
 })
 
 export default function Page() {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<PostLoginProps>({
+  const { register, handleSubmit } = useForm<PostLoginProps>({
     mode: 'onChange',
   })
   const router = useRouter()
@@ -63,17 +59,15 @@ export default function Page() {
           <Input
             {...register('login_id', { required: '아이디를 입력해주세요.' })}
             type="text"
-            errorMessage={errors.login_id?.message}
             placeholder="아이디"
           ></Input>
           <Input
             {...register('password', { required: '비밀번호를 입력해주세요.' })}
             type="password"
-            errorMessage={errors.password?.message}
             placeholder="비밀번호"
           ></Input>
           {error && (
-            <div className="pt-1">
+            <div className="pt-0.5">
               <p className="text-red-500 text-sm font-sans pt-0.5">{error}</p>
             </div>
           )}
