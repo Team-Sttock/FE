@@ -1,11 +1,11 @@
-import { type MutationRes, userClient } from '.'
+import { client, type MutationRes } from '.'
 
 export interface PostCheckLoginIdProps {
   login_id: string
 }
 
 export const postCheckLoginId = async ({ login_id }: PostCheckLoginIdProps) => {
-  return await userClient.post(`/check?login_id=${login_id}`, {})
+  return await client.post(`/user/check?login_id=${login_id}`, {})
 }
 
 export interface GetUserRes {
@@ -17,14 +17,14 @@ export interface GetUserRes {
   birthday: string
 }
 
-export const getUser = async () => await userClient.get<GetUserRes>('')
+export const getUser = async () => await client.get<GetUserRes>('/user')
 
 export interface PostCodeProps {
   email: string
 }
 
 export const postCode = async (props: PostCodeProps) =>
-  await userClient.post('/email/verification-code', props)
+  await client.post('/user/email/verification-code', props)
 
 export interface PostCheckCodeProps {
   email: string
@@ -32,7 +32,7 @@ export interface PostCheckCodeProps {
 }
 
 export const postCheckCode = async (props: PostCheckCodeProps) =>
-  await userClient.post('/email/check-verification-code', props)
+  await client.post('/user/email/check-verification-code', props)
 
 export interface PostFindLoginIdProps {
   email: string
@@ -43,14 +43,14 @@ export interface PostFindLoginIdRes {
 }
 
 export const postFindLoginId = async (props: PostFindLoginIdProps) =>
-  await userClient.post<PostFindLoginIdRes>('/loginId', props)
+  await client.post<PostFindLoginIdRes>('/user/loginId', props)
 
 export interface PostPasswordProps {
   password: string
 }
 
 export const postPassword = async (props: PostPasswordProps) =>
-  await userClient.post<MutationRes>('/password', props)
+  await client.post<MutationRes>('/user/password', props)
 
 export interface PostTempPasswordProps {
   login_id: string
@@ -58,7 +58,7 @@ export interface PostTempPasswordProps {
 }
 
 export const postTempPassword = async (props: PostTempPasswordProps) =>
-  await userClient.post<MutationRes>('temp-password', props)
+  await client.post<MutationRes>('/user/temp-password', props)
 
 export interface PostSignupProps {
   login_id: string
@@ -71,7 +71,7 @@ export interface PostSignupProps {
 }
 
 export const postSignup = async (props: PostSignupProps) =>
-  await userClient.post<MutationRes>('/signup', props, {
+  await client.post<MutationRes>('/user/signup', props, {
     headers: {
       'Content-Type': 'application/json',
     },

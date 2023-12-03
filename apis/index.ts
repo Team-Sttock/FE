@@ -1,29 +1,66 @@
 import axios from 'axios'
 
-export const authClient = axios.create({
-  baseURL: '/api/v1/auth',
+let lock = false
+let subscribers: Array<() => void> = []
+
+function subscribeTokenRefresh(cb: () => void) {
+  subscribers.push(cb)
+}
+
+function onRrefreshed() {
+  subscribers.forEach((cb) => {
+    cb()
+  })
+}
+
+const getRefreshToken = async () => {
+  try {
+    await client.get('/auth/refresh-token')
+
+    lock = false
+    onRrefreshed()
+    subscribers = []
+  } catch (e) {
+    lock = false
+    subscribers = []
+  }
+}
+
+axios.interceptors.response.use(
+  (res) => res,
+  async (err) => {
+    const {
+      config,
+      response: { status },
+    } = err
+    const originalRequest = config
+
+    if (status !== 401) return await Promise.reject(err)
+
+    if (lock) {
+      return await new Promise((resolve) => {
+        subscribeTokenRefresh(() => {
+          resolve(axios(originalRequest))
+        })
+      })
+    }
+    lock = true
+    await getRefreshToken()
+    return await Promise.reject(err)
+  }
+)
+
+export const client = axios.create({
+  baseURL: '/api/v1',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
 })
 
-export const userClient = axios.create({
-  baseURL: '/api/v1/user',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-})
-
-export const productClient = axios.create({
-  baseURL: 'https://api.sttock.co.kr/api/v1/products',
-})
-
-export const basicClient = axios.create({
-  baseURL: 'https://api.sttock.co.kr/api/v1/basic/',
-})
 export interface MutationRes {
   message: string
 }
+
 export interface ServerErrorRes {
   status: string
   code: string
