@@ -57,12 +57,12 @@ export default function Page() {
       <main className="pb-10">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <Input
-            {...register('login_id', { required: '아이디를 입력해주세요.' })}
+            {...register('login_id')}
             type="text"
             placeholder="아이디"
           ></Input>
           <Input
-            {...register('password', { required: '비밀번호를 입력해주세요.' })}
+            {...register('password')}
             type="password"
             placeholder="비밀번호"
           ></Input>
@@ -78,11 +78,11 @@ export default function Page() {
           </div>
         </form>
         <section className="flex items-center justify-center py-3 space-x-2 text-dark-brown">
-          <Link href="/find-id" className="text-sm">
+          <Link href="/user/find-id" className="text-sm">
             아이디 찾기
           </Link>
           <span className="inline-block w-0.5 h-4 bg-light-brown"></span>
-          <Link href="/find-password" className="text-sm text-dark-brown">
+          <Link href="/user/find-password" className="text-sm text-dark-brown">
             비밀번호 찾기
           </Link>
         </section>

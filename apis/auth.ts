@@ -6,7 +6,7 @@ export interface PostLoginProps {
 }
 
 export const postLogin = async (props: PostLoginProps) =>
-  await authClient.post<MutationRes, PostLoginProps>('/login', props, {
+  await authClient.post<MutationRes>('/login', props, {
     headers: {
       'Content-Type': 'application/json',
     },
