@@ -27,7 +27,7 @@ export default function Page() {
     mode: 'onChange',
   })
 
-  const { mutateAsync } = useTempPassword()
+  const { mutateAsync, isPending } = useTempPassword()
   const [step, setStep] = useState<'FORM' | 'RESULT'>('FORM')
 
   const onSubmit = async (formData: PostTempPasswordProps) => {
@@ -86,16 +86,20 @@ export default function Page() {
               ></Input>
             </InputLabel>
             <div className="py-1">
-              <Button type="submit" className="h-12 w-full">
-                임시 비밀번호 전송
-              </Button>
               {errors.root?.message && (
-                <div className="pt-1 text-center">
+                <div className="pb-2 text-center">
                   <p className="text-red-500 text-sm font-sans pt-0.5">
                     {errors.root?.message}
                   </p>
                 </div>
               )}
+              <Button
+                type="submit"
+                className="h-12 w-full"
+                isLoading={isPending}
+              >
+                임시 비밀번호 전송
+              </Button>
             </div>
           </form>
         )}

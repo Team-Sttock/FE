@@ -2,7 +2,6 @@ import { isAxiosError } from 'axios'
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { type ServerErrorRes } from '@/apis'
@@ -18,13 +17,17 @@ const NotoSans = Noto_Sans({
 })
 
 export default function Page() {
-  const { register, handleSubmit } = useForm<PostLoginProps>({
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<PostLoginProps>({
     mode: 'onChange',
   })
   const router = useRouter()
 
   const { mutateAsync } = useLogin()
-  const [error, setError] = useState('')
 
   const onSubmit = async (data: PostLoginProps) => {
     try {
@@ -35,10 +38,10 @@ export default function Page() {
         isAxiosError<ServerErrorRes>(error) &&
         error.response?.data.code === 'E401002'
       ) {
-        setError('아이디나 비밀번호가 일치하지 않습니다.')
+        setError('root', { message: '아이디나 비밀번호가 일치하지 않습니다.' })
         return
       }
-      setError('로그인 중 에러가 발생했습니다.')
+      setError('root', { message: '로그인 중 에러가 발생했습니다.' })
     }
   }
 
@@ -66,9 +69,11 @@ export default function Page() {
             type="password"
             placeholder="비밀번호"
           ></Input>
-          {error && (
+          {errors.root?.message && (
             <div className="pt-0.5">
-              <p className="text-red-500 text-sm font-sans pt-0.5">{error}</p>
+              <p className="text-red-500 text-sm font-sans pt-0.5">
+                {errors.root?.message}
+              </p>
             </div>
           )}
           <div className="py-1">

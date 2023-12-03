@@ -3,8 +3,6 @@ import { type NextRequest, NextResponse } from 'next/server'
 export async function middleware(req: NextRequest) {
   const { headers, url } = req
 
-  console.log('여기 오냐?', url)
-
   try {
     const { status } = await fetch('https://api.sttock.co.kr/api/v1/user/me', {
       headers: { Cookie: headers.get('cookie') ?? '' },

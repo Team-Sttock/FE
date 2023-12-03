@@ -27,7 +27,7 @@ export default function Page() {
     mode: 'onChange',
   })
 
-  const { mutateAsync } = useFindLoginId()
+  const { mutateAsync, isPending } = useFindLoginId()
   const [step, setStep] = useState<'FORM' | 'RESULT'>('FORM')
   const [userLoginId, setUserLoginId] = useState('')
 
@@ -80,16 +80,20 @@ export default function Page() {
               ></Input>
             </InputLabel>
             <div className="py-1">
-              <Button type="submit" className="h-12 w-full">
-                아이디 찾기
-              </Button>
               {errors.root?.message && (
-                <div className="pt-1 text-center">
+                <div className="pb-2 text-center">
                   <p className="text-red-500 text-sm font-sans pt-0.5">
                     {errors.root?.message}
                   </p>
                 </div>
               )}
+              <Button
+                type="submit"
+                className="h-12 w-full"
+                disabled={isPending}
+              >
+                아이디 찾기
+              </Button>
             </div>
           </form>
         )}
