@@ -2,7 +2,6 @@ import { isAxiosError } from 'axios'
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { type ServerErrorRes } from '@/apis'
@@ -20,29 +19,29 @@ const NotoSans = Noto_Sans({
 export default function Page() {
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    setError,
+    formState: { errors },
   } = useForm<PostLoginProps>({
     mode: 'onChange',
   })
   const router = useRouter()
 
   const { mutateAsync } = useLogin()
-  const [error, setError] = useState('')
 
   const onSubmit = async (data: PostLoginProps) => {
     try {
       await mutateAsync(data)
-      void router.push((router.query?.continue as string) ?? '/list')
+      location.href = (router.query?.continue as string) ?? '/list'
     } catch (error) {
       if (
         isAxiosError<ServerErrorRes>(error) &&
         error.response?.data.code === 'E401002'
       ) {
-        setError('아이디나 비밀번호가 일치하지 않습니다.')
+        setError('root', { message: '아이디나 비밀번호가 일치하지 않습니다.' })
         return
       }
-      setError('로그인 중 에러가 발생했습니다.')
+      setError('root', { message: '로그인 중 에러가 발생했습니다.' })
     }
   }
 
@@ -61,20 +60,20 @@ export default function Page() {
       <main className="pb-10">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <Input
-            {...register('login_id', { required: '아이디를 입력해주세요.' })}
+            {...register('login_id')}
             type="text"
-            errorMessage={errors.login_id?.message}
             placeholder="아이디"
           ></Input>
           <Input
-            {...register('password', { required: '비밀번호를 입력해주세요.' })}
+            {...register('password')}
             type="password"
-            errorMessage={errors.password?.message}
             placeholder="비밀번호"
           ></Input>
-          {error && (
-            <div className="pt-1">
-              <p className="text-red-500 text-sm font-sans pt-0.5">{error}</p>
+          {errors.root?.message && (
+            <div className="pt-0.5">
+              <p className="text-red-500 text-sm font-sans pt-0.5">
+                {errors.root?.message}
+              </p>
             </div>
           )}
           <div className="py-1">
@@ -84,11 +83,11 @@ export default function Page() {
           </div>
         </form>
         <section className="flex items-center justify-center py-3 space-x-2 text-dark-brown">
-          <Link href="/find-id" className="text-sm">
+          <Link href="/user/find-id" className="text-sm">
             아이디 찾기
           </Link>
           <span className="inline-block w-0.5 h-4 bg-light-brown"></span>
-          <Link href="/find-password" className="text-sm text-dark-brown">
+          <Link href="/user/find-password" className="text-sm text-dark-brown">
             비밀번호 찾기
           </Link>
         </section>

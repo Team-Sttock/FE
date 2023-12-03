@@ -4,22 +4,20 @@ import { classNames } from '../utils/classNames'
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
-  errorMessage?: string
+  isError?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { errorMessage = '', ...props },
+  { isError = false, ...props },
   ref
 ) {
-  const showError = errorMessage !== ''
-
   return (
     <>
       <div
         className={classNames(
           'relative w-full h-fit border border-beige',
           'focus-within:outline focus-within:outline-1 focus-within:outline-light-brown',
-          showError && 'border-red-500 focus-within:outline-red-500'
+          isError && 'border-red-500 focus-within:outline-red-500'
         )}
       >
         <input
@@ -31,9 +29,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {...props}
         ></input>
       </div>
-      {errorMessage !== '' && (
-        <p className="text-red-500 text-sm font-sans pt-0.5">{errorMessage}</p>
-      )}
     </>
   )
 })

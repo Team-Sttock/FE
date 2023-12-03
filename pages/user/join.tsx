@@ -41,6 +41,7 @@ export default function Page() {
     handleSubmit,
     setError,
     control,
+    clearErrors,
     watch,
   } = useForm<RegisterForm>({
     mode: 'onChange',
@@ -112,6 +113,7 @@ export default function Page() {
         })
         return
       }
+      clearErrors('auth_number')
 
       await verifyEmail({ email, auth_number })
       setEmailStatus('success')
@@ -248,7 +250,7 @@ export default function Page() {
                   </Button>
                 </div>
               </InputLabel>
-              {emailStatus === 'sended' && (
+              {emailStatus !== 'none' && (
                 <div>
                   <div className="flex items-stretch space-x-1">
                     <Input

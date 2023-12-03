@@ -1,10 +1,12 @@
 import { type PropsWithChildren } from 'react'
 
+import { classNames } from '@/utils/classNames'
+
 interface InputLabelProps {
   label: string
   errorMessage?: string
   required?: boolean
-  className?: string
+  row?: boolean
 }
 
 export default function InputLabel({
@@ -12,18 +14,29 @@ export default function InputLabel({
   label,
   required,
   errorMessage,
-  className,
+  row = false,
 }: PropsWithChildren<InputLabelProps>) {
   return (
-    <div>
-      <p className="text-sm text-dark-brown pb-1">
+    <label className={classNames(row ? 'flex' : 'block')}>
+      <span
+        className={classNames(
+          'text-sm text-dark-brown cursor-pointer',
+          row ? 'w-36 sm:w-56 h-fit relative top-2.5' : 'inline-block pb-1'
+        )}
+      >
         {label}
         {required && (
           <span className="text-light-brown text-base pl-0.5">*</span>
         )}
-      </p>
-      {children}
-      <p className="text-red-500 text-sm font-sans pt-0.5"> {errorMessage}</p>
-    </div>
+      </span>
+      <div className="w-full h-fit relative">
+        {children}
+        {errorMessage && (
+          <p className="text-red-500 text-sm font-sans mt-0.5">
+            {errorMessage}
+          </p>
+        )}
+      </div>
+    </label>
   )
 }

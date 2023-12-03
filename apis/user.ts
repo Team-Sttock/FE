@@ -38,26 +38,27 @@ export interface PostFindLoginIdProps {
   email: string
 }
 
+export interface PostFindLoginIdRes {
+  loginId: string
+}
+
 export const postFindLoginId = async (props: PostFindLoginIdProps) =>
-  await userClient.post<MutationRes, PostFindLoginIdProps>('/loginId', props)
+  await userClient.post<PostFindLoginIdRes>('/loginId', props)
 
 export interface PostPasswordProps {
   password: string
 }
 
 export const postPassword = async (props: PostPasswordProps) =>
-  await userClient.post<MutationRes, PostPasswordProps>('/password', props)
+  await userClient.post<MutationRes>('/password', props)
 
-export interface PostRecoverPasswordProps {
+export interface PostTempPasswordProps {
   login_id: string
   email: string
 }
 
-export const postRecoverPassword = async (props: PostRecoverPasswordProps) =>
-  await userClient.post<MutationRes, PostRecoverPasswordProps>(
-    '/password/recover',
-    props
-  )
+export const postTempPassword = async (props: PostTempPasswordProps) =>
+  await userClient.post<MutationRes>('temp-password', props)
 
 export interface PostSignupProps {
   login_id: string
@@ -70,7 +71,7 @@ export interface PostSignupProps {
 }
 
 export const postSignup = async (props: PostSignupProps) =>
-  await userClient.post<MutationRes, PostSignupProps>('/signup', props, {
+  await userClient.post<MutationRes>('/signup', props, {
     headers: {
       'Content-Type': 'application/json',
     },

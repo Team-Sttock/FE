@@ -7,6 +7,7 @@ import Button from '@/components/Button'
 import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
 import Input from '@/components/Input'
+import InputLabel from '@/components/InputLabel'
 import ListBox from '@/components/ListBox'
 import { classNames } from '@/utils/classNames'
 
@@ -112,10 +113,11 @@ export default function Page() {
             onSubmit={handleSubmit(onSubmit, onError)}
             className="space-y-4"
           >
-            <LabelWrapper
+            <InputLabel
               label="상품명"
               required
               errorMessage={errors.product?.message}
+              row
             >
               <ComboBox
                 name="product"
@@ -124,42 +126,45 @@ export default function Page() {
                 placeholder="상품명을 입력하세요."
                 rules={{ required: '상품명은 필수 입력입니다.' }}
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper label="카테고리">
+            <InputLabel label="카테고리" row>
               <InputReadOnly
                 className=""
                 value={watchProduct ? watchProduct.category : ''}
                 message="상품명을 입력하면 자동으로 결정됩니다."
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="상품별칭"
               errorMessage={errors.productNickname?.message}
+              row
             >
               <Input
                 {...register('productNickname', {})}
                 placeholder="상품 별칭을 입력해주세요."
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="구매일자"
               required
               errorMessage={errors.purchaseDate?.message}
+              row
             >
               <DatePickerField
                 name="purchaseDate"
                 placeholder="구매일자를 선택해주세요."
                 control={control}
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="구매용량"
               required
               errorMessage={errors.purchaseCapacity?.message}
+              row
             >
               <div className="flex items-center space-x-2">
                 <Input
@@ -177,12 +182,13 @@ export default function Page() {
                   />
                 </div>
               </div>
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="구매개수"
               required
               errorMessage={errors.purchaseNumber?.message}
+              row
             >
               <Input
                 placeholder="숫자만 입력"
@@ -190,12 +196,13 @@ export default function Page() {
                   required: '구매개수는 필수 입력입니다',
                 })}
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="사용인원"
               required
               errorMessage={errors.numberOfUser?.message}
+              row
             >
               <ListBox
                 options={range(1, 5).map((number) => ({
@@ -205,9 +212,9 @@ export default function Page() {
                 control={control}
                 name="numberOfUser"
               ></ListBox>
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper label="사용예상일수" required>
+            <InputLabel label="사용예상일수" required row>
               <div className="flex space-x-1 w-full items-stretch">
                 <Input
                   type="number"
@@ -220,28 +227,30 @@ export default function Page() {
                   직접 입력
                 </Button>
               </div>
-            </LabelWrapper>
-            <LabelWrapper
+            </InputLabel>
+            <InputLabel
               label="예상소진일"
               errorMessage={errors.expectationDate?.message}
+              row
             >
               <DatePickerField
                 name="expectationDate"
                 control={control}
                 placeholder="예상소진일을 선택해주세요."
               />
-            </LabelWrapper>
+            </InputLabel>
 
-            <LabelWrapper
+            <InputLabel
               label="유통기한"
               errorMessage={errors.expirationDate?.message}
+              row
             >
               <DatePickerField
                 name="expirationDate"
                 control={control}
                 placeholder="유통기한을 선택해주세요."
               />
-            </LabelWrapper>
+            </InputLabel>
           </form>
 
           <div className="flex items-center justify-center gap-4 mt-8">
@@ -288,36 +297,5 @@ function InputReadOnly({
         <p className="text-light-brown text-sm font-sans pt-0.5"> {message}</p>
       )}
     </>
-  )
-}
-
-interface LabelProps {
-  label: string
-  required?: boolean
-  errorMessage?: string
-  children: any
-}
-
-function LabelWrapper({
-  children,
-  label,
-  required,
-  errorMessage,
-}: PropsWithChildren<LabelProps>) {
-  return (
-    <div className="flex w-full">
-      <p className="w-36 sm:w-56 h-fit relative top-2.5 text-sm text-dark-brown ">
-        {label}
-        {required && (
-          <span className="text-light-brown text-base pl-0.5">*</span>
-        )}
-      </p>
-      <div className="w-full h-fit relative">
-        {children}
-        {errorMessage && (
-          <p className="text-red-500 text-sm font-sans mt-1">{errorMessage}</p>
-        )}
-      </div>
-    </div>
   )
 }
