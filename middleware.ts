@@ -32,7 +32,6 @@ export async function middleware(req: NextRequest) {
         nextRes.cookies.set('isAuth', 'true')
         return nextRes
       }
-      console.log(refreshStatus)
     }
 
     const redirectRes = NextResponse.redirect(
