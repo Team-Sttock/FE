@@ -1,6 +1,5 @@
 import { Noto_Sans } from 'next/font/google'
 
-import Navbar from '@/components/Navbar'
 import FilteringField from '@/components/products/FilteringField'
 import Item from '@/components/products/Item'
 import { classNames } from '@/utils/classNames'
@@ -13,7 +12,6 @@ const NotoSans = Noto_Sans({
 export default function Page() {
   return (
     <>
-      <Navbar />
       <main className="m-auto max-w-5xl w-full px-4 mb-10">
         <header className="mt-10 mb-4 w-full py-2">
           <div
