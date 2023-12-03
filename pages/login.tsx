@@ -8,7 +8,7 @@ import { type ServerErrorRes } from '@/apis'
 import { type PostLoginProps } from '@/apis/auth'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
-import { useLogin } from '@/hooks/auth/mutations/useLogin'
+import { useLogin } from '@/hooks/auth/useLogin'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
