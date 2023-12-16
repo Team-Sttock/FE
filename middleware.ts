@@ -3,8 +3,11 @@ import { type NextRequest, NextResponse } from 'next/server'
 export async function middleware(req: NextRequest) {
   const { headers, url } = req
 
+  const baseUrl =
+    process.env.NODE_ENV === 'development' ? 'http://44.210.56.132:8080' : ''
+
   try {
-    const { status } = await fetch('https://api.sttock.co.kr/api/v1/user/me', {
+    const { status } = await fetch(`${baseUrl}/api/v1/user/me`, {
       headers: { Cookie: headers.get('cookie') ?? '' },
     })
 
@@ -17,7 +20,7 @@ export async function middleware(req: NextRequest) {
     // Refresh Token 로직짜기. 있던 쿠키 그대로 호출함. 리프레시 한걸 그대로 받음.
     if (status === 401) {
       const { status: refreshStatus, headers: refreshHeaders } = await fetch(
-        'https://api.sttock.co.kr/api/v1/user/me',
+        `${baseUrl}/api/v1/user/me`,
         {
           headers: { Cookie: headers.get('cookie') ?? '' },
         }

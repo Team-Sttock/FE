@@ -9,7 +9,7 @@ import { type PostTempPasswordProps } from '@/apis/user'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
-import { useTempPassword } from '@/hooks/auth/mutations/useTempPassword'
+import { useTempPassword } from '@/hooks/user/useTempPassword'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({

@@ -9,7 +9,7 @@ import { type PostFindLoginIdProps } from '@/apis/user'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
-import { useFindLoginId } from '@/hooks/auth/mutations/useFindLoginId'
+import { useFindLoginId } from '@/hooks/user/useFindLoginId'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({

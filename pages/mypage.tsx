@@ -1,7 +1,7 @@
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 
-import Navbar from '@/components/Navbar'
+import { useUser } from '@/hooks/user/useUser'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -15,9 +15,10 @@ const userInfo = {
 }
 
 export default function Page() {
+  const { data, isPending } = useUser()
+
   return (
     <>
-      <Navbar />
       <main className="m-auto max-w-5xl w-full px-4 mb-10">
         <header className="mt-10 mb-4 w-full py-2">
           <div
@@ -41,7 +42,7 @@ export default function Page() {
           <div className="flex justify-between items-center border border-beige px-6 py-8 ">
             <div className="flex flex-col space-y-2 items-start justify-start ">
               <div className="flex items-center justify-center gap-1  text-dark-brown ">
-                <span className="font-bold text-xl">{userInfo.name}</span>
+                <span className="font-bold text-xl"></span>
                 <span>님의 스똑</span>
               </div>
               <span className="text-light-brown">{userInfo.email}</span>
