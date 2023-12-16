@@ -1,6 +1,7 @@
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 
+import { useLogout } from '@/hooks/auth/useLogout'
 import { useUser } from '@/hooks/user/useUser'
 import { classNames } from '@/utils/classNames'
 
@@ -9,13 +10,18 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-const userInfo = {
-  name: '이승연',
-  email: 'been0822@naver.com',
-}
-
 export default function Page() {
-  const { data, isPending } = useUser()
+  const { data } = useUser()
+  const { mutateAsync } = useLogout()
+
+  const onLogout = async () => {
+    try {
+      await mutateAsync()
+      location.href = '/'
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <>
@@ -42,10 +48,10 @@ export default function Page() {
           <div className="flex justify-between items-center border border-beige px-6 py-8 ">
             <div className="flex flex-col space-y-2 items-start justify-start ">
               <div className="flex items-center justify-center gap-1  text-dark-brown ">
-                <span className="font-bold text-xl"></span>
+                <span className="font-bold text-xl">{data?.data.name}</span>
                 <span>님의 스똑</span>
               </div>
-              <span className="text-light-brown">{userInfo.email}</span>
+              <span className="text-light-brown">{data?.data.email}</span>
             </div>
 
             <Link
@@ -95,13 +101,13 @@ export default function Page() {
               <span>고객센터</span>
               <img src="/icons/arrow-move.svg" alt="arrow-move" />
             </Link>
-            <Link
-              href="/user/"
+            <button
               className="font-bold text-dark-brown flex items-center justify-between"
+              onClick={onLogout}
             >
               <span>로그아웃</span>
               <img src="/icons/arrow-move.svg" alt="arrow-move" />
-            </Link>
+            </button>
           </div>
         </div>
       </main>

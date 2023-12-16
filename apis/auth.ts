@@ -11,3 +11,5 @@ export const postLogin = async (props: PostLoginProps) =>
       'Content-Type': 'application/json',
     },
   })
+
+export const postLogout = async () => await client.post<MutationRes>('/logout')
