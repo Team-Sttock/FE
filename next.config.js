@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/api/v1/:path*",
-        destination: `https://api.sttock.co.kr/api/v1/:path*`,
+        destination: `http://44.210.56.132:8080/api/v1/:path*`,
       },
     ];
   }
