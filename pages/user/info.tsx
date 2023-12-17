@@ -58,7 +58,7 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </header>
         <div className="w-full max-w-2xl m-auto flex-col justify-center items-center space-y-4">
-          <div className="w-full max-w-xl m-auto p-8 flex-col justify-center items-center border border-beige bg-ivory space-y-6  ">
+          <div className="w-full max-w-xl m-auto p-5 flex-col justify-center items-center border border-beige bg-ivory space-y-6  ">
             <div className="flex flex-col justify-center items-center gap-4">
               {userInfoFields.map((field, idx) => (
                 <div

@@ -1,5 +1,5 @@
 import { Noto_Sans } from 'next/font/google'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
@@ -19,6 +19,8 @@ interface PasswordChangeForm {
 }
 
 export default function Page() {
+  const router = useRouter()
+
   const {
     register,
     formState: { errors },
@@ -116,12 +118,16 @@ export default function Page() {
             ></Input>
           </InputLabel>
           <div className="pt-4 flex justify-center items-center space-x-4 w-full">
-            <Link href="/mypage">
-              <Button type="button" className="py-2 px-6">
-                마이페이지로
-              </Button>
-            </Link>
-            <Button className="py-2 px-6" isSelected>
+            <Button
+              type="button"
+              className="py-2 px-6"
+              onClick={() => {
+                router.back()
+              }}
+            >
+              돌아가기
+            </Button>
+            <Button type="submit" className="py-2 px-6" isSelected>
               변경하기
             </Button>
           </div>
