@@ -87,15 +87,7 @@ export default function Page() {
           </div>
           <div className="bg-ivory border border-beige px-6 py-8 space-y-6">
             <Link
-              href="/user/notice"
-              className="font-bold text-dark-brown flex items-center justify-between"
-            >
-              <span>공지사항</span>
-              <img src="/icons/arrow-move.svg" alt="arrow-move" />
-            </Link>
-            <Link
-              href="/user/"
-              // 구글폼 연결
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdFydOTe_kBSceYLF7gpGnYEdDEb_9Dok632fo8K0o2X53wZg/viewform"
               className="font-bold text-dark-brown flex items-center justify-between"
             >
               <span>고객센터</span>
