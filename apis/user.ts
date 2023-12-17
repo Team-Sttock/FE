@@ -45,13 +45,6 @@ export interface PostFindLoginIdRes {
 export const postFindLoginId = async (props: PostFindLoginIdProps) =>
   await client.post<PostFindLoginIdRes>('/user/loginId', props)
 
-export interface PostPasswordProps {
-  password: string
-}
-
-export const postPassword = async (props: PostPasswordProps) =>
-  await client.post<MutationRes>('/user/password', props)
-
 export interface PostTempPasswordProps {
   login_id: string
   email: string
@@ -72,6 +65,22 @@ export interface PostSignupProps {
 
 export const postSignup = async (props: PostSignupProps) =>
   await client.post<MutationRes>('/user/signup', props, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+export interface PatchUserProps {
+  login_id: string
+  name: string
+  gender_cd: number
+  email: string
+  family_num: number
+  birthday: string
+}
+
+export const patchUser = async (props: PatchUserProps) =>
+  await client.patch<MutationRes>('/user', props, {
     headers: {
       'Content-Type': 'application/json',
     },
