@@ -102,7 +102,7 @@ export default function Page() {
               <img src="/icons/arrow-move.svg" alt="arrow-move" />
             </Link>
             <button
-              className="font-bold text-dark-brown flex items-center justify-between"
+              className="w-full font-bold text-dark-brown flex items-center justify-between"
               onClick={onLogout}
             >
               <span>로그아웃</span>
