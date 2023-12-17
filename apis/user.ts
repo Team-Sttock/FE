@@ -85,3 +85,5 @@ export const patchUser = async (props: PatchUserProps) =>
       'Content-Type': 'application/json',
     },
   })
+
+export const deleteUser = async () => await client.delete<MutationRes>('/user')

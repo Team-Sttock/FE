@@ -1,7 +1,9 @@
 import { Noto_Sans } from 'next/font/google'
-import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
 import Button from '@/components/Button'
+import { useModal } from '@/components/Modal'
+import { useDeleteUser } from '@/hooks/user/useDeleteUser'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -9,28 +11,33 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-const leaveReason = {
-  1: '서비스 이용에 불편함을 겪었습니다.',
-  2: '스똑의 기능을 이용하기 어렵습니다.',
-  3: '스똑의 디자인이 마음에 들지 않습니다.',
-  4: '스똑의 기능이 마음에 들지 않습니다.',
-  5: '스똑의 가격이 마음에 들지 않습니다.',
-  6: '스똑의 기타 이유로 인해 이용을 중단하고 싶습니다.',
-}
-
-interface LeaveReasonFormData {
-  leaveReason: string
-}
+// const leaveReason = {
+//   1: '서비스 이용에 불편함을 겪었습니다.',
+//   2: '스똑의 기능을 이용하기 어렵습니다.',
+//   3: '스똑의 디자인이 마음에 들지 않습니다.',
+//   4: '스똑의 기능이 마음에 들지 않습니다.',
+//   5: '스똑의 가격이 마음에 들지 않습니다.',
+//   6: '스똑의 기타 이유로 인해 이용을 중단하고 싶습니다.',
+// }
 
 export default function Page() {
-  const { control, handleSubmit } = useForm<LeaveReasonFormData>()
+  const router = useRouter()
 
-  const onSubmit: SubmitHandler<LeaveReasonFormData> = (data) => {
-    console.log(data)
-  }
+  const { open } = useModal({
+    title: '탈퇴 완료',
+    description: '안녕하가세요.',
+  })
 
-  const handleLeaveReasonChange = (value: any) => {
-    console.log('value', value)
+  const { mutateAsync, isPending } = useDeleteUser()
+
+  const onClick = async () => {
+    try {
+      await mutateAsync()
+      await open()
+      await router.push('/')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -73,12 +80,25 @@ export default function Page() {
               </p>
             </div>
           </div>
-          <div>
-            <span className="text-lg text-dark-brown">탈퇴 사유</span>
-          </div>
-          <div className="space-x-10">
-            <Button className="px-2 py-1">탈퇴하기</Button>
-            <Button className="px-2 py-1">돌아가기</Button>
+          <div className="pt-4 flex justify-center items-center space-x-4 w-full">
+            <Button
+              type="button"
+              className="py-2 px-6"
+              onClick={() => {
+                router.back()
+              }}
+            >
+              돌아가기
+            </Button>
+            <Button
+              type="button"
+              className="py-2 px-6"
+              isSelected
+              isLoading={isPending}
+              onClick={onClick}
+            >
+              탈퇴하기
+            </Button>
           </div>
         </div>
       </main>
