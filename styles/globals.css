@@ -2,38 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 @font-face {
-    font-family: 'NEXON LV2 Gothic';
-    src: url('/fonts/NEXON Lv2 Gothic Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'NEXON LV2 Gothic';
-    src: url('/fonts/NEXON Lv2 Gothic Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'NEXON LV2 Gothic';
-    src: url('/fonts/NEXON Lv2 Gothic Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Hahmlet'; 
-    src: url('/fonts/Hahmlet-VariableFont_wght.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Kimjungchul Gothic';
-    src: url('/fonts/KimjungchulGothic-Bold.otf') format('opentype');
-    
-  }
+  font-family: 'NEXON LV2 Gothic';
+  src: url('/fonts/NEXON Lv2 Gothic Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON LV2 Gothic';
+  src: url('/fonts/NEXON Lv2 Gothic Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON LV2 Gothic';
+  src: url('/fonts/NEXON Lv2 Gothic Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Hahmlet'; 
+  src: url('/fonts/Hahmlet-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Kimjungchul Gothic';
+  src: url('/fonts/KimjungchulGothic-Bold.otf') format('opentype');
+}
 
 .react-datepicker__month-container {
   width: 100% !important;

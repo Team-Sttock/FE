@@ -8,7 +8,7 @@ export interface InputProps
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { isError = false, ...props },
+  { isError = false, readOnly, disabled, ...props },
   ref
 ) {
   return (
@@ -24,8 +24,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           ref={ref}
           className={classNames(
             'w-full h-10 p-3 border-none outline-none text-md text-dark-brown',
-            'placeholder:text-beige text-sm'
+            'placeholder:text-beige text-sm',
+            readOnly === true || disabled === true ? 'bg-ivory' : ''
           )}
+          readOnly={readOnly}
+          disabled={disabled}
           {...props}
         ></input>
       </div>
