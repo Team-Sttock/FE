@@ -1,5 +1,8 @@
 import { Noto_Sans } from 'next/font/google'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 
+import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputLabel from '@/components/InputLabel'
 import { classNames } from '@/utils/classNames'
@@ -9,7 +12,32 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
+interface PasswordChangeForm {
+  nowPassword: string
+  newPassword: string
+  checkNewPassword: string
+}
+
 export default function Page() {
+  const router = useRouter()
+
+  const {
+    register,
+    formState: { errors },
+    watch,
+    handleSubmit,
+  } = useForm<PasswordChangeForm>({
+    mode: 'onChange',
+  })
+
+  const { newPassword } = watch()
+
+  const onSubmit = (props: PasswordChangeForm) => {
+    console.log(props)
+  }
+
+  const onError = () => {}
+
   return (
     <>
       <main className="m-auto max-w-5xl w-full px-4 mb-10">
@@ -32,46 +60,78 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </header>
 
-        <div className="w-full max-w-2xl m-auto flex-col justify-center items-center space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit, onError)}
+          className="w-full max-w-2xl m-auto flex-col justify-center items-center space-y-4"
+        >
           <InputLabel
             label="현재 비밀번호"
-            errorMessage="현재 비밀번호를 입력해주세요."
+            errorMessage={errors.nowPassword?.message}
+            required
+            row
           >
             <Input
               type="password"
-              name="currentPassword"
               placeholder="현재 비밀번호를 입력하세요."
+              {...register('nowPassword', {
+                required: '현재 비밀번호는 필수 입력입니다.',
+              })}
             />
           </InputLabel>
           <InputLabel
-            label="새 비밀번호"
-            errorMessage="새 비밀번호를 입력해주세요."
+            label="변경할 비밀번호"
+            errorMessage={errors.newPassword?.message}
+            required
+            row
           >
             <Input
               type="password"
-              name="newPassword"
               placeholder="새 비밀번호를 입력하세요."
+              {...register('newPassword', {
+                required: '새 비밀번호는 필수 입력입니다.',
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/,
+                  message:
+                    '비밀번호는 영어, 숫자, 특수 문자를 포함하여 6자리 이상이어야 합니다.',
+                },
+              })}
             />
           </InputLabel>
           <InputLabel
             label="비밀번호 확인"
-            errorMessage="비밀번호 확인을 입력해주세요."
+            errorMessage={errors.checkNewPassword?.message}
             required
+            row
           >
-            {/* <Input
-              {...register('password_check', {
-                required: '비밀번호 확인은 필수 입력입니다.',
+            <Input
+              {...register('checkNewPassword', {
+                required: '새 비밀번호 확인은 필수 입력입니다.',
                 validate: {
                   value: (passwordCheck) =>
-                    passwordCheck === password ||
+                    passwordCheck === newPassword ||
                     '비밀번호와 일치하지 않습니다.',
                 },
               })}
               type="password"
-              placeholder="***********"
-            ></Input> */}
+              placeholder="새 비밀번호를 다시 입력하세요."
+            ></Input>
           </InputLabel>
-        </div>
+          <div className="pt-4 flex justify-center items-center space-x-4 w-full">
+            <Button
+              type="button"
+              className="py-2 px-6"
+              onClick={() => {
+                router.back()
+              }}
+            >
+              돌아가기
+            </Button>
+            <Button type="submit" className="py-2 px-6" isSelected>
+              변경하기
+            </Button>
+          </div>
+        </form>
       </main>
     </>
   )

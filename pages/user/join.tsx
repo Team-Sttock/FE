@@ -343,10 +343,10 @@ export default function Page() {
             </div>
             <hr className="my-4 bg-dark-brown"></hr>
             <div className="space-y-2">
-              <InputLabel label="가족 수" required>
+              <InputLabel label="가구원 수" required>
                 <Input
                   {...register('family_num', {
-                    required: '가족 수는 필수 입력입니다.',
+                    required: '가구원 수는 필수 입력입니다.',
                   })}
                   placeholder="4"
                 ></Input>

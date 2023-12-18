@@ -1,6 +1,8 @@
+import { format, parseISO } from 'date-fns'
 import { Noto_Sans } from 'next/font/google'
 import Link from 'next/link'
 
+import { useUser } from '@/hooks/user/useUser'
 import { classNames } from '@/utils/classNames'
 
 const NotoSans = Noto_Sans({
@@ -8,31 +10,30 @@ const NotoSans = Noto_Sans({
   subsets: ['latin'],
 })
 
-const userInfo = {
-  name: '이승연',
-  email: 'been0822@naver.com',
-  loginId: 'been0822',
-  birthday: '2000-08-22',
-  genderCd: '2',
-  familyNum: '1',
+const getGenderLabel = (genderCd: number) => {
+  return genderCd === 1 ? '남성' : '여성'
 }
 
-const getGenderLabel = (genderCd) => {
-  return genderCd === '1' ? '남성' : '여성'
-}
-
-const formatBirthday = (birthday) => {
-  return birthday.replace(/-/g, '.')
+const formatBirthday = (birthday: string) => {
+  return format(parseISO(birthday), 'yyyy.MM.dd')
 }
 
 export default function Page() {
+  const { data } = useUser()
+
   const userInfoFields = [
-    { label: '이름', value: userInfo.name },
-    { label: '이메일', value: userInfo.email },
-    { label: '아이디', value: userInfo.loginId },
-    { label: '생년월일', value: userInfo.birthday },
-    { label: '성별', value: userInfo.genderCd },
-    { label: '가구원수', value: userInfo.familyNum },
+    { label: '이름', value: data?.data.name ?? '' },
+    { label: '이메일', value: data?.data.email ?? '' },
+    { label: '아이디', value: data?.data.login_id ?? '' },
+    {
+      label: '생년월일',
+      value: data?.data.birthday ? formatBirthday(data?.data.birthday) : '',
+    },
+    {
+      label: '성별',
+      value: data?.data.gender_cd ? getGenderLabel(data?.data.gender_cd) : '',
+    },
+    { label: '가구원수', value: data?.data.family_num ?? '' },
   ]
 
   return (
@@ -57,7 +58,7 @@ export default function Page() {
           <hr className="relative w-full border-1 border-beige" />
         </header>
         <div className="w-full max-w-2xl m-auto flex-col justify-center items-center space-y-4">
-          <div className="w-full max-w-xl m-auto p-8 flex-col justify-center items-center border border-beige bg-ivory space-y-6  ">
+          <div className="w-full max-w-xl m-auto p-5 flex-col justify-center items-center border border-beige bg-ivory space-y-6  ">
             <div className="flex flex-col justify-center items-center gap-4">
               {userInfoFields.map((field, idx) => (
                 <div
@@ -66,11 +67,7 @@ export default function Page() {
                 >
                   <span className="text-light-brown">{field.label}</span>
                   <span className="font-bold text-dark-brown">
-                    {field.label === '성별'
-                      ? getGenderLabel(userInfo.genderCd)
-                      : (field.label === '생년월일' &&
-                          formatBirthday(userInfo.birthday)) ||
-                        field.value}
+                    {field.value}
                   </span>
                 </div>
               ))}
