@@ -1,6 +1,5 @@
 import { Noto_Sans } from 'next/font/google'
 import React from 'react'
-import { useForm } from 'react-hook-form'
 
 import { classNames } from '@/utils/classNames'
 
@@ -10,8 +9,6 @@ const NotoSans = Noto_Sans({
 })
 
 export default function Page() {
-  const { control } = useForm()
-
   return (
     <div className="flex flex-col items-center justify-center m-auto max-w-3xl w-full px-4 mb-10">
       <div className="flex flex-col justify-center items-stretch my-10 max-w-3xl w-full py-2">
