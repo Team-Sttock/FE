@@ -22,9 +22,12 @@ const NotoSans = Noto_Sans({
 
 export default function Page() {
   interface ProductsOptionsProps {
+    proId: number
     value: string
     label: string
-    category: string
+    categoryName: string
+    basicExpectedAmount: number
+    basicExpectedUnit: string
   }
 
   interface CapacityOptionsProps {
@@ -69,8 +72,6 @@ export default function Page() {
     },
   })
 
-  const watchProduct: any = watch('product')
-
   const onSubmit = (data: any) => {
     console.log(data)
   }
@@ -92,11 +93,19 @@ export default function Page() {
 
   const productsOptions: ProductsOptionsProps[] = [
     ...basicProducts.map((product) => ({
+      proId: product.prodId,
       value: product.prodName,
       label: product.prodName,
-      category: product.categoryName,
+      categoryName: product.categoryName,
+      basicExpectedAmount: product.basicExpectedAmount,
+      basicExpectedUnit: product.basicExpectedUnit,
     })),
   ]
+
+  const watchProduct = watch('product')
+  const categoryField = basicProducts.find(
+    (product) => product.prodName === watchProduct
+  )?.categoryName
 
   return (
     <>
@@ -149,8 +158,7 @@ export default function Page() {
 
             <InputLabel label="카테고리" row>
               <InputReadOnly
-                className=""
-                value={watchProduct ? watchProduct.category : ''}
+                value={categoryField}
                 message="상품명을 입력하면 자동으로 결정됩니다."
               />
             </InputLabel>
