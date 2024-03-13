@@ -21,7 +21,7 @@ const filterCategory: SortOptionProps[] = [
 ]
 
 const filterState: SortOptionProps[] = [
-  { id: 1, label: '사용중', value: 'using' },
+  { id: 1, label: '사용중', value: 'inuse' },
   { id: 2, label: '사용중지', value: 'stop' },
   { id: 3, label: '소진', value: 'exhausted' },
 ]
