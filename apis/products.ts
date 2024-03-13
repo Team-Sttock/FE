@@ -44,4 +44,3 @@
 // export const postProducts = async (props: PostProductsProps) =>
 //   await productClient.post<MutationRes, PostProductsProps>('/products', props)
 
-

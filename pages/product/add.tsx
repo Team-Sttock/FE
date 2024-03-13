@@ -1,8 +1,12 @@
 import { range } from 'lodash-es'
 import { Noto_Sans } from 'next/font/google'
-import { type PropsWithChildren } from 'react'
+import { type PropsWithChildren, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import {
+  getBasicProductsRes,
+  type GetBasicProductsResProps,
+} from '@/apis/basic'
 import Button from '@/components/Button'
 import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
@@ -18,15 +22,13 @@ const NotoSans = Noto_Sans({
 
 export default function Page() {
   interface ProductsOptionsProps {
+    proId: number
     value: string
     label: string
-    category: string
+    categoryName: string
+    basicExpectedAmount: number
+    basicExpectedUnit: string
   }
-
-  const productsOptions: ProductsOptionsProps[] = [
-    { value: '물티슈', label: '물티슈', category: '생활용품' },
-    { value: '샴푸', label: '샴푸', category: '욕실용품' },
-  ]
 
   interface CapacityOptionsProps {
     value: string
@@ -70,8 +72,6 @@ export default function Page() {
     },
   })
 
-  const watchProduct: any = watch('product')
-
   const onSubmit = (data: any) => {
     console.log(data)
   }
@@ -79,6 +79,33 @@ export default function Page() {
   const onError = (errors: any) => {
     console.log(errors)
   }
+
+  const [basicProducts, setBasicProducts] = useState<
+    GetBasicProductsResProps[]
+  >([])
+
+  useEffect(() => {
+    // eslint-disable-next-line
+    getBasicProductsRes().then((data) => {
+      setBasicProducts(data)
+    })
+  }, [])
+
+  const productsOptions: ProductsOptionsProps[] = [
+    ...basicProducts.map((product) => ({
+      proId: product.prodId,
+      value: product.prodName,
+      label: product.prodName,
+      categoryName: product.categoryName,
+      basicExpectedAmount: product.basicExpectedAmount,
+      basicExpectedUnit: product.basicExpectedUnit,
+    })),
+  ]
+
+  const watchProduct = watch('product')
+  const categoryField = basicProducts.find(
+    (product) => product.prodName === watchProduct
+  )?.categoryName
 
   return (
     <>
@@ -109,6 +136,7 @@ export default function Page() {
           <p className="text-right text-sm text-dark-brown mb-5">
             * 는 필수 입력입니다.
           </p>
+
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
             className="space-y-4"
@@ -130,8 +158,7 @@ export default function Page() {
 
             <InputLabel label="카테고리" row>
               <InputReadOnly
-                className=""
-                value={watchProduct ? watchProduct.category : ''}
+                value={categoryField}
                 message="상품명을 입력하면 자동으로 결정됩니다."
               />
             </InputLabel>

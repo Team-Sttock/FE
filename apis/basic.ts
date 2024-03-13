@@ -1,15 +1,20 @@
-// import { basicClient } from '.'
+import { client } from '.'
 
-// export interface GetBasicProductsResProps {
-//   like: string
-// }
-
-// export const getBasicProductsRes =
-//   basicClient.get<GetBasicProductsResProps>('/products')
-
-// export interface GetBasicCategoriesResProps {
-//   like: string
-// }
-
-// export const getBasicCategoriesRes =
-//   basicClient.get<GetBasicCategoriesResProps>('/categories')
+export interface GetBasicProductsResProps {
+  prodId: number
+  prodName: string
+  categoryName: string
+  basicExpectedAmount: number
+  basicExpectedUnit: string
+}
+export const getBasicProductsRes = async () => {
+  try {
+    const response = await client.get<GetBasicProductsResProps[]>(
+      '/basic/products'
+    )
+    return response.data
+  } catch (error) {
+    console.error('Error fetching Products:', error)
+    return []
+  }
+}
