@@ -107,6 +107,7 @@ export default function Page() {
     (product) => product.prodName === watchProduct
   )?.categoryName
 
+  
   return (
     <>
       <main className="m-auto max-w-3xl w-full px-3 mb-10">

@@ -1,6 +1,6 @@
-// // `${http메서드}${컨트롤URL이면 여기에 명사}${마지막 패스 명사}`
+// `${http메서드}${컨트롤URL이면 여기에 명사}${마지막 패스 명사}`
 
-// import { type MutationRes, productClient } from '.'
+import { client } from '.'
 
 // export interface GetProductResProps {
 //   sorted: string
@@ -29,18 +29,19 @@
 // export const getProductIdRes = async (props: GetProductIdResProps) =>
 //   await productClient(`/products/${props.prod_id}`)
 
-// export interface PostProductsProps {
-//   prod_id: number
-//   category_cd: string
-//   prod_nickname: string
-//   purchase_date: string
-//   purchase_capacity: number
-//   capcity_unit_cd: string
-//   purchase_number: number
-//   number_of_users: number
-//   expiration_date: string
-// }
+export interface PostStockProps {
+  prod_id: number
+  nickname: string
+  purchaseDate: string
+  purchaseCapacity: number
+  purchaseNumber: number
+  expectedDays: number
+  numberOfUser: number
+  expirationDate: string
+  buyDt: string
+  userId: number
+}
 
-// export const postProducts = async (props: PostProductsProps) =>
-//   await productClient.post<MutationRes, PostProductsProps>('/products', props)
-
+export const postStock = async (props: PostStockProps) => {
+  return await client.post('/stock', props)
+}
