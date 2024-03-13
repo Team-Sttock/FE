@@ -1,8 +1,12 @@
 import { range } from 'lodash-es'
 import { Noto_Sans } from 'next/font/google'
-import { type PropsWithChildren } from 'react'
+import { type PropsWithChildren, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import {
+  getBasicProductsRes,
+  type GetBasicProductsResProps,
+} from '@/apis/basic'
 import Button from '@/components/Button'
 import ComboBox from '@/components/ComboBox'
 import DatePickerField from '@/components/DatepickerField'
@@ -22,11 +26,6 @@ export default function Page() {
     label: string
     category: string
   }
-
-  const productsOptions: ProductsOptionsProps[] = [
-    { value: '물티슈', label: '물티슈', category: '생활용품' },
-    { value: '샴푸', label: '샴푸', category: '욕실용품' },
-  ]
 
   interface CapacityOptionsProps {
     value: string
@@ -80,6 +79,25 @@ export default function Page() {
     console.log(errors)
   }
 
+  const [basicProducts, setBasicProducts] = useState<
+    GetBasicProductsResProps[]
+  >([])
+
+  useEffect(() => {
+    // eslint-disable-next-line
+    getBasicProductsRes().then((data) => {
+      setBasicProducts(data)
+    })
+  }, [])
+
+  const productsOptions: ProductsOptionsProps[] = [
+    ...basicProducts.map((product) => ({
+      value: product.prodName,
+      label: product.prodName,
+      category: product.categoryName,
+    })),
+  ]
+
   return (
     <>
       <main className="m-auto max-w-3xl w-full px-3 mb-10">
@@ -109,6 +127,7 @@ export default function Page() {
           <p className="text-right text-sm text-dark-brown mb-5">
             * 는 필수 입력입니다.
           </p>
+
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
             className="space-y-4"
